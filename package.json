@@ -9,6 +9,8 @@
   ],
   "dependencies": {
     "@andyet/simplewebrtc": "^1.14.4",
+    "@material-ui/core": "^4.9.12",
+    "@material-ui/icons": "^4.9.1",
     "@types/jest": "^24.0.9",
     "@types/lodash-es": "^4.17.2",
     "@types/react": "^16.8.6",
@@ -19,6 +21,7 @@
     "@types/styled-components": "^4.1.11",
     "awesome-typescript-loader": "^5.2.1",
     "braces": "^2.3.2",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^3.2.0",
     "lodash-es": "^4.17.11",
     "material-icons-svg": "^1.0.0",

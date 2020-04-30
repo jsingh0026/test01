@@ -2,28 +2,23 @@ import styled, { CSSObject } from 'styled-components';
 import { colorToString } from '../utils/colorify';
 
 const TalkyButton = styled.button`
-  border-radius: 5px;
-  transition: background 200ms linear;
+  border-radius: 10px;
+  // transition: background 200ms linear;
   font-size: 14px;
   min-height: 30px;
   min-width: 30px;
-  border: none;
-  color: ${({ theme }) => colorToString(theme.buttonSecondaryText)};
-  background-color: ${({ theme }) =>
-    colorToString(theme.buttonSecondaryBackground)};
-  :hover {
-    background-color: ${({ theme }) =>
-      colorToString(theme.buttonSecondaryBackgroundHover)};
-  }
+  border-color: #919192;
+  border-style: solid;
+  border-width: 1px;
+  text-align: left;
+  color: #919192;
+  background-color: transparent;
   :active {
-    background-color: ${({ theme }) =>
-      colorToString(theme.buttonSecondaryBackgroundActive)};
-  }
-  :focus {
-    outline: 0;
+    background-color: #4284f3;
+    color: white;
   }
   svg {
-    fill: ${({ theme }) => colorToString(theme.buttonSecondaryText)};
+    fill: #919192;
     vertical-align: middle;
     font-size: 20px;
     :not(:only-child) {

@@ -1,6 +1,7 @@
 import { LocalMediaList } from '@andyet/simplewebrtc';
-import MicIcon from 'material-icons-svg/components/baseline/Mic';
-import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
+import MicNone from 'material-icons-svg/components/baseline/MicNone';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Placeholders from '../contexts/Placeholders';
@@ -13,6 +14,7 @@ import DeviceSelector from './DeviceSelector';
 import InputChecker from './InputChecker';
 import MediaPreview from './MediaPreview';
 import ShareControls from './ShareControls';
+import logo from '../icons/logo.png';
 
 const Container = styled.div({
   display: 'grid',
@@ -24,24 +26,45 @@ const Container = styled.div({
   gridRowGap: '10px',
   gridColumnGap: '10px',
   [mq.SMALL_DESKTOP]: {
-    gridTemplateColumns: 'repeat(2, 1fr)',
+    padding: '30px',
+    gridGap: '0px',
+    gridTemplateColumns: 'min-content',
     gridTemplateAreas: `
-      'header header'
-      'preview controls'
-    `
+      'preview header'
+      'controls logoDisplay'
+    `,
+    columnGap: '5%'
   }
 });
 
-const Header = styled.div({
-  gridArea: 'header'
-});
+const Header = styled.div`
+  grid-area: header;
+  h2{
+    margin-bottom: 20px;
+  }
+ `;
+
+ const LogoDisplay = styled.div`
+  grid-area: logoDisplay;
+  position: relative;
+  img{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 40%;
+  }
+ `;
 
 const Controls = styled.div`
   grid-area: controls;
   padding: 0 10px;
   ${mq.SMALL_DESKTOP} {
-    padding: 0;
-    width: 300px;
+    padding: 30px;
+    padding-top: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #18181a;
+    // width: 300px;
   }
   select {
     border: ${({ theme }) => css`1px solid ${colorToString(theme.border)}`};
@@ -53,6 +76,9 @@ const Controls = styled.div`
     font-size: 12px;
     font-weight: bold;
     width: 100%;
+  }
+  svg{
+    fill: #919192;
   }
   label {
     display: block;
@@ -70,12 +96,29 @@ const Controls = styled.div`
   }
 `;
 
+const SettingsSelector = styled.div({
+  textAlign: 'right',
+  width: '104%',
+  fontSize: '30px'
+});
+
 const Preview = styled.div({
   gridArea: 'preview',
   display: 'flex',
   alignItems: 'flex-end',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  backgroundColor: '#323132',
+  borderRadius: '10px'
 });
+
+const Input = styled.input`
+  width: 100%;
+  border-radius: 10px;
+  background-color: transparent;
+  border: none;
+  height: 35px;
+  padding: 10px;
+`;
 
 const PermissionButton = styled(TalkyButton)({
   marginBottom: '5px',
@@ -104,6 +147,7 @@ const Haircheck: React.SFC = () => (
     </Placeholders.Consumer>
     <Header />
     <Preview>
+      <Input type="text" placeholder="My Name" />
       <LocalMediaList
         screen={false}
         render={({ media }) => {
@@ -117,6 +161,11 @@ const Haircheck: React.SFC = () => (
       />
     </Preview>
     <Controls>
+      <div>
+        <SettingsSelector>
+          <SettingsOutlinedIcon />
+        </SettingsSelector>
+      </div>
       <div>
         <DeviceSelector
           kind="video"
@@ -144,7 +193,7 @@ const Haircheck: React.SFC = () => (
             if (requestPermissions) {
               return (
                 <PermissionButton onClick={requestPermissions}>
-                  <VideocamIcon />
+                  <VideocamOutlinedIcon />
                   <span>Allow camera access</span>
                 </PermissionButton>
               );
@@ -152,7 +201,7 @@ const Haircheck: React.SFC = () => (
 
             return (
               <label>
-                <VideocamIcon />
+                <VideocamOutlinedIcon />
                 <span>Camera:</span>
                 <DeviceDropdown
                   currentMedia={currentMedia!}
@@ -191,7 +240,7 @@ const Haircheck: React.SFC = () => (
             if (requestPermissions) {
               return (
                 <PermissionButton onClick={requestPermissions}>
-                  <MicIcon />
+                  <MicNone />
                   <span>Allow microphone access</span>
                 </PermissionButton>
               );
@@ -200,7 +249,7 @@ const Haircheck: React.SFC = () => (
             return (
               <>
                 <label>
-                  <MicIcon />
+                  <MicNone />
                   <span>Microphone:</span>
                   <DeviceDropdown
                     currentMedia={currentMedia!}
@@ -232,6 +281,7 @@ const Haircheck: React.SFC = () => (
       </div>
       <ShareControls />
     </Controls>
+    <LogoDisplay><img src={logo} /></LogoDisplay>
   </Container>
 );
 

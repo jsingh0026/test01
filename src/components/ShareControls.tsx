@@ -5,25 +5,40 @@ import { TalkyButton } from '../styles/button';
 import { colorToString } from '../utils/colorify';
 
 const Container = styled.div({
-  textAlign: 'center'
+  textAlign: 'center',
+  marginTop: '20px'
 });
 
+// const JoinButton = styled(TalkyButton)`
+//   background-color: ${({ theme }) =>
+//     colorToString(theme.buttonPrimaryBackground)};
+//   font-size: 22px;
+//   color: ${({ theme }) => colorToString(theme.buttonPrimaryText)};
+//   padding: 10px;
+//   :hover {
+//     background-color: ${({ theme }) =>
+//       colorToString(theme.buttonPrimaryBackgroundHover)};
+//     color: ${({ theme }) => colorToString(theme.buttonPrimaryText)};
+//   }
+//   :active {
+//     background-color: ${({ theme }) =>
+//       colorToString(theme.buttonPrimaryBackgroundActive)};
+//     color: ${({ theme }) => colorToString(theme.buttonPrimaryText)};
+//   }
+// `;
+
 const JoinButton = styled(TalkyButton)`
-  background-color: ${({ theme }) =>
-    colorToString(theme.buttonPrimaryBackground)};
-  font-size: 22px;
-  color: ${({ theme }) => colorToString(theme.buttonPrimaryText)};
-  padding: 10px;
-  :hover {
-    background-color: ${({ theme }) =>
-      colorToString(theme.buttonPrimaryBackgroundHover)};
-    color: ${({ theme }) => colorToString(theme.buttonPrimaryText)};
-  }
-  :active {
-    background-color: ${({ theme }) =>
-      colorToString(theme.buttonPrimaryBackgroundActive)};
-    color: ${({ theme }) => colorToString(theme.buttonPrimaryText)};
-  }
+background-color: #4284f3;
+font-size: 14px;
+color: white;
+padding: 8px;
+`;
+
+const NotActiveButton = styled(TalkyButton)`
+  background-color: #323132;
+  font-size: 14px;
+  color: white;
+  padding: 8px;
 `;
 
 // ShareControls renders a button that when pressed will share all media that
@@ -33,7 +48,11 @@ const ShareControls: React.SFC = () => (
     shared={false}
     render={({ media, shareLocalMedia, removeMedia }) => {
       if (media.length === 0) {
-        return null;
+        return (
+          <Container>
+            <NotActiveButton disabled>Start eVisit</NotActiveButton>
+          </Container>
+        );
       }
 
       const shareAll = () => {
@@ -44,7 +63,7 @@ const ShareControls: React.SFC = () => (
 
       return (
         <Container>
-          <JoinButton onClick={shareAll}>Join call</JoinButton>
+          <JoinButton onClick={shareAll}>Start eVisit</JoinButton>
         </Container>
       );
     }}

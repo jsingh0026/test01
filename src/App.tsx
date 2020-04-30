@@ -9,13 +9,7 @@ import { colorToString, darken } from './utils/colorify';
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
-  background-color: ${({ theme }) => colorToString(theme.background)};
-  color: ${({ theme }) => colorToString(theme.foreground)};
   a {
-    color: ${({ theme }) => colorToString(theme.primaryBackground)};
-    :hover {
-      color: ${({ theme }) =>
-        colorToString(darken(theme.primaryBackground, 0.1))};
     }
   }
 `;
@@ -45,7 +39,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    color: #4d5659;
+    color: white;
+    background-color: #232325;
   }
 
   a {
