@@ -2,9 +2,9 @@ import {
   DeviceList,
   LocalMediaList,
   Media,
-  RequestUserMedia
-} from '@andyet/simplewebrtc';
-import React, { Component } from 'react';
+  RequestUserMedia,
+} from "@andyet/simplewebrtc";
+import React, { Component } from "react";
 
 // CaptureControls renders DeviceSelectors and MediaPreviews, which allows a
 // user to select their desired camera and microphone.
@@ -25,7 +25,7 @@ interface DeviceSelectorRenderProps {
 }
 
 interface Props {
-  kind: 'video' | 'audio';
+  kind: "video" | "audio";
   render: (props: DeviceSelectorRenderProps) => React.ReactNode;
 }
 
@@ -37,7 +37,7 @@ export default class DeviceSelector extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      mediaTypeDisabled: false
+      mediaTypeDisabled: false,
     };
   }
 
@@ -45,8 +45,8 @@ export default class DeviceSelector extends Component<Props, State> {
     const { kind, render } = this.props;
     return (
       <DeviceList
-        videoInput={kind === 'video'}
-        audioInput={kind === 'audio'}
+        videoInput={kind === "video"}
+        audioInput={kind === "audio"}
         render={({
           devices,
           hasCamera,
@@ -55,25 +55,37 @@ export default class DeviceSelector extends Component<Props, State> {
           microphonePermissionDenied,
           requestingCameraCapture,
           requestingMicrophoneCapture,
-          requestingCapture
+          requestingCapture,
         }) => {
+          if (true) {
+            console.log(
+              devices,
+              hasCamera,
+              cameraPermissionDenied,
+              hasMicrophone,
+              microphonePermissionDenied,
+              requestingCameraCapture,
+              requestingMicrophoneCapture,
+              requestingCapture
+            );
+          }
           if (
-            (kind === 'video' && !hasCamera && !cameraPermissionDenied) ||
-            (kind === 'audio' && !hasMicrophone && !microphonePermissionDenied)
+            (kind === "video" && !hasCamera && !cameraPermissionDenied) ||
+            (kind === "audio" && !hasMicrophone && !microphonePermissionDenied)
           ) {
             return render({ hasDevice: false });
           }
 
           if (
-            (kind === 'video' && cameraPermissionDenied) ||
-            (kind === 'audio' && microphonePermissionDenied)
+            (kind === "video" && cameraPermissionDenied) ||
+            (kind === "audio" && microphonePermissionDenied)
           ) {
             return render({ permissionDenied: true });
           }
 
           if (
-            (kind === 'video' && requestingCameraCapture) ||
-            (kind === 'audio' && requestingMicrophoneCapture)
+            (kind === "video" && requestingCameraCapture) ||
+            (kind === "audio" && requestingMicrophoneCapture)
           ) {
             return render({ requestingCapture: true });
           }
@@ -82,28 +94,28 @@ export default class DeviceSelector extends Component<Props, State> {
             <LocalMediaList
               screen={false}
               render={({ media, removeMedia }) => {
-                const videoStreams = media.filter(m => m.kind === 'video');
-                const audioStreams = media.filter(m => m.kind === 'audio');
+                const videoStreams = media.filter((m) => m.kind === "video");
+                const audioStreams = media.filter((m) => m.kind === "audio");
                 const mediaForKind =
-                  kind === 'video' ? videoStreams : audioStreams;
+                  kind === "video" ? videoStreams : audioStreams;
                 const existingNonKindMedia =
-                  kind === 'video' ? audioStreams : videoStreams;
+                  kind === "video" ? audioStreams : videoStreams;
 
                 if (!devices.length || this.state.mediaTypeDisabled) {
                   return (
                     <RequestUserMedia
-                      video={kind === 'video'}
-                      audio={kind === 'audio'}
+                      video={kind === "video"}
+                      audio={kind === "audio"}
                       share={false}
-                      render={getMedia => {
+                      render={(getMedia) => {
                         return render({
                           requestPermissions: () => {
                             this.setState({ mediaTypeDisabled: false });
                             return getMedia({
-                              audio: kind === 'audio',
-                              video: kind === 'video'
+                              audio: kind === "audio",
+                              video: kind === "video",
                             });
-                          }
+                          },
                         });
                       }}
                     />
@@ -122,10 +134,16 @@ export default class DeviceSelector extends Component<Props, State> {
                           : undefined
                       }
                       share={false}
-                      audio={kind === 'audio' || (kind === 'video' && existingNonKindMedia.length > 0)}
-                      video={kind === 'video' || (kind === 'audio' && existingNonKindMedia.length > 0)}
+                      audio={
+                        kind === "audio" ||
+                        (kind === "video" && existingNonKindMedia.length > 0)
+                      }
+                      video={
+                        kind === "video" ||
+                        (kind === "audio" && existingNonKindMedia.length > 0)
+                      }
                       auto={!requestingCameraCapture}
-                      render={getMedia => {
+                      render={(getMedia) => {
                         return null;
                       }}
                     />
@@ -138,41 +156,41 @@ export default class DeviceSelector extends Component<Props, State> {
                 return (
                   <RequestUserMedia
                     replaceVideo={
-                      kind === 'video' && latestMedia
+                      kind === "video" && latestMedia
                         ? latestMedia.id
                         : latestOtherMedia
                         ? latestOtherMedia.id
                         : undefined
                     }
                     replaceAudio={
-                      kind === 'audio' && latestMedia
+                      kind === "audio" && latestMedia
                         ? latestMedia.id
                         : latestOtherMedia
                         ? latestOtherMedia.id
                         : undefined
                     }
                     share={false}
-                    render={getMedia => {
+                    render={(getMedia) => {
                       return render({
                         currentMedia: latestMedia,
                         devices,
                         hasDevice: true,
-                        selectMedia: deviceId => {
+                        selectMedia: (deviceId) => {
                           if (deviceId) {
                             if (this.state.mediaTypeDisabled) {
                               this.setState({ mediaTypeDisabled: false });
                             }
                             const getMediaOptions: MediaStreamConstraints = {
-                              [kind === 'video' ? 'video' : 'audio']: {
-                                deviceId: { exact: deviceId }
-                              }
+                              [kind === "video" ? "video" : "audio"]: {
+                                deviceId: { exact: deviceId },
+                              },
                             };
                             if (existingNonKindMedia.length > 0) {
                               getMediaOptions[existingNonKindMedia[0].kind] = {
                                 deviceId: {
                                   exact: existingNonKindMedia[0].track.getSettings()
-                                    .deviceId
-                                }
+                                    .deviceId,
+                                },
                               };
                             }
                             getMedia(getMediaOptions);
@@ -183,7 +201,7 @@ export default class DeviceSelector extends Component<Props, State> {
                               }
                             });
                           }
-                        }
+                        },
                       });
                     }}
                   />
