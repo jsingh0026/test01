@@ -36,7 +36,7 @@ function getTextSegments(text: string): DetectedUrls[] {
       segments.push({
         url,
         scheme: url.startsWith('http:') || url.startsWith('http:'),
-        slashes: url.startsWith('//')
+        slashes: url.startsWith('//'),
       });
       currentIndex = match.index + match[0].length;
     }
