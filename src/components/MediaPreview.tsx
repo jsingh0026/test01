@@ -45,14 +45,18 @@ const Volume = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   padding: '8px',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  backgroundColor: 'transparent',
+  width: '10%',
   '& svg': {
     fontSize: '24px',
     fill: 'white',
-    marginTop: '8px'
+    marginBottom: '13px',
+    position: "absolute",
+    bottom: 0
   },
   '& div': {
-    flex: 1
+    flex: 1,
+    borderRadius: '20px'
   }
 });
 
@@ -79,7 +83,7 @@ const MediaPreview: React.SFC<MediaPreviewProps> = ({ audio, video }) => (
         render={({ volume, speaking }) => (
           <Volume>
             <Meter buckets={20} volume={volume + 100} speaking={speaking} />
-            <MicIcon />
+            {/* <MicIcon /> */}
           </Volume>
         )}
       />

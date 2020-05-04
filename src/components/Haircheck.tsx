@@ -67,31 +67,32 @@ const Controls = styled.div`
     // width: 300px;
   }
   select {
-    border: ${({ theme }) => css`1px solid ${colorToString(theme.border)}`};
-    color: ${({ theme }) => colorToString(theme.foreground)};
+    border: 1px solid #919192;
+    color: white;
     height: 40px;
-    padding: 10px;
+    padding: 5px;
     margin-top: 5px;
-    background-color: ${({ theme }) => colorToString(theme.background)};
-    font-size: 12px;
-    font-weight: bold;
+    background-color: transparent;
+    font-size: 14px;
     width: 100%;
+    border-radius: 10px;
+    outline: 0;
   }
   svg {
     fill: #919192;
   }
   label {
     display: block;
-    font-weight: bold;
-    font-size: 12px;
-    margin-top: 10px;
+    // font-weight: bold;
+    font-size: 16px;
+    margin-top: 5px;
     margin-bottom: 10px;
-
+    color: #919192;
     svg {
-      font-size: 20px;
+      font-size: 30px;
       vertical-align: middle;
       margin-right: 5px;
-      fill: ${({ theme }) => colorToString(theme.foreground)};
+      fill: #919192;
     }
   }
 `;
@@ -118,6 +119,8 @@ const Input = styled.input`
   border: none;
   height: 35px;
   padding: 10px;
+  outline: none;
+  caret-color: #4284f3;
 `;
 
 const PermissionButton = styled(TalkyButton)({
@@ -214,7 +217,7 @@ const Haircheck: React.SFC = () => (
             return (
               <label>
                 <VideocamOutlinedIcon />
-                <span>Camera:</span>
+                <span>My Camera</span>
                 <DeviceDropdown
                   currentMedia={currentMedia!}
                   devices={devices!}
@@ -262,7 +265,7 @@ const Haircheck: React.SFC = () => (
               <>
                 <label>
                   <MicNone />
-                  <span>Microphone:</span>
+                  <span>My Microphone</span>
                   <DeviceDropdown
                     currentMedia={currentMedia!}
                     devices={devices!}
