@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import MicNone from 'material-icons-svg/components/baseline/MicNone';
 
 interface Props {
   buckets: number;
@@ -12,10 +13,10 @@ interface ContainerProps {
 }
 
 const Container = styled.div(({ buckets }: ContainerProps) => ({
-  width: '25px',
+  // width: '25px',
   display: 'grid',
-  gridTemplateRows: `repeat(${buckets}, 1fr)`,
-  gridRowGap: '2px'
+  // gridTemplateRows: `repeat(${buckets}, 1fr)`,
+  // gridRowGap: '2px'
 }));
 
 interface BucketProps {
@@ -26,20 +27,20 @@ interface BucketProps {
 const Bucket = styled.div(({ filled, speaking }: BucketProps) => ({
   border: '1px solid white',
   borderRadius: '4px',
-  backgroundColor: filled ? (speaking ? 'green' : 'white') : ''
+  backgroundColor: filled ? (speaking ? '#4284f3' : 'white') : ''
 }));
 
 const VolumeMeter: React.SFC<Props> = ({ buckets, volume, speaking }) => {
   const bucketSize = 100 / buckets;
+  console.log(bucketSize, buckets);
   return (
     <Container buckets={buckets}>
-      {Array.from(Array(buckets)).map((_, i) => (
+      {/* {Array.from(Array(buckets)).map((_, i) => ( */}
         <Bucket
-          key={i}
-          filled={volume >= (buckets - i) * bucketSize}
+          filled={volume >= (buckets - 10) * bucketSize}
           speaking={speaking}
-        />
-      ))}
+        ><MicNone /></Bucket>
+      {/* ))} */}
     </Container>
   );
 };
