@@ -13,9 +13,13 @@ const TalkyButton = styled.button`
   text-align: left;
   color: #919192;
   background-color: transparent;
+  outline: none;
   :active {
     background-color: #4284f3;
     color: white;
+    svg {
+      fill: white;
+    }
   }
   svg {
     fill: #919192;

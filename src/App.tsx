@@ -9,8 +9,11 @@ import { colorToString, darken } from './utils/colorify';
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
-  a {
-    }
+  .create-room-form-button{
+    background-color: #4284f3;
+    border-color: #4284f3;
+    border-style: solid;
+    border-radius: 3px;
   }
 `;
 
