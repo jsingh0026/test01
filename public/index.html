@@ -8,7 +8,7 @@
     />
 
     <!-- IMPORTANT SETUP -->
-    <!-- Change the YOUR_API_KEY section of the config URL to match your API key --> 
+    <!-- Change the YOUR_API_KEY section of the config URL to match your API key -->
     <meta
       name="simplewebrtc-config-url"
       content="https://api.simplewebrtc.com/config/guest/b498146211491e7bef77e842"
@@ -21,9 +21,9 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         min-height: 100%;
-        font-family: -apple-system,
-          BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-          'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
         font-size: 16px;
         line-height: 1.5;
         color: #4d5659;
@@ -31,7 +31,7 @@
       }
 
       code {
-        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
           monospace;
       }
 
@@ -73,9 +73,9 @@
       }
 
       button,
-      html input[type='button'],
-      input[type='reset'],
-      input[type='submit'] {
+      html input[type="button"],
+      input[type="reset"],
+      input[type="submit"] {
         -webkit-appearance: button;
         cursor: pointer;
       }
@@ -125,7 +125,7 @@
         margin: 0;
         padding: 0;
       }
-    
+
       .create-room-form {
         text-align: center;
       }
@@ -194,7 +194,10 @@
       <h2 style="text-align: center">EVisist Check In</h2>
       <p>Welcome to eVisits, powered by endlink!</p>
       <p>eVisits support Chrome, Firefox, IE and Safari</p>
-      <p>Just fill out your name and select your camera and microphone, then press Start eVisist!</p>
+      <p>
+        Just fill out your name and select your camera and microphone, then
+        press Start eVisist!
+      </p>
     </template>
     <template id="empty-peer-grid">
       <h2 style="text-align: center; color: rgba(68, 68, 68, 0.25)">
@@ -208,7 +211,7 @@
       <div class="container">
         <form class="create-room-form" method="GET" action="/">
           <span class="create-room-form-input-wrapper"
-            ><span class="domain">localhost/</span
+            ><span class="domain">192.168.1.5/</span
             ><input
               type="text"
               name="room"
@@ -226,13 +229,13 @@
     <script type="text/javascript">
       const params = new URLSearchParams(window.location.search);
       SimpleWebRTC.run({
-        roomName: params.get('room'),
-        root: document.getElementById('root'),
-        gridPlaceholder: () => SimpleWebRTC.loadTemplate('empty-peer-grid'),
+        roomName: params.get("room"),
+        root: document.getElementById("root"),
+        gridPlaceholder: () => SimpleWebRTC.loadTemplate("empty-peer-grid"),
         haircheckHeaderPlaceholder: () =>
-          SimpleWebRTC.loadTemplate('haircheck-header'),
-        emptyRosterPlaceholder: () => SimpleWebRTC.loadTemplate('empty-roster'),
-        homepagePlaceholder: () => SimpleWebRTC.loadTemplate('homepage')
+          SimpleWebRTC.loadTemplate("haircheck-header"),
+        emptyRosterPlaceholder: () => SimpleWebRTC.loadTemplate("empty-roster"),
+        homepagePlaceholder: () => SimpleWebRTC.loadTemplate("homepage"),
       });
     </script>
   </body>
