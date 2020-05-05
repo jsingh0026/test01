@@ -1,8 +1,9 @@
-import { LocalMediaList } from '@andyet/simplewebrtc';
+import { LocalMediaList, UserControls } from '@andyet/simplewebrtc';
 import React from 'react';
 import styled from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import { colorToString } from '../utils/colorify';
+import icon from '../icons/icon.png';
 
 const Container = styled.div({
   textAlign: 'center',
@@ -31,14 +32,17 @@ const JoinButton = styled(TalkyButton)`
 background-color: #4284f3;
 font-size: 14px;
 color: white;
-padding: 8px;
-`;
-
-const NotActiveButton = styled(TalkyButton)`
+padding: 5px;
+img{
+  height: 25px;
+  filter: brightness(0) invert(1);
+}
+:disabled{
   background-color: #323132;
-  font-size: 14px;
-  color: white;
-  padding: 8px;
+}
+span{
+  vertical-align: super;
+}
 `;
 
 // ShareControls renders a button that when pressed will share all media that
@@ -47,24 +51,23 @@ const ShareControls: React.SFC = () => (
   <LocalMediaList
     shared={false}
     render={({ media, shareLocalMedia, removeMedia }) => {
-      if (media.length === 0) {
-        return (
-          <Container>
-            <NotActiveButton disabled>Start eVisit</NotActiveButton>
-          </Container>
-        );
-      }
+      console.log(media, shareLocalMedia);
 
       const shareAll = () => {
         for (const m of media) {
           shareLocalMedia!(m.id);
         }
       };
-
-      return (
-        <Container>
-          <JoinButton onClick={shareAll}>Start eVisit</JoinButton>
-        </Container>
+      
+      return (<UserControls
+        render={({
+          user
+        }) => (
+          <Container>{user.displayName}
+              <JoinButton disabled={media.length<2 && user.displayName==''} onClick={shareAll}><img src={icon}/><span>Start eVisit</span></JoinButton>
+            </Container>
+        )}
+      />
       );
     }}
   />
