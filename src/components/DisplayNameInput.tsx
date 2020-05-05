@@ -40,8 +40,6 @@ const DisplayNameInput: React.SFC<Props> = ({
   };
 
   useEffect(() => {
-    console.log('aaaaaaaaaaa')
-    console.log(displayName);
     const localDisplayName = getLocalDisplayName();
     if (localDisplayName !== null && localDisplayName !== displayName) {
       setDisplayName(localDisplayName);
