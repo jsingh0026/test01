@@ -6,7 +6,7 @@ import mq from '../styles/media-queries';
 import { default as Meter } from './VolumeMeter';
 
 const Container = styled.div({
-  height: '100%',
+  height: '300px',
   position: 'relative',
   width: '100%',
   [mq.SMALL_DESKTOP]: {
@@ -61,7 +61,7 @@ const Volume = styled.div({
 
 const NoVideo = () => (
   <BlankVideo>
-    <p>No video selected</p>
+    <p>No camera selected!</p>
   </BlankVideo>
 );
 

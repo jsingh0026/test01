@@ -48,6 +48,13 @@ span{
 // ShareControls renders a button that when pressed will share all media that
 // is populated in LocalMediaList.
 const ShareControls: React.SFC = () => (
+  
+  <UserControls
+  render={({
+    user,
+    setDisplayName
+  }) => (
+    
   <LocalMediaList
     shared={false}
     render={({ media, shareLocalMedia, removeMedia }) => {
@@ -59,18 +66,15 @@ const ShareControls: React.SFC = () => (
         }
       };
       
-      return (<UserControls
-        render={({
-          user
-        }) => (
-          <Container>{user.displayName}
-              <JoinButton disabled={media.length<2 && user.displayName==''} onClick={shareAll}><img src={icon}/><span>Start eVisit</span></JoinButton>
-            </Container>
-        )}
-      />
+      return (
+        <Container>
+            <JoinButton disabled={media.length<2 || user.displayName==""} onClick={shareAll}><img src={icon}/><span>Start eVisit</span></JoinButton>
+          </Container>
       );
     }}
   />
+  )}
+/>
 );
 
 export default ShareControls;
