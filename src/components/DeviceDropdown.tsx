@@ -1,5 +1,8 @@
 import { Media } from '@andyet/simplewebrtc';
 import React from 'react';
+import Dropdown from '../icons/double-arrows.svg';
+import styled from 'styled-components';
+import mq from "../styles/media-queries";
 
 interface Props {
   devices: MediaDeviceInfo[];
@@ -7,11 +10,26 @@ interface Props {
   selectMedia: (deviceId?: string) => void;
 }
 
+const Container = styled.div`
+  select{
+    -webkit-appearance: none;
+    min-width: 313px;
+  }
+  svg{
+  float: right;
+  width: 14px !important;
+  margin-top: -27px;
+  margin-right: 5px !important;
+  pointer-events: none;
+  padding-right: 5px;
+  }
+`;
 const DeviceDropdown: React.SFC<Props> = ({
   currentMedia,
   devices,
   selectMedia
 }) => (
+  <Container>
   <select
     defaultValue=""
     onChange={e => {
@@ -36,6 +54,8 @@ const DeviceDropdown: React.SFC<Props> = ({
     {currentMedia && <option>---</option>}
     {currentMedia && <option value="disable">Disable</option>}
   </select>
+  <Dropdown/>
+  </Container>
 );
 
 export default DeviceDropdown;

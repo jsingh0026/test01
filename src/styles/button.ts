@@ -4,8 +4,8 @@ import { colorToString } from '../utils/colorify';
 const TalkyButton = styled.button`
   border-radius: 10px;
   // transition: background 200ms linear;
-  font-size: 14px;
-  min-height: 30px;
+  font-size: 15px;
+  min-height: 34px;
   min-width: 30px;
   border-color: #919192;
   border-style: solid;
@@ -14,6 +14,7 @@ const TalkyButton = styled.button`
   color: #919192;
   background-color: transparent;
   outline: none;
+  margin-top: 3px;
   :active {
     background-color: #4284f3;
     color: white;
@@ -24,7 +25,8 @@ const TalkyButton = styled.button`
   svg {
     fill: #919192;
     vertical-align: middle;
-    font-size: 20px;
+    width: 4%;
+    margin-right: 7px;
     :not(:only-child) {
       margin-left: 7px;
     }

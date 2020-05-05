@@ -6,10 +6,9 @@ import mq from '../styles/media-queries';
 import { default as Meter } from './VolumeMeter';
 
 const Container = styled.div({
-  height: '300px',
+  height: '100%',
   position: 'relative',
   width: '100%',
-  padding: '0 10px',
   [mq.SMALL_DESKTOP]: {
     padding: '0',
     width: '400px'
@@ -38,7 +37,7 @@ const BlankVideo = styled.div({
 const Volume = styled.div({
   position: 'absolute',
   top: 0,
-  bottom: 0,
+  height: '100%',
   left: 0,
   zIndex: 100,
   display: 'flex',
@@ -46,13 +45,13 @@ const Volume = styled.div({
   justifyContent: 'center',
   padding: '8px',
   backgroundColor: 'transparent',
-  width: '10%',
+  width: '32px',
   '& svg': {
-    fontSize: '24px',
+    width: '10px',
     fill: 'white',
-    marginBottom: '13px',
     position: "absolute",
-    bottom: 0
+    bottom: '13px',
+    left: '11px'
   },
   '& div': {
     flex: 1,

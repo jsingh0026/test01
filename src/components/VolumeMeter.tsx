@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MicNone from 'material-icons-svg/components/baseline/MicNone';
+import Mic from '../icons/microphone.svg';
 
 interface Props {
   buckets: number;
@@ -27,19 +27,29 @@ interface BucketProps {
 const Bucket = styled.div(({ filled, speaking }: BucketProps) => ({
   border: '1px solid white',
   borderRadius: '4px',
-  backgroundColor: filled ? (speaking ? '#4284f3' : 'white') : ''
+  // backgroundColor: filled ? (speaking ? '#4284f3' : 'white') : ''
 }));
+const Bar = styled.div({
+  backgroundColor: '#4284f3',
+  position: 'absolute',
+  bottom: '9px',
+  width: '14px',
+  borderRadius: '20px',
+  minHeight: '6%',
+  maxHeight: '94%',
+});
 
 const VolumeMeter: React.SFC<Props> = ({ buckets, volume, speaking }) => {
   const bucketSize = 100 / buckets;
-  console.log(bucketSize, buckets);
   return (
     <Container buckets={buckets}>
       {/* {Array.from(Array(buckets)).map((_, i) => ( */}
         <Bucket
           filled={volume >= (buckets - 10) * bucketSize}
           speaking={speaking}
-        ><MicNone /></Bucket>
+        >
+          <Bar style={{height:volume+`%`}}/>
+          <Mic /></Bucket>
       {/* ))} */}
     </Container>
   );

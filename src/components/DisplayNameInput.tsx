@@ -40,6 +40,8 @@ const DisplayNameInput: React.SFC<Props> = ({
   };
 
   useEffect(() => {
+    console.log('aaaaaaaaaaa')
+    console.log(displayName);
     const localDisplayName = getLocalDisplayName();
     if (localDisplayName !== null && localDisplayName !== displayName) {
       setDisplayName(localDisplayName);
@@ -49,9 +51,9 @@ const DisplayNameInput: React.SFC<Props> = ({
 
   return (
     <input
-      placeholder="Your name (click to edit)"
-      value={typedName}
-      onChange={e => setTypedName(e.target.value)}
+      placeholder="My Name"
+      value={displayName}
+      onChange={e => persisDisplayName(e.target.value)}
       onKeyPress={({ key }) => {
         if (key === 'Enter') {
           persisDisplayName(typedName);

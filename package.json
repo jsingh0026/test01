@@ -11,6 +11,7 @@
     "@andyet/simplewebrtc": "^1.19.0",
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
+    "@svgr/webpack": "^5.4.0",
     "@types/jest": "^24.0.9",
     "@types/lodash-es": "^4.17.2",
     "@types/react": "^16.8.6",
