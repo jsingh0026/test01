@@ -125,7 +125,7 @@ class Index extends Component<Props, State> {
 
                           return (
                             <LoadingState>
-                              <h1>Joining room...</h1>
+                              <h1>Your eVisit will begin soon!</h1>
                             </LoadingState>
                           );
                         }
