@@ -18,41 +18,40 @@ interface ContainerProps {
 
 const Container = styled.button<ContainerProps>`
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 16.6667%;
-  text-align: left;
-  z-index: 300;
+  bottom: 1%;
+  right: 1%;
   font-size: 18px;
-  border: ${({ newMessage, theme }) =>
-    newMessage
-      ? css`1px ${colorToString(theme.buttonActionBackground)} solid`
-      : css`1px solid ${colorToString(theme.border)}`};
-  background: ${({ newMessage, theme }) =>
-    newMessage
-      ? colorToString(theme.buttonActionBackground)
-      : colorToString(theme.background)};
-  color: ${({ newMessage, theme }) =>
-    newMessage
-      ? colorToString(theme.buttonActionText)
-      : colorToString(theme.foreground)};
-  padding: 5px 15px;
+  border-radius: 10px;
+  border: 1px solid #4284f3;
+  background: #4284f3;
+  color: white;
+  padding: 4px 10px;
   :focus {
     outline: 0;
   }
   svg {
-    fill: ${({ newMessage, theme }) =>
-      newMessage
-        ? colorToString(theme.buttonActionText)
-        : colorToString(theme.foreground)};
+    fill: white;
     font-size: 24px;
     vertical-align: middle;
-    :last-of-type {
-      margin-left: 8px;
-      opacity: ${({ isTyping }) => (isTyping ? 1 : 0)};
-    }
+    // :last-of-type {
+      margin-left: 5px;
+      // opacity: ${({ isTyping }) => (isTyping ? 1 : 0)};
+    // }
   }
 `;
+
+// border: ${({ newMessage, theme }) =>
+// newMessage
+//   ? css`1px ${colorToString(theme.buttonActionBackground)} solid`
+//   : css`1px solid ${colorToString(theme.border)}`};
+// background: ${({ newMessage, theme }) =>
+// newMessage
+//   ? colorToString(theme.buttonActionBackground)
+//   : colorToString(theme.background)};
+// color: ${({ newMessage, theme }) =>
+// newMessage
+//   ? colorToString(theme.buttonActionText)
+//   : colorToString(theme.foreground)};
 
 const ChatToggle: React.SFC<Props> = ({ roomAddress, onClick }) => {
   const [newMessage, setNewMessage] = useState(false);
@@ -69,9 +68,9 @@ const ChatToggle: React.SFC<Props> = ({ roomAddress, onClick }) => {
                 isTyping={composers.length > 0}
                 newMessage={newMessage}
               >
-                <KeyboardArrowUpIcon />
                 <span>Chat</span>
-                <MoreHorizIcon />
+                <KeyboardArrowUpIcon />
+                {/* <MoreHorizIcon /> */}
               </Container>
             )}
           />

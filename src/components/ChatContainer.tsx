@@ -19,15 +19,13 @@ const Container = styled.div`
   flex-direction: column;
   min-height: 50vh;
   max-height: 100vh;
-  border-top: ${({ theme }) => css`1px solid ${colorToString(theme.border)}`};
   z-index: 300;
-  background-color: ${({ theme }) => colorToString(theme.background)};
+  background-color: #2a2829;
   overflow: hidden;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px
   ${mq.SMALL_DESKTOP} {
-    width: 200px;
-    border-top: none;
-    border-left: ${({ theme }) =>
-      css`1px solid ${colorToString(theme.border)}`};
+    width: 250px;
   }
 `;
 
@@ -40,22 +38,19 @@ const Container = styled.div`
 
 const Header = styled.button`
   border: none;
-  border-top: ${({ theme }) => css`1px solid ${colorToString(theme.border)}`};
-  border-bottom: ${({ theme }) =>
-    css`1px solid ${colorToString(theme.border)}`};
   display: block;
   padding: 10px;
   font-size: 18px;
   outline: none;
-  background-color: ${({ theme }) => colorToString(theme.background)};
-  :active {
-    border-style: solid;
-  }
+  background-color: #323132;
+  text-align: left;
   svg {
-    fill: ${({ theme }) => colorToString(theme.foreground)};
+    fill: white;
     vertical-align: middle;
     font-size: 20px;
     margin-right: 5px;
+    float: right;
+    margin-top: 3px;
   }
 `;
 
@@ -67,19 +62,27 @@ const StyledStayDownContainer = styled(StayDownContainer)({
 });
 
 const InputContainer = styled.div`
+background-color: #232325
   textarea {
     width: 100%;
-    height: 90px;
+    height: 100px;
     min-height: 0;
     padding: 8px;
     margin: 0;
     outline: none;
     border: none;
-    border-top: ${({ theme }) => css`1px solid ${colorToString(theme.border)}`};
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    caret-color: #4284f3;
     display: block;
     font-size: 14px;
     font-family: inherit;
     resize: none;
+    background-color: #18181a;
+    color: white
+  }
+  textarea::placeholder{
+    color: #919192;
   }
   input {
     margin-right: 5px;
@@ -90,8 +93,7 @@ const InputContainer = styled.div`
 `;
 
 const Message = styled.div`
-  border-bottom: ${({ theme }) =>
-    css`1px solid ${colorToString(theme.border)}`};
+  border-bottom: 1px solid #323132;
   position: relative;
   padding: 10px;
   font-size: 14px;
@@ -108,7 +110,7 @@ const MessageTime = styled.span`
   position: absolute;
   top: 10px;
   right: 10px;
-  color: ${({ theme }) => colorToString(theme.foreground)};
+  color: white;
   font-size: 12px;
 `;
 
@@ -129,7 +131,7 @@ const ChatMessageGroup: React.SFC<ChatMessageGroupProps> = ({
     <MessageAuthor>
       {chats[0].displayName ? chats[0].displayName : 'Anonymous'}
     </MessageAuthor>
-    <MessageTime>{chats[0].time.toLocaleTimeString()}</MessageTime>
+    <MessageTime>{chats[0].time.toLocaleTimeString('en-US').replace(/\:\d+\s/, " ")}</MessageTime>
     {chats.map(message => (
       <MessageText key={message.id}>
         <Linkify text={emojify(message.body)} />
@@ -161,8 +163,8 @@ const ChatContainer: React.SFC<Props> = ({
 }) => (
   <Container>
     <Header onClick={toggleChat}>
-      <KeyboardArrowDownIcon />
       <span>Chat</span>
+      <KeyboardArrowDownIcon />
     </Header>
     <StyledStayDownContainer>
       <ChatList
@@ -176,12 +178,12 @@ const ChatContainer: React.SFC<Props> = ({
       <ChatInput
         room={roomAddress}
         rtt={sendRtt}
-        placeholder="Send a message..."
+        placeholder="Secure Message"
       />
-      <label style={{ display: 'block' }}>
+      {/* <label style={{ display: 'block' }}>
         <input type="checkbox" checked={sendRtt} onChange={toggleRtt} />
         Send as I type
-      </label>
+      </label> */}
       <ComposersContainer>
         <ChatComposers room={roomAddress} />
       </ComposersContainer>

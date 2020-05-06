@@ -130,15 +130,24 @@ const SidebarUserControls: React.SFC<Props> = ({
       setDisplayName
     }) => (
       <div>
-        <LocalVideo>
-          <DisplayNameInput
+        <DisplayNameInput
             displayName={user.displayName}
             setDisplayName={setDisplayName}
           />
+        <LocalVideo>
           <LocalMediaList
             shared={true}
             render={({ media }) => {
-              const videos = media.filter(m => m.kind === 'video');
+              const videos = media.filter((v,i,a)=>a.findIndex(t=>(t.screenCapture === v.screenCapture))===i)
+              console.log(videos);
+              // const video = videos[0];
+              // return(
+              //   video.screenCapture ? (
+              //     <LocalScreen screenshareMedia={video} />
+              //   ) : (
+              //     <Video key={video.id} media={video} />
+              //   )
+              // )
               if (videos.length > 0) {
                 return (
                   <>
@@ -146,7 +155,9 @@ const SidebarUserControls: React.SFC<Props> = ({
                       m.screenCapture ? (
                         <LocalScreen screenshareMedia={m} />
                       ) : (
+                        <div style={{transform: 'scaleX(-1)'}}>
                         <Video key={m.id} media={m} />
+                        </div>
                       )
                     )}
                   </>
@@ -167,7 +178,7 @@ const SidebarUserControls: React.SFC<Props> = ({
           isSpeaking={isSpeaking}
           isSpeakingWhileMuted={isSpeakingWhileMuted}
         />
-        <RoomModeToggles>
+        {/* <RoomModeToggles> */}
           {/*
               Disabled until SDK changes fixed to handle case where no one is speaking.
 
@@ -183,7 +194,7 @@ const SidebarUserControls: React.SFC<Props> = ({
                 </ToggleContainer>
               </div>
             */}
-          <div>
+          {/* <div>
             <ToggleContainer>
               <input
                 type="checkbox"
@@ -193,8 +204,8 @@ const SidebarUserControls: React.SFC<Props> = ({
               Walkie Talkie Mode
               <Tooltip text="Use spacebar to toggle your microphone on/off" />
             </ToggleContainer>
-          </div>
-        </RoomModeToggles>
+          </div> */}
+        {/* </RoomModeToggles> */}
       </div>
     )}
   />

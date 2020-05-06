@@ -54,7 +54,7 @@ const DisplayNameInput: React.SFC<Props> = ({
       onChange={e => persisDisplayName(e.target.value)}
       onKeyPress={({ key }) => {
         if (key === 'Enter') {
-          persisDisplayName(typedName);
+          persisDisplayName(displayName);
         }
       }}
       onBlur={() => {

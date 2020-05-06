@@ -61,13 +61,6 @@ export default class Sidebar extends Component<Props, State> {
 
     return (
       <Container>
-        <RoomControls
-          shouldShowPasswordModal={this.state.showPasswordModal}
-          passwordRequired={passwordRequired}
-          showPasswordModal={this.showPasswordModal}
-          hidePasswordModal={this.hidePasswordModal}
-          setPassword={setPassword}
-        />
         <SidebarUserControls
           activeSpeakerView={activeSpeakerView}
           toggleActiveSpeakerView={toggleActiveSpeakerView}
@@ -76,6 +69,13 @@ export default class Sidebar extends Component<Props, State> {
         />
         <Roster roomAddress={roomAddress} />
         <SidebarLinks roomId={roomId} />
+        <RoomControls
+          shouldShowPasswordModal={this.state.showPasswordModal}
+          passwordRequired={passwordRequired}
+          showPasswordModal={this.showPasswordModal}
+          hidePasswordModal={this.hidePasswordModal}
+          setPassword={setPassword}
+        />
       </Container>
     );
   }

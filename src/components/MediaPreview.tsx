@@ -6,7 +6,8 @@ import mq from '../styles/media-queries';
 import { default as Meter } from './VolumeMeter';
 
 const Container = styled.div({
-  height: '300px',
+  height: '100%',
+  minHeight: '300px',
   position: 'relative',
   width: '100%',
   [mq.SMALL_DESKTOP]: {

@@ -1,7 +1,10 @@
 import { LocalMediaList, UserControls } from "@andyet/simplewebrtc";
-import Mic from '../icons/microphone.svg';
-import VideoIcon from '../icons/video 2.svg';
-import SettingsIcon from '../icons/cog.svg';
+// import Mic from '../icons/microphone.svg';
+// import VideoIcon from '../icons/video 2.svg';
+import MicIcon from 'material-icons-svg/components/baseline/Mic';
+import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
+import SettingsIcon from 'material-icons-svg/components/baseline/Settings';
+// import SettingsIcon from '../icons/cog.svg';
 import React from "react";
 import styled, { css } from "styled-components";
 import Placeholders from "../contexts/Placeholders";
@@ -235,7 +238,7 @@ const Haircheck: React.SFC = () => (
             if (requestPermissions) {
               return (
                 <PermissionButton onClick={requestPermissions}>
-                  <VideoIcon />
+                  <VideocamIcon />
                   <span>Allow camera access</span>
                 </PermissionButton>
               );
@@ -243,7 +246,7 @@ const Haircheck: React.SFC = () => (
 
             return (
               <label>
-                <VideoIcon />
+                <VideocamIcon />
                 <span>My Camera</span>
                 <DeviceDropdown
                   currentMedia={currentMedia!}
@@ -282,7 +285,7 @@ const Haircheck: React.SFC = () => (
             if (requestPermissions) {
               return (
                 <PermissionButton onClick={requestPermissions}>
-                  <Mic />
+                  <MicIcon />
                   <span>Allow microphone access</span>
                 </PermissionButton>
               );
@@ -291,7 +294,7 @@ const Haircheck: React.SFC = () => (
             return (
               <>
                 <label>
-                  <Mic />
+                  <MicIcon />
                   <span>My Microphone</span>
                   <DeviceDropdown
                     currentMedia={currentMedia!}

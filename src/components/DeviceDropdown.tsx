@@ -1,8 +1,8 @@
 import { Media } from '@andyet/simplewebrtc';
 import React from 'react';
-import Dropdown from '../icons/double-arrows.svg';
+// import Dropdown from '../icons/double-arrows.svg';
+import UnfoldMore from 'material-icons-svg/components/baseline/UnfoldMore';
 import styled from 'styled-components';
-import mq from "../styles/media-queries";
 
 interface Props {
   devices: MediaDeviceInfo[];
@@ -54,7 +54,7 @@ const DeviceDropdown: React.SFC<Props> = ({
     {currentMedia && <option>---</option>}
     {currentMedia && <option value="disable">Disable</option>}
   </select>
-  <Dropdown/>
+  <UnfoldMore/>
   </Container>
 );
 

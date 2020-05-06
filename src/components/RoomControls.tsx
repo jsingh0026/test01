@@ -21,12 +21,14 @@ const LeaveButton = styled(TalkyButton)({
 const Container = styled.div({
   display: 'grid',
   gridTemplateAreas: `
-    'invite invite'
-    'lock leave'
+    // 'invite invite'
+    'lock' 'leave'
   `,
-  gridColumnGap: '10px',
+  // gridColumnGap: '10px',
   gridRowGap: '10px',
-  marginBottom: '10px'
+  marginBottom: '10px',
+  position: "absolute",
+  bottom: 0,
 });
 
 const StyledModal = styled(Modal)`
@@ -75,7 +77,6 @@ const RoomControls: React.SFC<Props> = ({
   const leaveUrl = getConfigFromMetaTag('leave-button-url');
   return (
     <Container>
-      <InviteButton />
       <LockButton
         onClick={
           passwordRequired
