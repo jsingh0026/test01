@@ -36,6 +36,8 @@ const Bar = styled.div({
   bottom: '9px',
   width: '15px',
   borderRadius: '20px',
+  borderTopRightRadius: '0px !important',
+  borderTopLeftRadius: '0px !important',
   minHeight: '6%',
   maxHeight: '94%',
   transition: '150ms',
