@@ -9,7 +9,14 @@ const Button = styled.button({
   display: 'none',
   [mq.SMALL_DESKTOP]: {
     display: 'block',
-    width: '100%'
+    width: '100%',
+    textAlign: 'left',
+    border: 'none',
+    outline: 'none',
+    backgroundColor: 'transparent',
+    'svg':{
+      fill: 'white'
+    }
   }
 });
 
@@ -29,7 +36,7 @@ const ScreenshareControls: React.SFC = () => (
 
       return (
         <Button title="Screen Share" onClick={getDisplayMedia}>
-          <ShareScreenIcon fill="#505658" />
+          <ShareScreenIcon />
           <span>Share screen</span>
         </Button>
       );

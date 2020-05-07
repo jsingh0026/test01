@@ -10,25 +10,27 @@ import getConfigFromMetaTag from '../utils/metaConfig';
 import InviteButton from './InviteButton';
 import PasswordEntry from './PasswordEntry';
 
-const LockButton = styled(TalkyButton)({
-  gridArea: 'lock'
+const LockButton = styled.button({
 });
 
-const LeaveButton = styled(TalkyButton)({
-  width: '100%'
+const LeaveButton = styled.button({
 });
 
 const Container = styled.div({
-  display: 'grid',
-  gridTemplateAreas: `
-    // 'invite invite'
-    'lock' 'leave'
-  `,
-  // gridColumnGap: '10px',
-  gridRowGap: '10px',
-  marginBottom: '10px',
+  'button':{
+    width: '100%',
+    backgroundColor: '#323132',
+    borderRadius: '10px',
+    marginBottom: '10px',
+    border: 'none',
+    outline: 'none',
+  },
+  'a':{
+    color: 'white'
+  },
   position: "absolute",
   bottom: 0,
+  textAlign: 'center'
 });
 
 const StyledModal = styled(Modal)`
@@ -89,19 +91,19 @@ const RoomControls: React.SFC<Props> = ({
         {passwordRequired ? (
           <>
             <LockIcon fill="#505658" />
-            <span>Unlock</span>
+            <span>Locked Room</span>
           </>
         ) : (
           <>
             <LockOpenIcon fill="#505658" />
-            <span>Lock</span>
+            <span>Lock Room</span>
           </>
         )}
       </LockButton>
-      <a style={{ gridArea: 'leave' }} href={leaveUrl ? leaveUrl : '/'}>
+      <a href={leaveUrl ? leaveUrl : '/'}>
         <LeaveButton>
           <CallEndIcon fill="#505658" />
-          <span>Leave</span>
+          <span>Leave eVisit</span>
         </LeaveButton>
       </a>
       <StyledModal
