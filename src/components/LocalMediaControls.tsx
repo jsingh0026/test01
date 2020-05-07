@@ -7,9 +7,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
 import ScreenshareControls from './ScreenshareControls';
-import MicIcon from '../icons/microphone.svg';
-import VideocamIcon from '../icons/video 2.svg';
-import SettingsIcon from '../icons/cog.svg';
+import { MicroPhone, VideocamIcon, SettingsIcon } from './Icons';
 
 interface MutePauseButtonProps {
   isFlashing?: boolean;
@@ -112,7 +110,7 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
       isFlashing={isSpeakingWhileMuted}
       onClick={() => (isMuted ? unmute() : mute())}
     >
-      <MicIcon />
+      <MicroPhone />
     </MuteButton>
     <PauseButton
       isOff={isPaused}

@@ -2,23 +2,16 @@ import { LocalMediaList, UserControls } from '@andyet/simplewebrtc';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Placeholders from '../contexts/Placeholders';
-// import MicIcon from 'material-icons-svg/components/baseline/Mic';
-// import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
-// import SettingsIcon from 'material-icons-svg/components/baseline/Settings';
-import SettingsIcon from '../icons/cog.svg';
 import logo from '../icons/logo.png';
-import MicIcon from '../icons/microphone.svg';
-import VideocamIcon from '../icons/video 2.svg';
 import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
-import { colorToString } from '../utils/colorify';
 import { Error, Info } from './Alerts';
 import DeviceDropdown from './DeviceDropdown';
 import DeviceSelector from './DeviceSelector';
 import DisplayNameInput from './DisplayNameInput';
 import InputChecker from './InputChecker';
 import MediaPreview from './MediaPreview';
-import { MicroPhone } from './MicroPhone';
+import { MicroPhone, SettingsIcon, VideocamIcon } from './Icons';
 import ShareControls from './ShareControls';
 
 const Container = styled.div({
@@ -291,7 +284,7 @@ const Haircheck: React.SFC = () => (
             if (requestPermissions) {
               return (
                 <PermissionButton onClick={requestPermissions}>
-                  <MicroPhone fill="#fff" />
+                  <MicroPhone />
                   <span>Allow microphone access</span>
                 </PermissionButton>
               );
@@ -300,7 +293,7 @@ const Haircheck: React.SFC = () => (
             return (
               <>
                 <label>
-                  <MicroPhone fill="#fff" />
+                  <MicroPhone />
                   <span>My Microphone</span>
                   <DeviceDropdown
                     currentMedia={currentMedia!}

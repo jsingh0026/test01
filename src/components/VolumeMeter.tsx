@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MicIcon from '../icons/microphone.svg';
-import { MicroPhone } from './MicroPhone';
+import { MicroPhone } from './Icons';
 // import MicIcon from 'material-icons-svg/components/baseline/Mic';
 
 interface Props {
@@ -55,7 +54,7 @@ const VolumeMeter: React.SFC<Props> = ({ buckets, volume, speaking }) => {
         speaking={speaking}
       >
         <Bar style={{ height: volume + `%` }} />
-        <MicroPhone fill="#fff" />
+        <MicroPhone />
       </Bucket>
       {/* ))} */}
     </Container>
