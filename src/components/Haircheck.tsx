@@ -1,10 +1,10 @@
 import { LocalMediaList, UserControls } from "@andyet/simplewebrtc";
-// import Mic from '../icons/microphone.svg';
-// import VideoIcon from '../icons/video 2.svg';
-import MicIcon from 'material-icons-svg/components/baseline/Mic';
-import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
-import SettingsIcon from 'material-icons-svg/components/baseline/Settings';
-// import SettingsIcon from '../icons/cog.svg';
+import MicIcon from '../icons/microphone.svg';
+import VideocamIcon from '../icons/video 2.svg';
+// import MicIcon from 'material-icons-svg/components/baseline/Mic';
+// import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
+// import SettingsIcon from 'material-icons-svg/components/baseline/Settings';
+import SettingsIcon from '../icons/cog.svg';
 import React from "react";
 import styled, { css } from "styled-components";
 import Placeholders from "../contexts/Placeholders";
@@ -55,7 +55,7 @@ ${mq.SMALL_DESKTOP} {
     position: absolute;
     bottom: 0;
     right: 0;
-    max-width: 40%;
+    width: 350px;
   }
   }
   padding: 18%;
@@ -86,6 +86,11 @@ const Controls = styled.div`
   svg {
     fill: #919192;
     width: 7%;
+  }
+  .videoCamIcon{
+    svg{
+      width: 7%;
+    }
   }
   label {
     display: block;
@@ -245,7 +250,7 @@ const Haircheck: React.SFC = () => (
             }
 
             return (
-              <label>
+              <label className="videoCamIcon">
                 <VideocamIcon />
                 <span>My Camera</span>
                 <DeviceDropdown

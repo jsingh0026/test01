@@ -58,7 +58,7 @@ const DisplayNameInput: React.SFC<Props> = ({
         }
       }}
       onBlur={() => {
-        persisDisplayName(typedName);
+        persisDisplayName(displayName);
       }}
     />
   );

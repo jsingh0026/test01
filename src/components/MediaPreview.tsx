@@ -46,13 +46,13 @@ const Volume = styled.div({
   justifyContent: 'center',
   padding: '8px',
   backgroundColor: 'transparent',
-  width: '32px',
+  width: '35px',
   '& svg': {
-    width: '10px',
+    width: '11px',
     fill: 'white',
     position: "absolute",
     bottom: '13px',
-    left: '11px'
+    left: '12px'
   },
   '& div': {
     flex: 1,
