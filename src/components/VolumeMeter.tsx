@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MicIcon from '../icons/microphone.svg';
+import { MicroPhone } from './MicroPhone';
 // import MicIcon from 'material-icons-svg/components/baseline/Mic';
 
 interface Props {
@@ -49,12 +50,13 @@ const VolumeMeter: React.SFC<Props> = ({ buckets, volume, speaking }) => {
   return (
     <Container buckets={buckets}>
       {/* {Array.from(Array(buckets)).map((_, i) => ( */}
-        <Bucket
-          filled={volume >= (buckets - 10) * bucketSize}
-          speaking={speaking}
-        >
-          <Bar style={{height:volume+`%`}}/>
-          <MicIcon /></Bucket>
+      <Bucket
+        filled={volume >= (buckets - 10) * bucketSize}
+        speaking={speaking}
+      >
+        <Bar style={{ height: volume + `%` }} />
+        <MicroPhone fill="#fff" />
+      </Bucket>
       {/* ))} */}
     </Container>
   );
