@@ -9,7 +9,7 @@ import SidebarUserControls from './SidebarUserControls';
 
 const Container = styled.div`
   position: relative;
-  padding: 10px;
+  padding: 14px;
   ${mq.MOBILE} {
     position: absolute;
     z-index: 200;
@@ -17,7 +17,7 @@ const Container = styled.div`
     width: 185px;
   }
   ${mq.SMALL_DESKTOP} {
-    width: 220px;
+    width: 230px;
     border-right: ${({ theme }) =>
       css`1px solid ${colorToString(theme.border)}`};
   }

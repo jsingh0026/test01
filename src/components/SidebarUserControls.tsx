@@ -32,7 +32,6 @@ const LocalVideo = styled.div({
     objectFit: 'cover',
     width: '100%',
     height: '100%',
-    marginBottom: '10px'
   }
 });
 
@@ -74,6 +73,19 @@ interface LocalScreenProps {
 const LocalScreenContainer = styled.div({
   position: 'relative'
 });
+
+const Container = styled.div`
+  background-color: #323132;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px
+  input{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    caret-color: #4284f3;
+    padding: 7px;
+  }
+`;
 
 const LocalScreenOverlay = styled.div({
   position: 'absolute',
@@ -129,7 +141,7 @@ const SidebarUserControls: React.SFC<Props> = ({
       user,
       setDisplayName
     }) => (
-      <div>
+      <Container>
         <DisplayNameInput
             displayName={user.displayName}
             setDisplayName={setDisplayName}
@@ -152,13 +164,14 @@ const SidebarUserControls: React.SFC<Props> = ({
                 return (
                   <>
                     {videos.map(m =>
-                      m.screenCapture ? (
-                        <LocalScreen screenshareMedia={m} />
-                      ) : (
+                      !m.screenCapture &&
+                      // ? (
+                        // <LocalScreen screenshareMedia={m} />
+                      // ) : (
                         <div style={{transform: 'scaleX(-1)'}}>
                         <Video key={m.id} media={m} />
                         </div>
-                      )
+                      // )
                     )}
                   </>
                 );
@@ -206,7 +219,7 @@ const SidebarUserControls: React.SFC<Props> = ({
             </ToggleContainer>
           </div> */}
         {/* </RoomModeToggles> */}
-      </div>
+      </Container>
     )}
   />
 );

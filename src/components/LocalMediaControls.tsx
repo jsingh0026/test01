@@ -8,6 +8,13 @@ import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
 import ScreenshareControls from './ScreenshareControls';
 import { MicroPhone, VideocamIcon, SettingsIcon } from './Icons';
+import {
+  LocalMediaList,
+  Media,
+  MediaControls,
+  UserControls,
+  Video
+} from '@andyet/simplewebrtc';
 
 interface MutePauseButtonProps {
   isFlashing?: boolean;
@@ -40,8 +47,9 @@ const SettingsButton = styled.button`
 `;
 
 const ButtonsContainer = styled.div`
-padding: 0px 8px;
+  background-color: #18181a;
   text-align: center;
+  padding: 8px;
   button{
     background-color: transparent;
     border: none;
@@ -50,6 +58,11 @@ padding: 0px 8px;
   svg{
     height: 20px
   }
+`;
+
+const ScreenShareContainer = styled.div`
+  background-color: #18181a;
+  padding: 8px;
 `;
 
 const PauseButton = styled.button(({ isOff }: MutePauseButtonProps) => ({
@@ -65,9 +78,6 @@ const PauseButton = styled.button(({ isOff }: MutePauseButtonProps) => ({
 // }));
 
 const Container = styled.div({
-  // display: 'flex',
-  // marginBottom: '10px',
-
   [mq.MOBILE]: {
     '& button': {
       flex: 1,
@@ -91,6 +101,49 @@ interface LocalMediaControlsProps {
   resumeVideo: () => void;
   pauseVideo: () => void;
 }
+
+interface LocalScreenProps {
+  screenshareMedia: Media;
+}
+
+const LocalScreenContainer = styled.div({
+  position: 'relative'
+});
+const LocalScreenOverlay = styled.div({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'black',
+  opacity: 0,
+  transition: 'opacity 200ms linear',
+  color: 'white',
+  zIndex: 100,
+  '&:hover': {
+    cursor: 'pointer',
+    opacity: 0.8
+  }
+});
+
+
+const LocalScreen: React.SFC<LocalScreenProps> = ({ screenshareMedia }) => (
+  <MediaControls
+    media={screenshareMedia}
+    autoRemove={true}
+    render={({ media, stopSharing }) => (
+      <LocalScreenContainer>
+        <LocalScreenOverlay onClick={stopSharing}>
+          <span>Stop sharing</span>
+        </LocalScreenOverlay>
+        {media && <Video media={media!} />}
+      </LocalScreenContainer>
+    )}
+  />
+);
 
 // LocalMediaControls displays buttons to toggle the mute/pause state of the
 // user's audio/video.
@@ -122,7 +175,42 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
       <SettingsIcon />
     </SettingsButton>
     </ButtonsContainer>
+    <ScreenShareContainer>
     <ScreenshareControls />
+          <LocalMediaList
+            shared={true}
+            render={({ media }) => {
+              const videos = media.filter((v,i,a)=>a.findIndex(t=>(t.screenCapture === v.screenCapture))===i)
+              console.log(videos);
+              // const video = videos[0];
+              // return(
+              //   video.screenCapture ? (
+              //     <LocalScreen screenshareMedia={video} />
+              //   ) : (
+              //     <Video key={video.id} media={video} />
+              //   )
+              // )
+              if (videos.length > 0) {
+                return (
+                  <>
+                    {videos.map(m =>
+                      m.screenCapture &&
+                      // ? (
+                        <LocalScreen screenshareMedia={m} />
+                      // ) : (
+                        // <div style={{transform: 'scaleX(-1)'}}>
+                        // <Video key={m.id} media={m} />
+                        // </div>
+                      // )
+                    )}
+                  </>
+                );
+              }
+
+              return null;
+            }}
+          />
+        </ScreenShareContainer>
   </Container>
 );
 
