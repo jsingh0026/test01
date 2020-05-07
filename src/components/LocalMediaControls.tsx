@@ -1,14 +1,13 @@
-import MicIcon from 'material-icons-svg/components/baseline/Mic';
-import MicOffIcon from 'material-icons-svg/components/baseline/MicOff';
-import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
-import VideocamOffIcon from 'material-icons-svg/components/baseline/VideocamOff';
+// import MicIcon from 'material-icons-svg/components/baseline/Mic';
+// import MicOffIcon from 'material-icons-svg/components/baseline/MicOff';
+// import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
+// import VideocamOffIcon from 'material-icons-svg/components/baseline/VideocamOff';
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
 import ScreenshareControls from './ScreenshareControls';
-// import Mic from '../icons/microphone.svg';
-// import VideoIcon from '../icons/video 2.svg';
+import { MicroPhone, VideocamIcon, SettingsIcon } from './Icons';
 
 interface MutePauseButtonProps {
   isFlashing?: boolean;
@@ -27,36 +26,48 @@ const pulseKeyFrames = keyframes`
   }
 `;
 
-const MuteButton = styled(TalkyButton)<MutePauseButtonProps>`
-  background-color: ${props => (props.isOff ? '#e60045' : '')};
-  &:not(:hover) svg {
-    fill: ${props => (props.isOff ? 'white' : '')};
+const MuteButton = styled.button<MutePauseButtonProps>`
+  float: left;
+  svg {
+    fill: ${props => (props.isOff ? 'white' : '#4284f3')};
   }
-  &:hover svg {
-    fill: '';
   }
-  ${props =>
-    props.isFlashing
-      ? css`
-          animation: ${pulseKeyFrames} 0.5s ease-in-out infinite;
-        `
-      : ''}
+`;
+
+const SettingsButton = styled.button`
+  float: right;
+  fill: white;
+`;
+
+const ButtonsContainer = styled.div`
+padding: 0px 8px;
+  text-align: center;
+  button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+  svg{
+    height: 20px
   }
 `;
 
 const PauseButton = styled.button(({ isOff }: MutePauseButtonProps) => ({
-  width: '100%',
-  backgroundColor: 'transparent',
-  border: 'none',
-  outline: 'none',
   '& svg': {
-    fill: isOff ? 'white' : 'red'
+    fill: isOff ? 'white' : '#4284f3'
   }
 }));
+
+// const MuteButton = styled.button(({ isOff }: MutePauseButtonProps) => ({
+//   '& svg': {
+//     fill: isOff ? 'white' : '#4284f3'
+//   }
+// }));
 
 const Container = styled.div({
   // display: 'flex',
   // marginBottom: '10px',
+
   [mq.MOBILE]: {
     '& button': {
       flex: 1,
@@ -66,7 +77,7 @@ const Container = styled.div({
     }
   },
   [mq.SMALL_DESKTOP]: {
-    justifyContent: 'space-between'
+    // justifyContent: 'space-between'
   }
 });
 
@@ -93,13 +104,13 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
   pauseVideo
 }) => (
   <Container>
-    <div>
+    <ButtonsContainer>
     <MuteButton
       isOff={isMuted}
       isFlashing={isSpeakingWhileMuted}
       onClick={() => (isMuted ? unmute() : mute())}
     >
-      <MicIcon />
+      <MicroPhone />
     </MuteButton>
     <PauseButton
       isOff={isPaused}
@@ -107,7 +118,10 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
     >
       <VideocamIcon />
     </PauseButton>
-    </div>
+    <SettingsButton>
+      <SettingsIcon />
+    </SettingsButton>
+    </ButtonsContainer>
     <ScreenshareControls />
   </Container>
 );

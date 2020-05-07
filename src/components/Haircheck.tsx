@@ -1,27 +1,21 @@
-import { LocalMediaList, UserControls } from "@andyet/simplewebrtc";
-// import Mic from '../icons/microphone.svg';
-// import VideoIcon from '../icons/video 2.svg';
-import MicIcon from 'material-icons-svg/components/baseline/Mic';
-import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
-import SettingsIcon from 'material-icons-svg/components/baseline/Settings';
-// import SettingsIcon from '../icons/cog.svg';
-import React from "react";
-import styled, { css } from "styled-components";
-import Placeholders from "../contexts/Placeholders";
-import { TalkyButton } from "../styles/button";
-import mq from "../styles/media-queries";
-import { colorToString } from "../utils/colorify";
-import { Error, Info } from "./Alerts";
-import DeviceDropdown from "./DeviceDropdown";
-import DeviceSelector from "./DeviceSelector";
-import InputChecker from "./InputChecker";
-import MediaPreview from "./MediaPreview";
-import ShareControls from "./ShareControls";
-import logo from "../icons/logo.png";
+import { LocalMediaList, UserControls } from '@andyet/simplewebrtc';
+import React from 'react';
+import styled, { css } from 'styled-components';
+import Placeholders from '../contexts/Placeholders';
+import logo from '../icons/logo.png';
+import { TalkyButton } from '../styles/button';
+import mq from '../styles/media-queries';
+import { Error, Info } from './Alerts';
+import DeviceDropdown from './DeviceDropdown';
+import DeviceSelector from './DeviceSelector';
 import DisplayNameInput from './DisplayNameInput';
+import InputChecker from './InputChecker';
+import MediaPreview from './MediaPreview';
+import { MicroPhone, SettingsIcon, VideocamIcon } from './Icons';
+import ShareControls from './ShareControls';
 
 const Container = styled.div({
-  display: "grid",
+  display: 'grid',
   gridTemplateAreas: `
     'header'
     'preview'
@@ -29,14 +23,14 @@ const Container = styled.div({
   `,
   padding: '30px',
   [mq.SMALL_DESKTOP]: {
-    padding: "30px",
-    gridGap: "0px",
-    gridTemplateColumns: "min-content",
+    padding: '30px',
+    gridGap: '0px',
+    gridTemplateColumns: 'min-content',
     gridTemplateAreas: `
       'preview header'
       'controls logoDisplay'
     `,
-    columnGap: "5%",
+    columnGap: '5%',
   },
 });
 
@@ -55,7 +49,7 @@ ${mq.SMALL_DESKTOP} {
     position: absolute;
     bottom: 0;
     right: 0;
-    max-width: 40%;
+    width: 350px;
   }
   }
   padding: 18%;
@@ -87,6 +81,11 @@ const Controls = styled.div`
     fill: #919192;
     width: 7%;
   }
+  .videoCamIcon{
+    svg{
+      width: 7%;
+    }
+  }
   label {
     display: block;
     // font-weight: bold;
@@ -104,19 +103,19 @@ const Controls = styled.div`
 `;
 
 const SettingsSelector = styled.div({
-  textAlign: "right",
-  width: "102%",
-  fontSize: "30px",
+  textAlign: 'right',
+  width: '102%',
+  fontSize: '30px',
 });
 
 const Preview = styled.div({
-  gridArea: "preview",
-  display: "flex",
-  alignItems: "flex-end",
-  flexDirection: "column",
-  backgroundColor: "#323132",
-  borderRadius: "10px",
-},`
+  gridArea: 'preview',
+  display: 'flex',
+  alignItems: 'flex-end',
+  flexDirection: 'column',
+  backgroundColor: '#323132',
+  borderRadius: '10px',
+}, `
 .eyjURU{
   padding: 0px;
 }
@@ -144,8 +143,8 @@ const Input = styled.input`
 `;
 
 const PermissionButton = styled(TalkyButton)({
-  marginBottom: "5px",
-  width: "100%",
+  marginBottom: '5px',
+  width: '100%',
 });
 
 const Haircheck: React.SFC = () => (
@@ -153,7 +152,7 @@ const Haircheck: React.SFC = () => (
     <Placeholders.Consumer>
       {({ haircheckHeaderPlaceholder }) => (
         <Header
-          ref={(node) => {
+          ref={node => {
             if (
               node &&
               haircheckHeaderPlaceholder &&
@@ -170,22 +169,22 @@ const Haircheck: React.SFC = () => (
     </Placeholders.Consumer>
     <Header />
     <Preview>
-    <UserControls
-      render={({
-        user,
-        setDisplayName
-      }) => (
+      <UserControls
+        render={({
+          user,
+          setDisplayName
+        }) => (
             <DisplayNameInput
               displayName={user.displayName}
               setDisplayName={setDisplayName}
             />
-      )}
-    />
-    <LocalMediaList
+          )}
+      />
+      <LocalMediaList
         screen={false}
         render={({ media }) => {
-          const audioStreams = media.filter((m) => m.kind === "audio");
-          const videoStreams = media.filter((m) => m.kind === "video");
+          const audioStreams = media.filter(m => m.kind === 'audio');
+          const videoStreams = media.filter(m => m.kind === 'video');
           const latestAudio = audioStreams[audioStreams.length - 1];
           const latestVideo = videoStreams[videoStreams.length - 1];
 
@@ -220,7 +219,7 @@ const Haircheck: React.SFC = () => (
                 devices,
                 currentMedia,
                 selectMedia,
-                "requestPermissions"
+                'requestPermissions'
               );
             }
             if (hasDevice === false) {
@@ -245,7 +244,7 @@ const Haircheck: React.SFC = () => (
             }
 
             return (
-              <label>
+              <label className="videoCamIcon">
                 <VideocamIcon />
                 <span>My Camera</span>
                 <DeviceDropdown
@@ -285,7 +284,7 @@ const Haircheck: React.SFC = () => (
             if (requestPermissions) {
               return (
                 <PermissionButton onClick={requestPermissions}>
-                  <MicIcon />
+                  <MicroPhone />
                   <span>Allow microphone access</span>
                 </PermissionButton>
               );
@@ -294,7 +293,7 @@ const Haircheck: React.SFC = () => (
             return (
               <>
                 <label>
-                  <MicIcon />
+                  <MicroPhone />
                   <span>My Microphone</span>
                   <DeviceDropdown
                     currentMedia={currentMedia!}

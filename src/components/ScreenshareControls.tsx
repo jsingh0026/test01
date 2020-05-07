@@ -5,10 +5,11 @@ import styled from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
 
-const Button = styled(TalkyButton)({
+const Button = styled.button({
   display: 'none',
   [mq.SMALL_DESKTOP]: {
-    display: 'block'
+    display: 'block',
+    width: '100%'
   }
 });
 

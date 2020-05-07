@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-// import Mic from '../icons/microphone.svg';
-import MicIcon from 'material-icons-svg/components/baseline/Mic';
+import { MicroPhone } from './Icons';
+// import MicIcon from 'material-icons-svg/components/baseline/Mic';
 
 interface Props {
   buckets: number;
@@ -26,7 +26,7 @@ interface BucketProps {
 }
 
 const Bucket = styled.div(({ filled, speaking }: BucketProps) => ({
-  border: '1px solid white',
+  border: '2px solid white',
   borderRadius: '4px',
   // backgroundColor: filled ? (speaking ? '#4284f3' : 'white') : ''
 }));
@@ -34,10 +34,14 @@ const Bar = styled.div({
   backgroundColor: '#4284f3',
   position: 'absolute',
   bottom: '9px',
-  width: '14px',
+  width: '15px',
   borderRadius: '20px',
+  borderTopRightRadius: '0px !important',
+  borderTopLeftRadius: '0px !important',
   minHeight: '6%',
   maxHeight: '94%',
+  transition: '150ms',
+  transitionTimingFunction: 'linear',
 });
 
 const VolumeMeter: React.SFC<Props> = ({ buckets, volume, speaking }) => {
@@ -45,12 +49,13 @@ const VolumeMeter: React.SFC<Props> = ({ buckets, volume, speaking }) => {
   return (
     <Container buckets={buckets}>
       {/* {Array.from(Array(buckets)).map((_, i) => ( */}
-        <Bucket
-          filled={volume >= (buckets - 10) * bucketSize}
-          speaking={speaking}
-        >
-          <Bar style={{height:volume+`%`}}/>
-          <MicIcon /></Bucket>
+      <Bucket
+        filled={volume >= (buckets - 10) * bucketSize}
+        speaking={speaking}
+      >
+        <Bar style={{ height: volume + `%` }} />
+        <MicroPhone />
+      </Bucket>
       {/* ))} */}
     </Container>
   );
