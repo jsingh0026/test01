@@ -6,15 +6,15 @@ import mq from '../styles/media-queries';
 import { default as Meter } from './VolumeMeter';
 
 const Container = styled.div({
-  height: '100%',
-  minHeight: '300px',
   position: 'relative',
   width: '100%',
   [mq.SMALL_DESKTOP]: {
     padding: '0',
-    width: '400px'
+    width: '400px',
+    maxHeight: '300px'
   },
   '& video': {
+    border: '2px solid #323132',
     width: '100%',
     height: '100%',
     objectFit: 'contain',
@@ -23,6 +23,7 @@ const Container = styled.div({
 });
 
 const BlankVideo = styled.div({
+  border: '2px solid #323132',
   width: '100%',
   height: '300px',
   backgroundColor: '#262a2c',

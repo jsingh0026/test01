@@ -49,20 +49,19 @@ const SettingsButton = styled.button`
 const ButtonsContainer = styled.div`
   background-color: #18181a;
   text-align: center;
-  padding: 8px;
+  padding: 7px 12px;
   button{
     background-color: transparent;
     border: none;
     outline: none;
   }
   svg{
-    height: 20px
+    height: 16px
   }
 `;
 
 const ScreenShareContainer = styled.div`
   background-color: #18181a;
-  padding: 8px;
 `;
 
 const PauseButton = styled.button(({ isOff }: MutePauseButtonProps) => ({
@@ -107,7 +106,12 @@ interface LocalScreenProps {
 }
 
 const LocalScreenContainer = styled.div({
-  position: 'relative'
+  position: 'relative',
+  backgroundColor: '#000000',
+  height: '155px',
+  'video':{
+    border: '2px solid #323132',
+  }
 });
 const LocalScreenOverlay = styled.div({
   position: 'absolute',
@@ -181,7 +185,7 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
             shared={true}
             render={({ media }) => {
               const videos = media.filter((v,i,a)=>a.findIndex(t=>(t.screenCapture === v.screenCapture))===i)
-              console.log(videos);
+              console.log(videos)
               // const video = videos[0];
               // return(
               //   video.screenCapture ? (

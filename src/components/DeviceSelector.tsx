@@ -58,16 +58,16 @@ export default class DeviceSelector extends Component<Props, State> {
           requestingCapture,
         }) => {
           if (true) {
-            console.log(
-              devices,
-              hasCamera,
-              cameraPermissionDenied,
-              hasMicrophone,
-              microphonePermissionDenied,
-              requestingCameraCapture,
-              requestingMicrophoneCapture,
-              requestingCapture
-            );
+            // console.log(
+            //   devices,
+            //   hasCamera,
+            //   cameraPermissionDenied,
+            //   hasMicrophone,
+            //   microphonePermissionDenied,
+            //   requestingCameraCapture,
+            //   requestingMicrophoneCapture,
+            //   requestingCapture
+            // );
           }
           if (
             (kind === "video" && !hasCamera && !cameraPermissionDenied) ||

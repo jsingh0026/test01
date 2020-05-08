@@ -24,14 +24,13 @@ const MuteButton = styled(TalkyButton)({
 
 const DisplayName = styled.span({
   display: 'inline-block',
-  backgroundColor: 'black',
-  opacity: 0.3,
-  color: 'white',
+  color: '#919192',
+  backgroundColor: '#323132',
   marginTop: '16px',
   marginLeft: '16px',
   fontSize: '16px',
   padding: '2px 7px 2px 9px',
-  borderRadius: '5px',
+  borderRadius: '10px',
   transition: 'opacity 200ms linear',
   '&:hover': {
     cursor: 'pointer',
@@ -90,8 +89,8 @@ const PeerGridItemMedia: React.SFC<PeerGridItemMediaProps> = ({ media }) => {
   } else if (audioStreams.length > 0) {
     return <AudioOnlyPeer />;
   }
-
-  return <div>No media</div>;
+  return null;
+  // return <div>No media</div>;
 };
 
 const Overlay = styled.div({
@@ -147,17 +146,18 @@ const PeerGridItemOverlay: React.SFC<PeerGridItemOverlayProps> = ({
   return (
     <Overlay>
       <div>
-        <DisplayName onClick={() => togglePeer(peer.id)}>
-          {`X ${peer.displayName}`}
+        {/* <DisplayName onClick={() => togglePeer(peer.id)}> */}
+        <DisplayName>
+          {`${peer.displayName}`}
         </DisplayName>
       </div>
       <RttContainer>{peer.rtt && <span>{peer.rtt}</span>}</RttContainer>
-      <MuteIndicator>
+      {/* <MuteIndicator>
         {peer.muted || audioIsMuted ? (
           <VolumeOffIcon fill={peer.speaking ? 'red' : 'white'} />
         ) : null}
-      </MuteIndicator>
-      <PeerControls
+      </MuteIndicator> */}
+      {/* <PeerControls
         peer={peer}
         render={({ isMuted, mute, unmute }) => (
           <div>
@@ -176,7 +176,7 @@ const PeerGridItemOverlay: React.SFC<PeerGridItemOverlayProps> = ({
             </MuteButton>
           </div>
         )}
-      />
+      /> */}
     </Overlay>
   );
 };

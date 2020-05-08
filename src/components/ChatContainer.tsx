@@ -44,6 +44,15 @@ const Header = styled.button`
   outline: none;
   background-color: #323132;
   text-align: left;
+  ${mq.MOBILE} {
+    text-align: center;
+    span{
+      vertical-align: middle;
+    }
+    svg{
+      float: none !important;
+    }
+  }
   svg {
     fill: white;
     vertical-align: middle;
@@ -141,7 +150,9 @@ const ChatMessageGroup: React.SFC<ChatMessageGroupProps> = ({
 );
 
 const ComposersContainer = styled.div({
-  minHeight: '30px'
+  minHeight: '30px',
+  color: '#919192',
+  padding: '0px 10px'
 });
 
 interface Props {

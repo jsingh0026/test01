@@ -59,6 +59,7 @@ const Controls = styled.div`
   grid-area: controls;
   padding: 30px;
   padding-top: 5px;
+  max-height: 330px;
   background-color: #18181a;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -114,7 +115,8 @@ const Preview = styled.div({
   alignItems: 'flex-end',
   flexDirection: 'column',
   backgroundColor: '#323132',
-  borderRadius: '10px',
+  borderTopLeftRadius: '10px',
+  borderTopRightRadius: '10px',
 }, `
 .eyjURU{
   padding: 0px;
@@ -211,16 +213,16 @@ const Haircheck: React.SFC = () => (
             selectMedia,
           }) => {
             if (true) {
-              console.log(
-                hasDevice,
-                permissionDenied,
-                requestingCapture,
-                requestPermissions,
-                devices,
-                currentMedia,
-                selectMedia,
-                'requestPermissions'
-              );
+              // console.log(
+              //   hasDevice,
+              //   permissionDenied,
+              //   requestingCapture,
+              //   requestPermissions,
+              //   devices,
+              //   currentMedia,
+              //   selectMedia,
+              //   'requestPermissions'
+              // );
             }
             if (hasDevice === false) {
               return <Error>No cameras detected.</Error>;

@@ -53,7 +53,6 @@ const ShareControls: React.SFC = () => (
   <LocalMediaList
     shared={false}
     render={({ media, shareLocalMedia, removeMedia }) => {
-      console.log(media, shareLocalMedia);
 
       const shareAll = () => {
         for (const m of media) {
@@ -62,7 +61,6 @@ const ShareControls: React.SFC = () => (
       };
 
       const audioPresent = media.filter(m => m.kind=="audio")
-      console.log(audioPresent);
       
       return (
         <Container>
