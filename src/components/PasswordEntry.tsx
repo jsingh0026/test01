@@ -11,6 +11,7 @@ const Container = styled.div`
     color: ${({ theme }) => colorToString(theme.foreground)};
   }
   input {
+    color: black;
     display: block;
     padding: 7px;
     width: 100%;

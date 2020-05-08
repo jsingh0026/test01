@@ -1,6 +1,7 @@
 import CallEndIcon from 'material-icons-svg/components/baseline/CallEnd';
 import LockIcon from 'material-icons-svg/components/baseline/Lock';
 import LockOpenIcon from 'material-icons-svg/components/baseline/LockOpen';
+import { Key, LeaveIcon } from './Icons';
 import React, { CSSProperties } from 'react';
 import Modal from 'react-modal';
 import styled, { css } from 'styled-components';
@@ -18,15 +19,24 @@ const LeaveButton = styled.button({
 
 const Container = styled.div({
   'button':{
-    width: '100%',
+    width: '70%',
     backgroundColor: '#323132',
     borderRadius: '10px',
     marginBottom: '10px',
     border: 'none',
     outline: 'none',
+    padding: '4px'
   },
   'a':{
     color: 'white'
+  },
+  'svg':{
+    height: '16px',
+    marginRight: '6px',
+    verticalAlign: 'middle'
+  },
+  'span': {
+    verticalAlign: 'middle'
   },
   position: "absolute",
   bottom: 0,
@@ -90,19 +100,19 @@ const RoomControls: React.SFC<Props> = ({
       >
         {passwordRequired ? (
           <>
-            <LockIcon fill="#505658" />
-            <span>Locked Room</span>
+            <Key fill="#4284f3" />
+            <span style={{color:'#4284f3'}}>Locked Room</span>
           </>
         ) : (
           <>
-            <LockOpenIcon fill="#505658" />
+            <Key fill="white" />
             <span>Lock Room</span>
           </>
         )}
       </LockButton>
       <a href={leaveUrl ? leaveUrl : '/'}>
         <LeaveButton>
-          <CallEndIcon fill="#505658" />
+          <LeaveIcon />
           <span>Leave eVisit</span>
         </LeaveButton>
       </a>

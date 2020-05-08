@@ -8,7 +8,7 @@ const Container = styled('div')({
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
-  backgroundColor: '#E9ECEC'
+  backgroundColor: 'transparent'
 });
 
 const IconContainer = styled('div')({
@@ -30,7 +30,7 @@ const IconContainer = styled('div')({
 const AudioOnlyPeer = () => (
   <Container>
     <IconContainer>
-      <VideocamOffIcon />
+      <div style={{fontSize:'20px'}}>This user has not selected a camera yet!</div>
     </IconContainer>
   </Container>
 );

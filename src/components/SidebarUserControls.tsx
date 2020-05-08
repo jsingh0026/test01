@@ -151,7 +151,6 @@ const SidebarUserControls: React.SFC<Props> = ({
             shared={true}
             render={({ media }) => {
               const videos = media.filter((v,i,a)=>a.findIndex(t=>(t.screenCapture === v.screenCapture))===i)
-              console.log(videos);
               // const video = videos[0];
               // return(
               //   video.screenCapture ? (
@@ -168,7 +167,7 @@ const SidebarUserControls: React.SFC<Props> = ({
                       // ? (
                         // <LocalScreen screenshareMedia={m} />
                       // ) : (
-                        <div style={{transform: 'scaleX(-1)'}}>
+                        <div style={{transform: 'scaleX(-1)',border: '2px solid #323132'}}>
                         <Video key={m.id} media={m} />
                         </div>
                       // )

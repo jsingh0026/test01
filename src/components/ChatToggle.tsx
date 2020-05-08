@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colorToString } from '../utils/colorify';
 import ChatNotifications from './ChatNotifications';
+import mq from '../styles/media-queries';
 
 interface Props {
   roomAddress: string;
@@ -17,13 +18,20 @@ interface ContainerProps {
 }
 
 const Container = styled.button<ContainerProps>`
+  ${mq.MOBILE} {
+    width: 98%; 
+  }
   position: absolute;
   bottom: 1%;
   right: 1%;
   font-size: 18px;
   border-radius: 10px;
-  border: 1px solid #4284f3;
-  background: #4284f3;
+  z-index: 300;
+  span {
+    vertical-align: middle;
+  }
+  border: ${({ newMessage, theme }) => newMessage ? '#323132': 'none'};
+  background: ${({ newMessage, theme }) => newMessage ? '#4284f3': '#323132'};
   color: white;
   padding: 4px 10px;
   :focus {
