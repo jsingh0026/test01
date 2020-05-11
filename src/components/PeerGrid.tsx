@@ -15,7 +15,7 @@ import mq from '../styles/media-queries'
 const StyledGridLayout = styled(GridLayout)({
   flex: 1,
   [mq.MOBILE]:{
-    display: 'flex !importantc',
+    display: 'flex !important',
   },
   backgroundColor: 'transparent',
   maxHeight: '100vh',
