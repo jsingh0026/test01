@@ -1,4 +1,4 @@
-import { RequestDisplayMedia, LocalMediaList } from '@andyet/simplewebrtc';
+import { RequestDisplayMedia, LocalMediaList, PeerList } from '@andyet/simplewebrtc';
 import { ScreenIcon } from './Icons'
 import React from 'react';
 import styled from 'styled-components';
@@ -35,9 +35,12 @@ ${[mq.SMALL_DESKTOP]}{
   border: none;
   outline: none;
   border-bottom: ${props => (props.sharing ? '':'1px solid #323132')};
-  background-color: ${props => (props.sharing ? '#000000':'transparent')};
+  background-color: ${props => (props.sharing ? '#000000':'#18181a')};
   padding: ${props => (props.sharing? '5px 10px 5px' : '5px 10px 10px')};
   color: ${props => (props.sharing ? '#4284f3' : 'white')};
+  border-bottom-left-radius: ${props => (!props.usersAdded && '10px')};
+  border-bottom-right-radius: ${props => (!props.usersAdded && '10px')};
+  border-bottom: ${props => (!props.usersAdded && 'none')};
   svg{
     fill: ${props => (props.sharing ? '#4284f3' : 'white')};
     width: 16px;
@@ -54,13 +57,17 @@ const EmptySpacer = styled.span({
 });
 
 interface ScreenShareProps {
-  sharing: boolean
+  sharing: boolean,
+  usersAdded: boolean
 }
 
+interface Props {
+  roomAddress: string;
+}
 // ScreenshareControls displays a button that activates the screenshare flow.
 // It also provides a link to install the screenshare extension if it is
 // required by the user's browser.
-const ScreenshareControls: React.SFC = () => (
+const ScreenshareControls: React.SFC<Props> = ({ roomAddress }) => (
   <RequestDisplayMedia
     render={(getDisplayMedia, sharing) => {
       if (!sharing.available) {
@@ -85,7 +92,7 @@ const ScreenshareControls: React.SFC = () => (
                 <>
                   {videos.map(m =>
                   m.screenCapture&&
-                    <Button sharing={m.screenCapture} disabled title="Screen Share" onClick={getDisplayMedia}>
+                    <Button sharing={m.screenCapture} usersAdded={true} disabled title="Screen Share" onClick={getDisplayMedia}>
                       <ScreenIcon />
                       <span>Share Screen</span>
                     </Button>
@@ -98,10 +105,15 @@ const ScreenshareControls: React.SFC = () => (
                 </>
               );
             } 
-            return(<Button sharing={false} title="Screen Share" onClick={getDisplayMedia}>
-            <ScreenIcon />
-            <span>Share Screen</span>
-          </Button>)
+            return(<PeerList
+              room={roomAddress}
+              render={({ peers }) => {
+                return <Button sharing={false} usersAdded={peers.length>0} title="Screen Share" onClick={getDisplayMedia}>
+                <ScreenIcon />
+                <span>Share Screen</span>
+              </Button>
+              }}
+            />)
           }}
         />
       );

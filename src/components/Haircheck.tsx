@@ -71,6 +71,7 @@ const Controls = styled.div`
     color: white;
     height: 40px;
     padding: 5px;
+    padding-right: 25px;
     margin-top: 5px;
     background-color: transparent;
     font-size: 14px;

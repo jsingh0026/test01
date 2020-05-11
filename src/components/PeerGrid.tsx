@@ -10,10 +10,13 @@ import HiddenPeers from '../contexts/HiddenPeers';
 import Placeholders from '../contexts/Placeholders';
 import isMobile from '../utils/isMobile';
 import PeerGridItem from './PeerGridItem';
+import mq from '../styles/media-queries'
 
 const StyledGridLayout = styled(GridLayout)({
   flex: 1,
-  display: 'flex !important',
+  [mq.MOBILE]:{
+    display: 'flex !importantc',
+  },
   backgroundColor: 'transparent',
   maxHeight: '100vh',
   '& video': {
