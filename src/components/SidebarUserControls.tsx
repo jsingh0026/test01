@@ -81,6 +81,7 @@ const Container = styled.div`
   background-color: #323132;
   border-radius: 10px;
   input{
+    height: 40px;
     border: none;
     background-color: transparent;
     outline: none;
@@ -91,6 +92,7 @@ const Container = styled.div`
       z-index: 1;
       background-color: #323132;
       opacity: 0.50;
+      width: 100%;
     }
   }
 `;
@@ -121,7 +123,7 @@ border: none;
 outline: none;
 svg {
   width: 43px;
-  height: 14px;
+  height: 12px;
   vertical-align: middle;
   padding-left: 7px;
 }

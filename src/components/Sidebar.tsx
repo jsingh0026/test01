@@ -21,9 +21,10 @@ const Container = styled.div`
   ${mq.MOBILE} {
     position: absolute;
     z-index: 200;
-    top: 48px;
+    top: 50px;
     right: 0;
     width: 185px;
+    padding: 0px;
   }
   ${mq.SMALL_DESKTOP} {
     width: 230px;
@@ -31,7 +32,7 @@ const Container = styled.div`
 `;
 
 const ScreenShareContainer = styled.div`
-  background-color: #18181a;
+  // background-color: #18181a;
 `;
 
 
@@ -132,7 +133,7 @@ export default class Sidebar extends Component<Props, State> {
           toggleSidebar={toggleSidebar}
         />
       <ScreenShareContainer>
-        <ScreenshareControls />
+        <ScreenshareControls roomAddress={roomAddress} />
         <LocalMediaList
           shared={true}
           render={({ media }) => {

@@ -14,6 +14,10 @@ const Container = styled.ul({
   listStyle: 'none',
   '& li': {
     borderBottom: '1px solid #323132'
+  },
+  'li:last-child':{
+    borderBottomLeftRadius:'10px',
+    borderBottomRightRadius:'10px',
   }
 });
 

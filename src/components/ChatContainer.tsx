@@ -15,6 +15,7 @@ import Linkify from './Linkify';
 
 const Container = styled.div`
   display: flex;
+  margin: 3px;
   flex-direction: column;
   min-height: 50vh;
   max-height: 100vh;
@@ -55,7 +56,7 @@ const Header = styled.button`
   svg {
     fill: white;
     vertical-align: middle;
-    font-size: 20px;
+    font-size: 23px;
     margin-right: 5px;
     float: right;
     margin-top: 3px;
@@ -75,7 +76,7 @@ background-color: #232325
     width: 100%;
     height: 100px;
     min-height: 0;
-    padding: 8px;
+    padding: 8px 12px;
     margin: 0;
     outline: none;
     border: none;

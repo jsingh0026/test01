@@ -12,7 +12,6 @@ interface Props {
 const Container = styled.div`
   select{
     -webkit-appearance: none;
-    min-width: 313px;
   }
   svg{
   float: right;
