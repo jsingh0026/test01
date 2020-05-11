@@ -10,6 +10,7 @@ import { colorToString } from '../utils/colorify';
 import getConfigFromMetaTag from '../utils/metaConfig';
 import InviteButton from './InviteButton';
 import PasswordEntry from './PasswordEntry';
+import mq from '../styles/media-queries'
 
 const LockButton = styled.button({
 });
@@ -18,6 +19,14 @@ const LeaveButton = styled.button({
 });
 
 const Container = styled.div({
+  [mq.MOBILE]: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100%',
+    padding: '10px',
+    height: '0%'
+  },
   'button':{
     width: '70%',
     backgroundColor: '#323132',
@@ -25,7 +34,10 @@ const Container = styled.div({
     marginBottom: '10px',
     border: 'none',
     outline: 'none',
-    padding: '4px'
+    padding: '4px',
+    [mq.MOBILE]: {
+      width: '50%'
+    }
   },
   'a':{
     color: 'white'
@@ -47,13 +59,13 @@ const StyledModal = styled(Modal)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => colorToString(theme.background)};
+  border: none;
+  background-color: #18181a;
   position: relative;
   top: calc(50% - 115px);
   bottom: 40px;
-  border: ${({ theme }) => css`1px solid ${colorToString(theme.border)}`};
   overflow: auto;
-  border-radius: 4px;
+  border-radius: 10px;
   outline: none;
   padding: 35px 20px 20px;
   max-width: 600px;
@@ -68,7 +80,7 @@ const modalOverlayStyle: CSSProperties = {
   left: '0',
   right: '0',
   bottom: '0',
-  backgroundColor: 'rgba(255, 255, 255, 0.75)'
+  backgroundColor: 'rgba(0, 0, 0, 0.75)'
 };
 
 interface Props {

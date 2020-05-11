@@ -59,12 +59,10 @@ const ShareControls: React.SFC = () => (
           shareLocalMedia!(m.id);
         }
       };
-
-      const audioPresent = media.filter(m => m.kind=="audio")
       
       return (
         <Container>
-            <JoinButton disabled={audioPresent.length===0} onClick={shareAll}><img src={icon}/><span>Start eVisit</span></JoinButton>
+            <JoinButton disabled={media.length===0} onClick={shareAll}><img src={icon}/><span>Start eVisit</span></JoinButton>
           </Container>
       );
     }}

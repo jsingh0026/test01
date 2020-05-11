@@ -6,6 +6,14 @@ import RoomControls from './RoomControls';
 import Roster from './Roster';
 import SidebarLinks from './SidebarLinks';
 import SidebarUserControls from './SidebarUserControls';
+import ScreenshareControls from './ScreenshareControls';
+import {
+  LocalMediaList,
+  Media,
+  MediaControls,
+  UserControls,
+  Video
+} from '@andyet/simplewebrtc';
 
 const Container = styled.div`
   position: relative;
@@ -13,7 +21,7 @@ const Container = styled.div`
   ${mq.MOBILE} {
     position: absolute;
     z-index: 200;
-    top: 0;
+    top: 48px;
     right: 0;
     width: 185px;
   }
@@ -21,6 +29,60 @@ const Container = styled.div`
     width: 230px;
   }
 `;
+
+const ScreenShareContainer = styled.div`
+  background-color: #18181a;
+`;
+
+
+interface LocalScreenProps {
+  screenshareMedia: Media;
+}
+
+const LocalScreen: React.SFC<LocalScreenProps> = ({ screenshareMedia }) => (
+  <MediaControls
+    media={screenshareMedia}
+    autoRemove={true}
+    render={({ media, stopSharing }) => (
+      <LocalScreenContainer>
+        <LocalScreenOverlay onClick={stopSharing}>
+          <span>Stop sharing</span>
+        </LocalScreenOverlay>
+        {media && <Video media={media!} />}
+      </LocalScreenContainer>
+    )}
+  />
+);
+
+
+const LocalScreenContainer = styled.div({
+  position: 'relative',
+  backgroundColor: '#000000',
+  height: '155px',
+  'video': {
+    border: '2px solid #323132',
+  }
+});
+const LocalScreenOverlay = styled.div({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'black',
+  opacity: 0,
+  transition: 'opacity 200ms linear',
+  color: 'white',
+  zIndex: 100,
+  '&:hover': {
+    cursor: 'pointer',
+    opacity: 0.8
+  }
+});
+
 
 interface Props {
   roomAddress: string;
@@ -31,6 +93,7 @@ interface Props {
   setPassword: (s: string) => void;
   passwordRequired?: boolean;
   roomId: string;
+  toggleSidebar:() => void;
 }
 
 interface State {
@@ -55,7 +118,8 @@ export default class Sidebar extends Component<Props, State> {
       pttMode,
       togglePttMode,
       setPassword,
-      roomId
+      roomId,
+      toggleSidebar
     } = this.props;
 
     return (
@@ -65,7 +129,44 @@ export default class Sidebar extends Component<Props, State> {
           toggleActiveSpeakerView={toggleActiveSpeakerView}
           pttMode={pttMode}
           togglePttMode={togglePttMode}
+          toggleSidebar={toggleSidebar}
         />
+      <ScreenShareContainer>
+        <ScreenshareControls />
+        <LocalMediaList
+          shared={true}
+          render={({ media }) => {
+            const videos = media.filter((v, i, a) => a.findIndex(t => (t.screenCapture === v.screenCapture)) === i)
+            console.log(videos)
+            // const video = videos[0];
+            // return(
+            //   video.screenCapture ? (
+            //     <LocalScreen screenshareMedia={video} />
+            //   ) : (
+            //     <Video key={video.id} media={video} />
+            //   )
+            // )
+            if (videos.length > 0) {
+              return (
+                <>
+                  {videos.map(m =>
+                    m.screenCapture &&
+                    // ? (
+                    <LocalScreen screenshareMedia={m} />
+                    // ) : (
+                    // <div style={{transform: 'scaleX(-1)'}}>
+                    // <Video key={m.id} media={m} />
+                    // </div>
+                    // )
+                  )}
+                </>
+              );
+            }
+
+            return null;
+          }}
+        />
+      </ScreenShareContainer>
         <Roster roomAddress={roomAddress} />
         <SidebarLinks roomId={roomId} />
         <RoomControls
