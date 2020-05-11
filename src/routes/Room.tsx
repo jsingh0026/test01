@@ -21,7 +21,7 @@ import SimpleWebRTCBanner from '../components/SimpleWebRTCBanner';
 import SoundPlayer from '../components/SoundPlayer';
 import HiddenPeers from '../contexts/HiddenPeers';
 import mq from '../styles/media-queries';
-import SidebarToggle from '../components/SideBarToggle';
+import SidebarToggle from '../components/SidebarToggle';
 
 const PasswordEntryContainer = styled.div({
   display: 'flex',
