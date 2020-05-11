@@ -10,6 +10,8 @@ import styled from 'styled-components';
 import DisplayNameInput from './DisplayNameInput';
 import LocalMediaControls from './LocalMediaControls';
 import Tooltip from './Tooltip';
+import { ArrowDown } from './Icons'
+import mq from '../styles/media-queries';
 
 const LocalVideo = styled.div({
   position: 'relative',
@@ -64,6 +66,7 @@ interface Props {
   toggleActiveSpeakerView: () => void;
   pttMode: boolean;
   togglePttMode: (e: React.SyntheticEvent<Element>) => void;
+  toggleSidebar: () => void;
 }
 
 interface LocalScreenProps {
@@ -76,14 +79,19 @@ const LocalScreenContainer = styled.div({
 
 const Container = styled.div`
   background-color: #323132;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px
+  border-radius: 10px;
   input{
     border: none;
     background-color: transparent;
     outline: none;
     caret-color: #4284f3;
     padding: 7px;
+    ${mq.MOBILE}{
+      position: absolute;
+      z-index: 1;
+      background-color: #323132;
+      opacity: 0.50;
+    }
   }
 `;
 
@@ -107,6 +115,21 @@ const LocalScreenOverlay = styled.div({
   }
 });
 
+const Toggle = styled.button`
+background-color: transparent;
+border: none;
+outline: none;
+svg {
+  width: 43px;
+  height: 14px;
+  vertical-align: middle;
+  padding-left: 7px;
+}
+${mq.MOBILE}{
+  display: none;
+}
+`;
+
 const LocalScreen: React.SFC<LocalScreenProps> = ({ screenshareMedia }) => (
   <MediaControls
     media={screenshareMedia}
@@ -126,72 +149,76 @@ const SidebarUserControls: React.SFC<Props> = ({
   activeSpeakerView,
   toggleActiveSpeakerView,
   pttMode,
-  togglePttMode
+  togglePttMode,
+  toggleSidebar
 }) => (
-  <UserControls
-    render={({
-      isMuted,
-      mute,
-      unmute,
-      isPaused,
-      isSpeaking,
-      isSpeakingWhileMuted,
-      pauseVideo,
-      resumeVideo,
-      user,
-      setDisplayName
-    }) => (
-      <Container>
-        <DisplayNameInput
-            displayName={user.displayName}
-            setDisplayName={setDisplayName}
-          />
-        <LocalVideo>
-          <LocalMediaList
-            shared={true}
-            render={({ media }) => {
-              const videos = media.filter((v,i,a)=>a.findIndex(t=>(t.screenCapture === v.screenCapture))===i)
-              // const video = videos[0];
-              // return(
-              //   video.screenCapture ? (
-              //     <LocalScreen screenshareMedia={video} />
-              //   ) : (
-              //     <Video key={video.id} media={video} />
-              //   )
-              // )
-              if (videos.length > 0) {
-                return (
-                  <>
-                    {videos.map(m =>
-                      !m.screenCapture &&
-                      // ? (
-                        // <LocalScreen screenshareMedia={m} />
-                      // ) : (
-                        <div style={{transform: 'scaleX(-1)',border: '2px solid #323132'}}>
-                        <Video key={m.id} media={m} />
-                        </div>
-                      // )
-                    )}
-                  </>
-                );
-              }
+    <UserControls
+      render={({
+        isMuted,
+        mute,
+        unmute,
+        isPaused,
+        isSpeaking,
+        isSpeakingWhileMuted,
+        pauseVideo,
+        resumeVideo,
+        user,
+        setDisplayName
+      }) => (
+          <Container>
+            <DisplayNameInput
+              displayName={user.displayName}
+              setDisplayName={setDisplayName}
+            />
+            <Toggle onClick={toggleSidebar}>
+              <ArrowDown fill='white' />
+            </Toggle>
+            <LocalVideo>
+              <LocalMediaList
+                shared={true}
+                render={({ media }) => {
+                  const videos = media.filter((v, i, a) => a.findIndex(t => (t.screenCapture === v.screenCapture)) === i)
+                  // const video = videos[0];
+                  // return(
+                  //   video.screenCapture ? (
+                  //     <LocalScreen screenshareMedia={video} />
+                  //   ) : (
+                  //     <Video key={video.id} media={video} />
+                  //   )
+                  // )
+                  if (videos.length > 0) {
+                    return (
+                      <>
+                        {videos.map(m =>
+                          !m.screenCapture &&
+                          // ? (
+                          // <LocalScreen screenshareMedia={m} />
+                          // ) : (
+                          <div style={{ transform: 'scaleX(-1)', border: '2px solid #323132' }}>
+                            <Video key={m.id} media={m} />
+                          </div>
+                          // )
+                        )}
+                      </>
+                    );
+                  }
 
-              return <EmptyVideo />;
-            }}
-          />
-        </LocalVideo>
-        <LocalMediaControls
-          isMuted={isMuted}
-          unmute={unmute}
-          mute={mute}
-          isPaused={isPaused}
-          resumeVideo={resumeVideo}
-          pauseVideo={pauseVideo}
-          isSpeaking={isSpeaking}
-          isSpeakingWhileMuted={isSpeakingWhileMuted}
-        />
-        {/* <RoomModeToggles> */}
-          {/*
+                  return <EmptyVideo />;
+                }}
+              />
+            </LocalVideo>
+            <LocalMediaControls
+              isMuted={isMuted}
+              unmute={unmute}
+              mute={mute}
+              isPaused={isPaused}
+              resumeVideo={resumeVideo}
+              pauseVideo={pauseVideo}
+              isSpeaking={isSpeaking}
+              isSpeakingWhileMuted={isSpeakingWhileMuted}
+            />
+            {/* <RoomModeToggles> */}
+            {/*
               Disabled until SDK changes fixed to handle case where no one is speaking.
 
               <div>
@@ -206,7 +233,7 @@ const SidebarUserControls: React.SFC<Props> = ({
                 </ToggleContainer>
               </div>
             */}
-          {/* <div>
+            {/* <div>
             <ToggleContainer>
               <input
                 type="checkbox"
@@ -217,10 +244,10 @@ const SidebarUserControls: React.SFC<Props> = ({
               <Tooltip text="Use spacebar to toggle your microphone on/off" />
             </ToggleContainer>
           </div> */}
-        {/* </RoomModeToggles> */}
-      </Container>
-    )}
-  />
-);
+            {/* </RoomModeToggles> */}
+          </Container>
+        )}
+    />
+  );
 
 export default SidebarUserControls;

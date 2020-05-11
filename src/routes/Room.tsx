@@ -21,6 +21,7 @@ import SimpleWebRTCBanner from '../components/SimpleWebRTCBanner';
 import SoundPlayer from '../components/SoundPlayer';
 import HiddenPeers from '../contexts/HiddenPeers';
 import mq from '../styles/media-queries';
+import SidebarToggle from '../components/SideBarToggle';
 
 const PasswordEntryContainer = styled.div({
   display: 'flex',
@@ -68,6 +69,7 @@ interface State {
   sendRtt: boolean;
   password?: string;
   chatOpen: boolean;
+  sidebarOpen: boolean;
   hiddenPeers: string[];
 }
 
@@ -80,6 +82,7 @@ class Index extends Component<Props, State> {
       pttMode: false,
       sendRtt: false,
       chatOpen: false,
+      sidebarOpen: true,
       hiddenPeers: []
     };
   }
@@ -141,6 +144,7 @@ class Index extends Component<Props, State> {
                               <SimpleWebRTCBanner />
                               <Container>
                                 <SoundPlayer roomAddress={room.address!} />
+                                {this.state.sidebarOpen ? (
                                 <Sidebar
                                   roomAddress={room.address!}
                                   activeSpeakerView={
@@ -154,7 +158,12 @@ class Index extends Component<Props, State> {
                                   setPassword={this.setPassword}
                                   passwordRequired={room.passwordRequired}
                                   roomId={room.id!}
+                                  toggleSidebar={this.toggleSidebar}
                                 />
+                                ) : (
+                                  <SidebarToggle 
+                                  onClick={this.toggleSidebar}/>
+                                )}
                                 <PeerGrid
                                   roomAddress={room.address!}
                                   activeSpeakerView={
@@ -236,6 +245,10 @@ class Index extends Component<Props, State> {
 
   private toggleChat = () => {
     this.setState({ chatOpen: !this.state.chatOpen });
+  };
+
+  private toggleSidebar = () => {
+    this.setState({ sidebarOpen: !this.state.sidebarOpen });
   };
 
   private togglePeer = (peerId: string) => {

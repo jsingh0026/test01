@@ -10,7 +10,6 @@ import KeyboardArrowDownIcon from 'material-icons-svg/components/baseline/Keyboa
 import React from 'react';
 import styled, { css } from 'styled-components';
 import mq from '../styles/media-queries';
-import { colorToString } from '../utils/colorify';
 import emojify from '../utils/emojify';
 import Linkify from './Linkify';
 

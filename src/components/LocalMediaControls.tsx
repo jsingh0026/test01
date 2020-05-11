@@ -2,19 +2,16 @@
 // import MicOffIcon from 'material-icons-svg/components/baseline/MicOff';
 // import VideocamIcon from 'material-icons-svg/components/baseline/Videocam';
 // import VideocamOffIcon from 'material-icons-svg/components/baseline/VideocamOff';
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
 import ScreenshareControls from './ScreenshareControls';
 import { MicroPhone, VideocamIcon, SettingsIcon } from './Icons';
-import {
-  LocalMediaList,
-  Media,
-  MediaControls,
-  UserControls,
-  Video
-} from '@andyet/simplewebrtc';
+import DeviceSelector from './DeviceSelector';
+import { Error, Info } from './Alerts';
+import DeviceDropdown from './DeviceDropdown';
+import InputChecker from './InputChecker';
 
 interface MutePauseButtonProps {
   isFlashing?: boolean;
@@ -41,9 +38,9 @@ const MuteButton = styled.button<MutePauseButtonProps>`
   }
 `;
 
-const SettingsButton = styled.button`
+const SettingsButton = styled.button<DisplayProps>`
   float: right;
-  fill: white;
+  fill: ${props => (!props.isOpen ? '#4284f3':'white')};
 `;
 
 const ButtonsContainer = styled.div`
@@ -101,53 +98,62 @@ interface LocalMediaControlsProps {
   pauseVideo: () => void;
 }
 
-interface LocalScreenProps {
-  screenshareMedia: Media;
+const PermissionButton = styled(TalkyButton)({
+  marginBottom: '5px',
+  width: '100%',
+});
+
+const DropdownContainer = styled.div`
+  margin-bottom: 10px
+  svg{
+    width: 12px !important;
+    margin-top: -19px;
+    margin-right: 3px !important;
+  }
+`;
+
+interface DisplayProps{
+  isOpen: Boolean
 }
 
-const LocalScreenContainer = styled.div({
-  position: 'relative',
-  backgroundColor: '#000000',
-  height: '155px',
-  'video':{
-    border: '2px solid #323132',
+const ControlsContainer = styled.div<DisplayProps>`
+  display: ${props => !props.isOpen ? '':'none'};
+  margin-bottom: 5px;
+  padding: 5px;
+  color: #919192;
+  label{
+    vertical-align: middle;
   }
-});
-const LocalScreenOverlay = styled.div({
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'black',
-  opacity: 0,
-  transition: 'opacity 200ms linear',
-  color: 'white',
-  zIndex: 100,
-  '&:hover': {
-    cursor: 'pointer',
-    opacity: 0.8
+  select{
+    width: 100%;
+    min-width: 10px
+    border: 1px solid #919192;
+    color: white;
+    padding: 5px;
+    margin-top: 5px;
+    background-color: transparent;
+    font-size: 12px;
+    border-radius: 10px;
+    outline: 0;
+    padding-right: 22px;
   }
-});
-
-
-const LocalScreen: React.SFC<LocalScreenProps> = ({ screenshareMedia }) => (
-  <MediaControls
-    media={screenshareMedia}
-    autoRemove={true}
-    render={({ media, stopSharing }) => (
-      <LocalScreenContainer>
-        <LocalScreenOverlay onClick={stopSharing}>
-          <span>Stop sharing</span>
-        </LocalScreenOverlay>
-        {media && <Video media={media!} />}
-      </LocalScreenContainer>
-    )}
-  />
-);
+  svg{
+    width: 14px;
+    fill: #919192;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  .videoCamIcon {
+    svg {
+      width: 20px
+    }
+  }
+  button{
+    span{
+      font-size: 13px;
+    }
+  }
+`;
 
 // LocalMediaControls displays buttons to toggle the mute/pause state of the
 // user's audio/video.
@@ -159,63 +165,160 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
   isSpeakingWhileMuted,
   resumeVideo,
   pauseVideo
-}) => (
-  <Container>
-    <ButtonsContainer>
-    <MuteButton
-      isOff={isMuted}
-      isFlashing={isSpeakingWhileMuted}
-      onClick={() => (isMuted ? unmute() : mute())}
-    >
-      <MicroPhone />
-    </MuteButton>
-    <PauseButton
-      isOff={isPaused}
-      onClick={() => (isPaused ? resumeVideo() : pauseVideo())}
-    >
-      <VideocamIcon />
-    </PauseButton>
-    <SettingsButton>
-      <SettingsIcon />
-    </SettingsButton>
-    </ButtonsContainer>
-    <ScreenShareContainer>
-    <ScreenshareControls />
-          <LocalMediaList
-            shared={true}
-            render={({ media }) => {
-              const videos = media.filter((v,i,a)=>a.findIndex(t=>(t.screenCapture === v.screenCapture))===i)
-              console.log(videos)
-              // const video = videos[0];
-              // return(
-              //   video.screenCapture ? (
-              //     <LocalScreen screenshareMedia={video} />
-              //   ) : (
-              //     <Video key={video.id} media={video} />
-              //   )
-              // )
-              if (videos.length > 0) {
+}) => {
+  const [open, setDisplay] = useState(true);
+  return (
+    <Container>
+      <ButtonsContainer>
+        <MuteButton
+          isOff={isMuted}
+          isFlashing={isSpeakingWhileMuted}
+          onClick={() => (isMuted ? unmute() : mute())}
+        >
+          <MicroPhone />
+        </MuteButton>
+        <PauseButton
+          isOff={isPaused}
+          onClick={() => (isPaused ? resumeVideo() : pauseVideo())}
+        >
+          <VideocamIcon />
+        </PauseButton>
+        <SettingsButton isOpen={open} onClick={() => setDisplay(!open)}>
+          <SettingsIcon />
+        </SettingsButton>
+      </ButtonsContainer>
+      <ControlsContainer isOpen={open}>
+        <div>
+          <DeviceSelector
+            kind="video"
+            render={({
+              hasDevice,
+              permissionDenied,
+              requestingCapture,
+              requestPermissions,
+              devices,
+              currentMedia,
+              selectMedia,
+            }) => {
+              if (true) {
+                // console.log(
+                //   hasDevice,
+                //   permissionDenied,
+                //   requestingCapture,
+                //   requestPermissions,
+                //   devices,
+                //   currentMedia,
+                //   selectMedia,
+                //   'requestPermissions'
+                // );
+              }
+              if (hasDevice === false) {
+                return <Error>No cameras detected.</Error>;
+              }
+
+              if (permissionDenied === true) {
+                return <Error>Camera permissions denied.</Error>;
+              }
+
+              if (requestingCapture === true) {
+                return <Info>Requesting cameras...</Info>;
+              }
+
+              if (requestPermissions) {
                 return (
-                  <>
-                    {videos.map(m =>
-                      m.screenCapture &&
-                      // ? (
-                        <LocalScreen screenshareMedia={m} />
-                      // ) : (
-                        // <div style={{transform: 'scaleX(-1)'}}>
-                        // <Video key={m.id} media={m} />
-                        // </div>
-                      // )
-                    )}
-                  </>
+                  <PermissionButton onClick={requestPermissions}>
+                    <VideocamIcon />
+                    <span>Allow camera access</span>
+                  </PermissionButton>
                 );
               }
 
-              return null;
+              return (
+                <label className="videoCamIcon">
+                  <VideocamIcon />
+                  <span>My Camera</span>
+                  <DropdownContainer>
+                    <DeviceDropdown
+                      currentMedia={currentMedia!}
+                      devices={devices!}
+                      selectMedia={selectMedia!}
+                    />
+                  </DropdownContainer>
+                </label>
+              );
             }}
           />
-        </ScreenShareContainer>
-  </Container>
-);
+        </div>
+        <div>
+          <DeviceSelector
+            kind="audio"
+            render={({
+              hasDevice,
+              permissionDenied,
+              requestingCapture,
+              requestPermissions,
+              devices,
+              currentMedia,
+              selectMedia,
+            }) => {
+              if (hasDevice === false) {
+                return <Error>No microphones detected.</Error>;
+              }
 
+              if (permissionDenied === true) {
+                return <Error>Microphone permissions denied.</Error>;
+              }
+
+              if (requestingCapture === true) {
+                return <Info>Requesting microphones...</Info>;
+              }
+
+              if (requestPermissions) {
+                return (
+                  <PermissionButton onClick={requestPermissions}>
+                    <MicroPhone />
+                    <span>Allow microphone access</span>
+                  </PermissionButton>
+                );
+              }
+
+              return (
+                <>
+                  <label>
+                    <MicroPhone />
+                    <span>My Microphone</span>
+                    <DropdownContainer>
+                      <DeviceDropdown
+                        currentMedia={currentMedia!}
+                        devices={devices!}
+                        selectMedia={selectMedia!}
+                      />
+                    </DropdownContainer>
+                  </label>
+                  <InputChecker
+                    media={currentMedia!}
+                    threshold={7000}
+                    render={({ detected, lost }) => {
+                      if (detected && lost) {
+                        return <Error>Media lost.</Error>;
+                      }
+
+                      if (!detected) {
+                        return (
+                          <Info>No input detected from your microphone.</Info>
+                        );
+                      }
+
+                      return null;
+                    }}
+                  />
+                </>
+              );
+            }}
+          />
+        </div>
+      </ControlsContainer>
+    </Container>
+  );
+}
 export default LocalMediaControls;

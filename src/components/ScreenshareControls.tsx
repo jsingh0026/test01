@@ -36,7 +36,7 @@ ${[mq.SMALL_DESKTOP]}{
   outline: none;
   border-bottom: ${props => (props.sharing ? '':'1px solid #323132')};
   background-color: ${props => (props.sharing ? '#000000':'transparent')};
-  padding: ${props => (props.sharing? '5px 10px 5px' : '0px 10px 10px')};
+  padding: ${props => (props.sharing? '5px 10px 5px' : '5px 10px 10px')};
   color: ${props => (props.sharing ? '#4284f3' : 'white')};
   svg{
     fill: ${props => (props.sharing ? '#4284f3' : 'white')};

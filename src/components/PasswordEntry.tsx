@@ -7,42 +7,40 @@ const Container = styled.div`
   text-align: center;
   h2 {
     font-size: 36px;
-    font-weight: 300;
-    color: ${({ theme }) => colorToString(theme.foreground)};
+    color: white;
   }
   input {
-    color: black;
+    background-color: #323132;
+    color: white;
     display: block;
     padding: 7px;
     width: 100%;
     max-width: 450px;
     margin: 0 auto;
-    border-radius: 3px;
-    border: ${({ theme }) => css`1px solid ${colorToString(theme.border)}`};
+    border-radius: 10px;
+    border: none;
     margin-bottom: 10px;
+    outline: none;
+    caret-color: #4284f3;
   }
   button {
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    outline: 'none';
   }
 `;
 
-const SubmitButton = styled(TalkyButton)`
-  color: ${({ theme }) => colorToString(theme.buttonActionText)};
-  background-color: ${({ theme }) =>
-    colorToString(theme.buttonActionBackground)};
-  :hover {
-    background-color: ${({ theme }) =>
-      colorToString(theme.buttonActionBackgroundHover)};
-  }
-  :active {
-    background-color: ${({ theme }) =>
-      colorToString(theme.buttonActionBackgroundActive)};
-  }
+const SubmitButton = styled.button`
+  color: white;
+  background-color: #4284f3;
+  border: none    
 `;
 
-const CancelButton = styled(TalkyButton)({
-  marginRight: '10px'
+const CancelButton = styled.button({
+  marginRight: '10px',
+  backgroundColor: '#323132',
+  color: 'white',
+  border: 'none',
 });
 
 interface Props {
@@ -67,21 +65,21 @@ export default class PasswordEntry extends Component<Props, State> {
       <Container>
         <h2>
           {this.props.setting
-            ? 'Set a key for this room'
+            ? 'Set password for this eVisit'
             : 'A password is required to enter this room'}
         </h2>
-        {this.props.passwordIsIncorrect && (
-          <p>The password you entered is incorrect. Please try again.</p>
-        )}
         <input
           type="password"
-          placeholder="Your shared key"
+          placeholder="eVisit Password"
           value={this.state.password}
           onChange={this.onChange}
         />
+        {this.props.passwordIsIncorrect && (
+          <div style={{color: 'red', marginBottom: '10px'}}>The password you entered is incorrect. Please try again.</div>
+        )}
         <CancelButton onClick={this.props.onSubmit}>Cancel</CancelButton>
         <SubmitButton onClick={this.onClick}>
-          {this.props.setting ? 'Lock' : 'Join'}
+          {this.props.setting ? 'Confirm' : 'Join'}
         </SubmitButton>
       </Container>
     );

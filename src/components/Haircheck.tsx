@@ -58,8 +58,8 @@ ${mq.SMALL_DESKTOP} {
 const Controls = styled.div`
   grid-area: controls;
   padding: 30px;
-  padding-top: 5px;
-  max-height: 330px;
+  padding-top: 5px;    
+  height: fit-content;
   background-color: #18181a;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
