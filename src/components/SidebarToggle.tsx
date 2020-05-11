@@ -55,7 +55,7 @@ function getLocalDisplayName() {
 }
 
 const SidebarToggle: React.SFC<Props> = ({ onClick }) => {
-  const [displayName, setDisplayName] = useState('Anonymous');
+  const [displayName, setDisplayName] = useState('');
   useEffect(()=>{
     const userName = getLocalDisplayName();
     setDisplayName(userName);
@@ -64,7 +64,7 @@ const SidebarToggle: React.SFC<Props> = ({ onClick }) => {
     <Container
       onClick={onClick}
     >
-      <span>{displayName}</span>
+      <span>{displayName ? displayName:'Anonymous'}</span>
       <KeyboardArrowUpIcon />
       {/* <MoreHorizIcon /> */}
     </Container>

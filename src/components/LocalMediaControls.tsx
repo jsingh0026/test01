@@ -7,7 +7,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
 import ScreenshareControls from './ScreenshareControls';
-import { MicroPhone, VideocamIcon, SettingsIcon } from './Icons';
+import { MicroPhone, VideocamIcon, SettingsIcon, ArrowUp } from './Icons';
 import DeviceSelector from './DeviceSelector';
 import { Error, Info } from './Alerts';
 import DeviceDropdown from './DeviceDropdown';
@@ -41,6 +41,16 @@ const MuteButton = styled.button<MutePauseButtonProps>`
 const SettingsButton = styled.button<DisplayProps>`
   float: right;
   fill: ${props => (!props.isOpen ? '#4284f3':'white')};
+  ${mq.MOBILE}{
+    display: none;
+  }
+`;
+
+const ToggleButton = styled.button`
+  float: right;
+  ${mq.SMALL_DESKTOP}{
+    display: none;
+  }
 `;
 
 const ButtonsContainer = styled.div`
@@ -186,6 +196,9 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
         <SettingsButton isOpen={open} onClick={() => setDisplay(!open)}>
           <SettingsIcon />
         </SettingsButton>
+        <ToggleButton>
+          <ArrowUp fill='white'/>
+        </ToggleButton>
       </ButtonsContainer>
       <ControlsContainer isOpen={open}>
         <div>
