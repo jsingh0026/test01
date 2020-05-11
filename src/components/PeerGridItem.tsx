@@ -148,7 +148,7 @@ const PeerGridItemOverlay: React.SFC<PeerGridItemOverlayProps> = ({
       <div>
         {/* <DisplayName onClick={() => togglePeer(peer.id)}> */}
         <DisplayName>
-          {`${peer.displayName}`}
+          {`${(peer.displayName)?peer.displayName:'Anonymous'}`}
         </DisplayName>
       </div>
       <RttContainer>{peer.rtt && <span>{peer.rtt}</span>}</RttContainer>
