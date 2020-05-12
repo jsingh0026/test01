@@ -5,7 +5,7 @@ import {
   UserControls,
   Video
 } from '@andyet/simplewebrtc';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import DisplayNameInput from './DisplayNameInput';
 import LocalMediaControls from './LocalMediaControls';
@@ -50,9 +50,14 @@ const RoomModeToggles = styled.div({
 
 const EmptyVideo = styled.div({
   width: '100%',
-  height: '133px',
+  height: '169px',
   backgroundColor: '#262a2c',
-  marginBottom: '10px'
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  'p':{
+    margin: '0px'
+  }
 });
 
 const ToggleContainer = styled.label({
@@ -147,13 +152,23 @@ const LocalScreen: React.SFC<LocalScreenProps> = ({ screenshareMedia }) => (
   />
 );
 
+const toggleUserView = () => {
+  const userViewKey = 'toggleUserView';
+  localStorage.setItem(userViewKey, 'false');
+  const [value, setValue] = useState(0);
+  return () => setValue(value => ++value);
+}
+
 const SidebarUserControls: React.SFC<Props> = ({
   activeSpeakerView,
   toggleActiveSpeakerView,
   pttMode,
   togglePttMode,
   toggleSidebar
-}) => (
+}) => {
+  const userViewKey = 'toggleUserView';
+  var userView = localStorage.getItem(userViewKey);
+  return( userView == 'true' ? 
     <UserControls
       render={({
         isMuted,
@@ -179,7 +194,11 @@ const SidebarUserControls: React.SFC<Props> = ({
               <LocalMediaList
                 shared={true}
                 render={({ media }) => {
-                  const videos = media.filter((v, i, a) => a.findIndex(t => (t.screenCapture === v.screenCapture)) === i)
+                  console.log(media);
+                  // const videos = media.filter((v, i, a) => a.findIndex(t => (t.screenCapture === v.screenCapture)) === i)
+                  const videos = media.filter(m => m.kind === 'video');
+                  
+                  const video = videos[0];console.log(video);
                   // const video = videos[0];
                   // return(
                   //   video.screenCapture ? (
@@ -188,24 +207,27 @@ const SidebarUserControls: React.SFC<Props> = ({
                   //     <Video key={video.id} media={video} />
                   //   )
                   // )
-                  if (videos.length > 0) {
+                  if (video && !video.localDisabled) {
                     return (
                       <>
-                        {videos.map(m =>
+                      {!video.screenCapture && <div style={{ border: '2px solid #323132' }}>
+                            <Video key={video.id} media={video} />
+                          </div>}
+                        {/* {videos.map(m => {
                           !m.screenCapture &&
                           // ? (
                           // <LocalScreen screenshareMedia={m} />
                           // ) : (
                           <div style={{ transform: 'scaleX(-1)', border: '2px solid #323132' }}>
                             <Video key={m.id} media={m} />
-                          </div>
+                          </div>}
                           // )
-                        )}
+                        )} */}
                       </>
                     );
                   }
 
-                  return <EmptyVideo />;
+                  return <EmptyVideo><p>No Camera Selected!</p></EmptyVideo>;
                 }}
               />
             </LocalVideo>
@@ -218,6 +240,7 @@ const SidebarUserControls: React.SFC<Props> = ({
               pauseVideo={pauseVideo}
               isSpeaking={isSpeaking}
               isSpeakingWhileMuted={isSpeakingWhileMuted}
+              toggleUserView={toggleUserView}
             />
             {/* <RoomModeToggles> */}
             {/*
@@ -250,6 +273,7 @@ const SidebarUserControls: React.SFC<Props> = ({
           </Container>
         )}
     />
-  );
+  :<></>)
+}
 
 export default SidebarUserControls;

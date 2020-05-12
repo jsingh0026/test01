@@ -27,6 +27,9 @@ const Container = styled.div`
   ${mq.SMALL_DESKTOP} {
     width: 250px;
   }
+  ${mq.MOBILE} {
+    background-color: transparent;
+  }
 `;
 
 // const staydownContainerClass = css`
