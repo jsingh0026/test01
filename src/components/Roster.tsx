@@ -30,6 +30,7 @@ const Container = styled.ul({
   'li:last-child':{
     borderBottomLeftRadius:'10px',
     borderBottomRightRadius:'10px',
+    border: 'none'
   }
 });
 

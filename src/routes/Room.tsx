@@ -106,7 +106,7 @@ class Index extends Component<Props, State> {
 
                   <Disconnected configUrl="">
                     <LoadingState>
-                      <h1 style={{padding:'5%', textAlign:'center'}}>Lost connection. Reattempting to join...</h1>
+                      <h1 style={{padding:'5%', textAlign:'center'}}>Lost connection. Attempting to rejoin…</h1>
                     </LoadingState>
                   </Disconnected>
 
