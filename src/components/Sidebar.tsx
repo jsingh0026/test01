@@ -25,6 +25,9 @@ const Container = styled.div`
     right: 0;
     width: 185px;
     padding: 0px;
+    ul{
+      display: none;
+    }
   }
   ${mq.SMALL_DESKTOP} {
     width: 230px;

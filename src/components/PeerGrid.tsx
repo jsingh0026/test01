@@ -2,34 +2,75 @@ import {
   GridLayout,
   Peer,
   PeerList,
-  RemoteMediaList
+  RemoteMediaList,
+  UserControls
 } from '@andyet/simplewebrtc';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import HiddenPeers from '../contexts/HiddenPeers';
 import Placeholders from '../contexts/Placeholders';
 import isMobile from '../utils/isMobile';
 import PeerGridItem from './PeerGridItem';
 import mq from '../styles/media-queries'
+import Roster from './Roster';
+import LocalMediaControls from './LocalMediaControls';
 
 const StyledGridLayout = styled(GridLayout)({
-  flex: 1,
-  [mq.MOBILE]:{
+  [mq.SMALL_DESKTOP]: {
+    flex: 1,
+    maxHeight: '100vh',
+  },
+  [mq.MOBILE]: {
     display: 'flex !important',
   },
   backgroundColor: 'transparent',
-  maxHeight: '100vh',
+  'ul': {
+    [mq.SMALL_DESKTOP]: {
+      display: 'none'
+    }
+  },
   '& video': {
-    width: '100%'
+    width: '100%',
+    [mq.MOBILE]: {
+      height: 'min-content'
+    }
   },
   '& > div': {
-    position: 'relative'
+    position: 'relative',
+    [mq.MOBILE]: {
+      height: 'min-content'
+    }
   }
 }) as any; // TODO: Fix this!
+
+const UserConainter = styled.div`
+  display: flex;
+  border-bottom: 1px solid #6a6a6b;
+  .username{
+    width: 50%;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+  }
+  div:nth-child(2) {
+    width: 45%;
+    div:first-child{
+      background-color: transparent;
+      padding: 5px 0px;
+    }
+  }
+`;
 
 interface Props {
   roomAddress: string;
   activeSpeakerView: boolean;
+}
+
+const toggleUserView = () =>{
+  const userViewKey = 'toggleUserView';
+  localStorage.setItem(userViewKey, 'true');
+  const [value, setValue] = useState(0);
+  return () => setValue(value => ++value);
 }
 
 // const speakingPeers = peers.filter(p => p.speaking);
@@ -49,6 +90,8 @@ interface Props {
 // peers and then renders a PeerGridItem for each peer in the room.
 const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
   const { hiddenPeers } = useContext(HiddenPeers);
+  const userViewKey = 'toggleUserView';
+  var userView = localStorage.getItem(userViewKey);
   return (
     <PeerList
       speaking={activeSpeakerView ? activeSpeakerView : undefined}
@@ -56,40 +99,74 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
       render={({ peers }) => {
         const visiblePeers = peers.filter(p => !hiddenPeers.includes(p.id));
         return visiblePeers.length > 0 || activeSpeakerView ? (
-          <StyledGridLayout
-            items={visiblePeers}
-            renderCell={(peer: Peer) => (
-              <RemoteMediaList
-                peer={peer.address}
-                render={({ media }) => (
-                  <PeerGridItem media={media} peer={peer} />
+          <>
+            <StyledGridLayout
+              items={visiblePeers}
+              renderCell={(peer: Peer) => (
+                <RemoteMediaList
+                  peer={peer.address}
+                  render={({ media }) => (
+                    <PeerGridItem media={media} peer={peer} />
+                  )}
+                />
+              )}
+            />
+            <UserControls
+              render={({
+                isMuted,
+                mute,
+                unmute,
+                isPaused,
+                isSpeaking,
+                isSpeakingWhileMuted,
+                pauseVideo,
+                resumeVideo,
+                user,
+                setDisplayName
+              }) => (
+                userView == 'false'?
+                  <UserConainter>
+                    <div className='username'>{user.displayName}</div>
+                    <LocalMediaControls
+                      isMuted={isMuted}
+                      unmute={unmute}
+                      mute={mute}
+                      isPaused={isPaused}
+                      resumeVideo={resumeVideo}
+                      pauseVideo={pauseVideo}
+                      isSpeaking={isSpeaking}
+                      isSpeakingWhileMuted={isSpeakingWhileMuted}
+                      toggleUserView={toggleUserView}
+                    />
+                  </UserConainter>
+                  :''
                 )}
-              />
-            )}
-          />
+            />
+            <Roster roomAddress={roomAddress} />
+          </>
         ) : (
-          <Placeholders.Consumer>
-            {({ gridPlaceholder }) => (
-              <div
-                style={{
-                  flex: 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative'
-                }}
-                ref={node => {
-                  if (node && gridPlaceholder && node.childElementCount === 0) {
-                    const el = gridPlaceholder();
-                    if (el) {
-                      node.appendChild(el);
+            <Placeholders.Consumer>
+              {({ gridPlaceholder }) => (
+                <div
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative'
+                  }}
+                  ref={node => {
+                    if (node && gridPlaceholder && node.childElementCount === 0) {
+                      const el = gridPlaceholder();
+                      if (el) {
+                        node.appendChild(el);
+                      }
                     }
-                  }
-                }}
-              />
-            )}
-          </Placeholders.Consumer>
-        );
+                  }}
+                />
+              )}
+            </Placeholders.Consumer>
+          );
       }}
     />
   );

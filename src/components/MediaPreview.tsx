@@ -17,7 +17,7 @@ const Container = styled.div({
     border: '2px solid #323132',
     width: '100%',
     height: '100%',
-    objectFit: 'contain',
+    objectFit: 'cover',
     backgroundColor: '#262a2c'
   }
 });

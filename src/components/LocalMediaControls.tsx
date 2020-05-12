@@ -7,11 +7,12 @@ import styled, { css, keyframes } from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import mq from '../styles/media-queries';
 import ScreenshareControls from './ScreenshareControls';
-import { MicroPhone, VideocamIcon, SettingsIcon, ArrowUp } from './Icons';
+import { MicroPhone, VideocamIcon, SettingsIcon, ArrowUp, ArrowDown } from './Icons';
 import DeviceSelector from './DeviceSelector';
 import { Error, Info } from './Alerts';
 import DeviceDropdown from './DeviceDropdown';
 import InputChecker from './InputChecker';
+import { max, min } from 'lodash-es';
 
 interface MutePauseButtonProps {
   isFlashing?: boolean;
@@ -106,6 +107,7 @@ interface LocalMediaControlsProps {
   isSpeakingWhileMuted: boolean;
   resumeVideo: () => void;
   pauseVideo: () => void;
+  toggleUserView: () => void;
 }
 
 const PermissionButton = styled(TalkyButton)({
@@ -174,9 +176,12 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
   isPaused,
   isSpeakingWhileMuted,
   resumeVideo,
-  pauseVideo
+  pauseVideo,
+  toggleUserView
 }) => {
   const [open, setDisplay] = useState(true);
+  const userViewKey = 'toggleUserView';
+  var userView = localStorage.getItem(userViewKey);
   return (
     <Container>
       <ButtonsContainer>
@@ -196,8 +201,8 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
         <SettingsButton isOpen={open} onClick={() => setDisplay(!open)}>
           <SettingsIcon />
         </SettingsButton>
-        <ToggleButton>
-          <ArrowUp fill='white'/>
+        <ToggleButton onClick={toggleUserView}>
+          {userView == 'true' ? <ArrowUp fill='white'/> : <ArrowDown fill='white'/>}
         </ToggleButton>
       </ButtonsContainer>
       <ControlsContainer isOpen={open}>

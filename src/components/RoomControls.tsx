@@ -36,7 +36,8 @@ const Container = styled.div({
     outline: 'none',
     padding: '4px',
     [mq.MOBILE]: {
-      width: '50%'
+      width: '50%',
+      color: '#cbcdce'
     }
   },
   'a':{
@@ -45,7 +46,11 @@ const Container = styled.div({
   'svg':{
     height: '16px',
     marginRight: '6px',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    fill: 'white',
+    [mq.MOBILE]: {
+      fill: '#cbcdce'
+    }
   },
   'span': {
     verticalAlign: 'middle'
@@ -117,7 +122,7 @@ const RoomControls: React.SFC<Props> = ({
           </>
         ) : (
           <>
-            <Key fill="white" />
+            <Key fill="" />
             <span>Lock Room</span>
           </>
         )}

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import HiddenPeers from '../contexts/HiddenPeers';
 import { TalkyButton } from '../styles/button';
 import AudioOnlyPeer from './AudioOnlyPeer';
+import mq from '../styles/media-queries'
 
 const MuteButton = styled(TalkyButton)({
   display: 'inline-block',
@@ -35,6 +36,9 @@ const DisplayName = styled.span({
   '&:hover': {
     cursor: 'pointer',
     opacity: 0.7
+  },
+  [mq.MOBILE]:{
+    display: 'none'
   }
 });
 

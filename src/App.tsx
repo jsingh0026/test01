@@ -77,6 +77,8 @@ class App extends Component<Props> {
       emptyRosterPlaceholder,
       homepagePlaceholder
     } = this.props;
+    const userViewKey = 'toggleUserView';
+    localStorage.setItem(userViewKey, 'true');
     return (
       <ThemeProvider>
         <Placeholders.Provider

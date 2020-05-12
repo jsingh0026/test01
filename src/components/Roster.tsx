@@ -5,15 +5,27 @@ import styled from 'styled-components';
 import HiddenPeers from '../contexts/HiddenPeers';
 import Placeholders from '../contexts/Placeholders';
 import { TalkyButton } from '../styles/button';
+import mq from '../styles/media-queries'
 
 const MuteButton = styled.button`
   float: left;
 `;
 
 const Container = styled.ul({
+  // [mq.MOBILE]:{
+  //   position: 'absolute',
+  //   bottom: 0,
+  //   width: '100%',
+  //   zIndex: 200,
+  // },
   listStyle: 'none',
   '& li': {
-    borderBottom: '1px solid #323132'
+    borderBottom: '1px solid #323132',
+    [mq.MOBILE]:{
+      display: 'flex',
+      border: 'none',
+      backgroundColor: 'transparent',
+    },
   },
   'li:last-child':{
     borderBottomLeftRadius:'10px',
@@ -21,7 +33,19 @@ const Container = styled.ul({
   }
 });
 
+const NameContainer = styled.div`
+  padding: 0px 5px;
+  ${mq.MOBILE}{
+    width: 50%;
+    padding-left: 15px;
+  }
+`;
+
 const ButtonsContainer = styled.div`
+  ${mq.MOBILE}{
+    width: 45%;
+    padding: 5px 0px;
+  }
   text-align: center;
   padding: 5px 12px;
   button{
@@ -48,7 +72,7 @@ const PeerListItem: React.SFC<PeerListItemProps> = ({ peer }) => {
   const isHidden = hiddenPeers.includes(peer.id);
   return (
     <ItemContainer>
-      <div style={{padding:'0px 5px'}}>{peer.displayName || 'Anonymous'}</div>
+      <NameContainer>{peer.displayName || 'Anonymous'}</NameContainer>
       <ButtonsContainer>
         <PeerControls
           peer={peer}
