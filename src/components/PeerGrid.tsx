@@ -61,6 +61,12 @@ const UserConainter = styled.div`
   }
 `;
 
+const RosterContainer = styled.span`
+  ${mq.SMALL_DESKTOP}{
+    display: none
+  }
+`;
+
 interface Props {
   roomAddress: string;
   activeSpeakerView: boolean;
@@ -126,7 +132,7 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
               }) => (
                 userView == 'false'?
                   <UserConainter>
-                    <div className='username'>{user.displayName}</div>
+                    <div className='username'>{user.displayName ? user.displayName : 'Anonymous'}</div>
                     <LocalMediaControls
                       isMuted={isMuted}
                       unmute={unmute}
@@ -142,7 +148,9 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
                   :''
                 )}
             />
+            <RosterContainer>
             <Roster roomAddress={roomAddress} />
+            </RosterContainer>
           </>
         ) : (
             <Placeholders.Consumer>
