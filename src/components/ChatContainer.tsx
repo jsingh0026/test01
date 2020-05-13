@@ -191,9 +191,9 @@ const ChatContainer: React.SFC<Props> = ({
         )}
       />
     </StyledStayDownContainer>
-    <InputContainer>
-				<ChatInput
-			  autoFocus
+      <InputContainer>
+        <ChatInput
+        autoFocus
         room={roomAddress}
         rtt={sendRtt}
         placeholder="Secure Message"
