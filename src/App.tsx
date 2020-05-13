@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import ThemeProvider from './components/ThemeProvider';
 import Placeholders from './contexts/Placeholders';
 import Room from './routes/Room';
 import { PlaceholderGenerator } from './types';
 import { colorToString, darken } from './utils/colorify';
+import { UserContext }  from './contexts/userMobileView'
 
 const Container = styled.div`
   height: 100vh;
@@ -67,6 +68,15 @@ interface Props {
 }
 
 class App extends Component<Props> {
+  setView = view => {
+    console.log("in");
+    this.setState({ view: !view });
+  };
+
+  state = {
+    view: false,
+    setView: this.setView
+  };
   public render() {
     const {
       roomName,
@@ -81,6 +91,7 @@ class App extends Component<Props> {
     localStorage.setItem(userViewKey, 'true');
     return (
       <ThemeProvider>
+        <UserContext.Provider value={this.state}>
         <Placeholders.Provider
           value={{
             gridPlaceholder,
@@ -117,6 +128,7 @@ class App extends Component<Props> {
             </Container>
           </div>
         </Placeholders.Provider>
+        </UserContext.Provider>
       </ThemeProvider>
     );
   }

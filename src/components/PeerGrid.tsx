@@ -14,6 +14,7 @@ import PeerGridItem from './PeerGridItem';
 import mq from '../styles/media-queries'
 import Roster from './Roster';
 import LocalMediaControls from './LocalMediaControls';
+import { UserContext } from '../contexts/userMobileView';
 
 const StyledGridLayout = styled(GridLayout)({
   [mq.SMALL_DESKTOP]: {
@@ -99,6 +100,8 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
   const { hiddenPeers } = useContext(HiddenPeers);
   const userViewKey = 'toggleUserView';
   var userView = localStorage.getItem(userViewKey);
+  const { view, setView } = useContext(UserContext);
+  console.log(view);
   return (
     <PeerList
       speaking={activeSpeakerView ? activeSpeakerView : undefined}
@@ -132,7 +135,7 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
                 user,
                 setDisplayName
               }) => (
-                userView == 'false'?
+                view == true ?
                   <UserConainter>
                     <div className='username'>{user.displayName ? user.displayName : 'Anonymous'}</div>
                     <LocalMediaControls
@@ -144,7 +147,7 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
                       pauseVideo={pauseVideo}
                       isSpeaking={isSpeaking}
                       isSpeakingWhileMuted={isSpeakingWhileMuted}
-                      toggleUserView={toggleUserView}
+                      toggleUserView={()=> setView(view)}
                     />
                   </UserConainter>
                   :''
