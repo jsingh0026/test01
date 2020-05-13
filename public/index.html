@@ -234,12 +234,14 @@
       <div class="container">
         <h2 style="font-weight:400;">Create a name for your eVisit room</h2>
         <form class="create-room-form" method="GET" action="/">
-          <span class="create-room-form-input-wrapper"
-            ><span class="domain">http://endlink-webrtc.geekydev.com/</span
+          <span class="create-room-form-input-wrapper" style="text-align: left;"
+            ><span class="domain">endlink.com/</span
             ><input
+              id="myInput"
               type="text"
               name="room"
               placeholder="room name"
+              style="color: #4284f3;"
               class="create-room-form-input"/></span
           ><button
             class="button button-default button-undefined"
@@ -249,7 +251,7 @@
           </button>
         </form>
       </div>
-    </template>
+    </template><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript">
       const params = new URLSearchParams(window.location.search);
       SimpleWebRTC.run({
@@ -261,6 +263,18 @@
         emptyRosterPlaceholder: () => SimpleWebRTC.loadTemplate("empty-roster"),
         homepagePlaceholder: () => SimpleWebRTC.loadTemplate("homepage"),
       });
+      $(function(){
+      $('body').on('input', "#myInput", function() {
+      if($(this).val().length) {
+        var hasVal = true;
+        $("button").css("background-color", "#4284f3");
+      } else {
+        var hasVal = false;
+        $("button").css("background-color", "#323132");
+      }
+      console.log('Input has value (true / false): ', hasVal + " (" + $(this).val() + ")");
+    });
+  });
     </script>
   </body>
 </html>
