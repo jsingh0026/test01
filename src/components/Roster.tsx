@@ -35,7 +35,7 @@ const Container = styled.ul({
 });
 
 const NameContainer = styled.div`
-  padding: 0px 5px;
+padding: 8px 6px 0px;
   ${mq.MOBILE}{
     width: 50%;
     padding-left: 15px;
@@ -94,8 +94,8 @@ const PeerListItem: React.SFC<PeerListItemProps> = ({ peer }) => {
               <EyeIcon fill="#4284f3" />
             )}
         </button>
-        <button style={{float:'right'}}>
-          <CloseIcon fill="white"/>
+        <button style={{float:'right', width: '19px'}} disabled>
+          <CloseIcon fill="transparent"/>
         </button>
       </ButtonsContainer>
     </ItemContainer>

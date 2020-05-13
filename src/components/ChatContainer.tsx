@@ -70,7 +70,10 @@ const StyledStayDownContainer = styled(StayDownContainer)({
   flex: 1,
   overflow: 'scroll',
   height: '0px',
-  marginBottom: '16px'
+  marginBottom: '16px',
+  'a':{
+    color: '#4284f3'
+  }
 });
 
 const InputContainer = styled.div`
