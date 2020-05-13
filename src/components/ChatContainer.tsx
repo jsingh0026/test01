@@ -28,7 +28,8 @@ const Container = styled.div`
     width: 250px;
   }
   ${mq.MOBILE} {
-    background-color: transparent;
+    margin: 10px;
+    border-radius: 10px;
   }
 `;
 
@@ -68,16 +69,23 @@ const Header = styled.button`
 
 const StyledStayDownContainer = styled(StayDownContainer)({
   flex: 1,
-  overflow: 'scroll',
+  overflowY: 'scroll',
   height: '0px',
   marginBottom: '16px',
-  'a':{
+  'a': {
     color: '#4284f3'
   }
 });
 
 const InputContainer = styled.div`
 background-color: #232325
+${mq.MOBILE}{
+  padding: 2px;
+  background-color: transparent
+  textarea{
+  border-radius: 10px;
+  }
+}
   textarea {
     width: 100%;
     height: 100px;
@@ -142,18 +150,18 @@ const ChatMessageGroup: React.SFC<ChatMessageGroupProps> = ({
   chats,
   peer
 }) => (
-  <Message key={chats[0].id}>
-    <MessageAuthor>
-      {chats[0].displayName ? chats[0].displayName : 'Anonymous'}
-    </MessageAuthor>
-    <MessageTime>{chats[0].time.toLocaleTimeString('en-US').replace(/\:\d+\s/, " ")}</MessageTime>
-    {chats.map(message => (
-      <MessageText key={message.id}>
-        <Linkify text={emojify(message.body)} />
-      </MessageText>
-    ))}
-  </Message>
-);
+    <Message key={chats[0].id}>
+      <MessageAuthor>
+        {chats[0].displayName ? chats[0].displayName : 'Anonymous'}
+      </MessageAuthor>
+      <MessageTime>{chats[0].time.toLocaleTimeString('en-US').replace(/\:\d+\s/, " ")}</MessageTime>
+      {chats.map(message => (
+        <MessageText key={message.id}>
+          <Linkify text={emojify(message.body)} />
+        </MessageText>
+      ))}
+    </Message>
+  );
 
 const ComposersContainer = styled.div({
   minHeight: '30px',
@@ -178,34 +186,34 @@ const ChatContainer: React.SFC<Props> = ({
   toggleRtt,
   toggleChat
 }) => (
-  <Container>
-    <Header onClick={toggleChat}>
-      <span>Chat</span>
-      <KeyboardArrowDownIcon />
-    </Header>
-    <StyledStayDownContainer>
-      <ChatList
-        room={roomAddress}
-        renderGroup={({ chats, peer }) => (
-          <ChatMessageGroup key={chats[0].id} chats={chats} peer={peer} />
-        )}
-      />
-    </StyledStayDownContainer>
-    <InputContainer>
-      <ChatInput
-        room={roomAddress}
-        rtt={sendRtt}
-        placeholder="Secure Message"
-      />
-      {/* <label style={{ display: 'block' }}>
+    <Container>
+      <Header onClick={toggleChat}>
+        <span>Chat</span>
+        <KeyboardArrowDownIcon />
+      </Header>
+      <StyledStayDownContainer>
+        <ChatList
+          room={roomAddress}
+          renderGroup={({ chats, peer }) => (
+            <ChatMessageGroup key={chats[0].id} chats={chats} peer={peer} />
+          )}
+        />
+      </StyledStayDownContainer>
+      <InputContainer>
+        <ChatInput
+          room={roomAddress}
+          rtt={sendRtt}
+          placeholder="Secure Message"
+        />
+        {/* <label style={{ display: 'block' }}>
         <input type="checkbox" checked={sendRtt} onChange={toggleRtt} />
         Send as I type
       </label> */}
-      <ComposersContainer>
-        <ChatComposers room={roomAddress} />
-      </ComposersContainer>
-    </InputContainer>
-  </Container>
-);
+        <ComposersContainer>
+          <ChatComposers room={roomAddress} />
+        </ComposersContainer>
+      </InputContainer>
+    </Container>
+  );
 
 export default ChatContainer;
