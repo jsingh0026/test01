@@ -56,6 +56,15 @@
       svg:not(:root) {
         overflow: hidden;
       }
+      button {
+        margin-right: 10px;
+        background-color: #323132;
+        color: white;
+        border: none;
+        padding: 3px 18px;
+        border-radius: 10px;
+        outline: 'none';
+      }
 
       button,
       input {
@@ -136,9 +145,19 @@
       }
 
       .create-room-form-input-wrapper {
-        border: 1px #00b0e9 solid;
-        padding: 10px;
-        border-radius: 3px;
+        background-color: #323132;
+        color: white;
+        display: block;
+        padding: 7px;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        caret-color: #4284f3;
+        margin-top: 20px;
+        margin-bottom: 20px;
       }
 
       .create-room-form-input-wrapper:focus {
@@ -152,7 +171,6 @@
       .create-room-form-input {
         border: none;
         background: none;
-        color: #00b0e9;
       }
 
       .create-room-form-input:focus {
@@ -214,19 +232,20 @@
     </template>
     <template id="homepage">
       <div class="container">
+        <h2 style="font-weight:400;">Create a name for your eVisit room</h2>
         <form class="create-room-form" method="GET" action="/">
           <span class="create-room-form-input-wrapper"
             ><span class="domain">http://endlink-webrtc.geekydev.com/</span
             ><input
               type="text"
               name="room"
-              placeholder="choose a room name"
+              placeholder="room name"
               class="create-room-form-input"/></span
           ><button
-            class="create-room-form-button button button-default button-undefined"
+            class="button button-default button-undefined"
             type="submit"
           >
-            Start a chat
+          Create eVisit Room
           </button>
         </form>
       </div>
