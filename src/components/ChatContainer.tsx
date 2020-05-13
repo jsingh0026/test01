@@ -43,7 +43,7 @@ const Container = styled.div`
 const Header = styled.button`
   border: none;
   display: block;
-  padding: 10px;
+  padding: 8px;
   font-size: 18px;
   outline: none;
   background-color: #323132;
@@ -186,26 +186,27 @@ const ChatContainer: React.SFC<Props> = ({
   toggleRtt,
   toggleChat
 }) => (
-    <Container>
-      <Header onClick={toggleChat}>
-        <span>Chat</span>
-        <KeyboardArrowDownIcon />
-      </Header>
-      <StyledStayDownContainer>
-        <ChatList
-          room={roomAddress}
-          renderGroup={({ chats, peer }) => (
-            <ChatMessageGroup key={chats[0].id} chats={chats} peer={peer} />
-          )}
-        />
-      </StyledStayDownContainer>
+  <Container>
+    <Header onClick={toggleChat}>
+      <span>Chat</span>
+      <KeyboardArrowDownIcon />
+    </Header>
+    <StyledStayDownContainer>
+      <ChatList
+        room={roomAddress}
+        renderGroup={({ chats, peer }) => (
+          <ChatMessageGroup key={chats[0].id} chats={chats} peer={peer} />
+        )}
+      />
+    </StyledStayDownContainer>
       <InputContainer>
         <ChatInput
-          room={roomAddress}
-          rtt={sendRtt}
-          placeholder="Secure Message"
-        />
-        {/* <label style={{ display: 'block' }}>
+        autoFocus
+        room={roomAddress}
+        rtt={sendRtt}
+        placeholder="Secure Message"
+      />
+      {/* <label style={{ display: 'block' }}>
         <input type="checkbox" checked={sendRtt} onChange={toggleRtt} />
         Send as I type
       </label> */}

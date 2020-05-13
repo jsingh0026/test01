@@ -8,8 +8,10 @@ const Container = styled.div`
   h2 {
     font-size: 36px;
     color: white;
+		margin-bottom: 23px;
+		font-weight: 300;
   }
-  input {
+ input {
     background-color: #323132;
     color: white;
     display: block;
@@ -24,7 +26,7 @@ const Container = styled.div`
     caret-color: #4284f3;
   }
   button {
-    padding: 3px 8px;
+    padding: 3px 18px;
     border-radius: 10px;
     outline: 'none';
   }
@@ -69,6 +71,7 @@ export default class PasswordEntry extends Component<Props, State> {
             : 'A password is required to enter this room'}
         </h2>
         <input
+          autoFocus
           type="password"
           placeholder="eVisit Password"
           value={this.state.password}

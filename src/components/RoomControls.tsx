@@ -83,7 +83,7 @@ const StyledModal = styled(Modal)`
   overflow: auto;
   border-radius: 10px;
   outline: none;
-  padding: 35px 20px 20px;
+  padding: 35px 20px 40px;
   max-width: 600px;
   margin: 0px auto;
   height: 260px;
