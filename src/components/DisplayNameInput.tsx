@@ -49,7 +49,8 @@ const DisplayNameInput: React.SFC<Props> = ({
 
   return (
     <input
-      placeholder="My Name"
+			placeholder="My Name"
+			autoFocus
       value={displayName}
       onChange={e => persisDisplayName(e.target.value)}
       onKeyPress={({ key }) => {

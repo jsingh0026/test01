@@ -70,7 +70,8 @@ export default class PasswordEntry extends Component<Props, State> {
             ? 'Set password for this eVisit'
             : 'A password is required to enter this room'}
         </h2>
-        <input
+				<input
+					autoFocus
           type="password"
           placeholder="eVisit Password"
           value={this.state.password}
