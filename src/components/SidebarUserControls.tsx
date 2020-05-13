@@ -5,13 +5,14 @@ import {
   UserControls,
   Video
 } from '@andyet/simplewebrtc';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import DisplayNameInput from './DisplayNameInput';
 import LocalMediaControls from './LocalMediaControls';
 import Tooltip from './Tooltip';
 import { ArrowDown } from './Icons'
 import mq from '../styles/media-queries';
+import {UserContext} from '../contexts/userMobileView';
 
 const LocalVideo = styled.div({
   position: 'relative',
@@ -168,7 +169,8 @@ const SidebarUserControls: React.SFC<Props> = ({
 }) => {
   const userViewKey = 'toggleUserView';
   var userView = localStorage.getItem(userViewKey);
-  return( userView == 'true' ? 
+  const { view, setView } = useContext(UserContext);
+  return( view == false ? 
     <UserControls
       render={({
         isMuted,
@@ -240,7 +242,7 @@ const SidebarUserControls: React.SFC<Props> = ({
               pauseVideo={pauseVideo}
               isSpeaking={isSpeaking}
               isSpeakingWhileMuted={isSpeakingWhileMuted}
-              toggleUserView={toggleUserView}
+              toggleUserView={()=>setView(view)}
             />
             {/* <RoomModeToggles> */}
             {/*
