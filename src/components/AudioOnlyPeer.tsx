@@ -30,7 +30,7 @@ const IconContainer = styled('div')({
 const AudioOnlyPeer = () => (
   <Container>
     <IconContainer>
-      <div style={{fontSize:'20px'}}>This user has not selected a camera yet!</div>
+      <div style={{fontSize:'26px'}}>This user has not selected a camera yet!</div>
     </IconContainer>
   </Container>
 );
