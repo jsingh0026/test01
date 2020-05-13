@@ -62,7 +62,7 @@ const LocalScreen: React.SFC<LocalScreenProps> = ({ screenshareMedia }) => (
 const LocalScreenContainer = styled.div({
   position: 'relative',
   backgroundColor: '#000000',
-  height: '155px',
+  paddingBottom: '10px',
   'video': {
     border: '2px solid #323132',
   }
