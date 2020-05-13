@@ -29,6 +29,7 @@ export default class CreateRoomInput extends Component<Props, State> {
   public render() {
     return (
       <input
+        autoFocus
         ref={this._input}
         className="create-room-form-input"
         type="text"
