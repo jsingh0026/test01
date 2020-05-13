@@ -8,8 +8,10 @@ const Container = styled.div`
   h2 {
     font-size: 36px;
     color: white;
+		margin-bottom: 23px;
+		font-weight: normal;
   }
-  input {
+ input {
     background-color: #323132;
     color: white;
     display: block;
@@ -19,12 +21,12 @@ const Container = styled.div`
     margin: 0 auto;
     border-radius: 10px;
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 33px;
     outline: none;
     caret-color: #4284f3;
   }
   button {
-    padding: 3px 8px;
+    padding: 3px 18px;
     border-radius: 10px;
     outline: 'none';
   }
