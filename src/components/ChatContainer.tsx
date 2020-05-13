@@ -42,7 +42,7 @@ const Container = styled.div`
 const Header = styled.button`
   border: none;
   display: block;
-  padding: 10px;
+  padding: 8px;
   font-size: 18px;
   outline: none;
   background-color: #323132;
