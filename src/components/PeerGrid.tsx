@@ -22,6 +22,7 @@ const StyledGridLayout = styled(GridLayout)({
   },
   [mq.MOBILE]: {
     display: 'flex !important',
+    minHeight: '50vh'
   },
   backgroundColor: 'transparent',
   'ul': {
@@ -104,7 +105,8 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
       room={roomAddress}
       render={({ peers }) => {
         const visiblePeers = peers.filter(p => !hiddenPeers.includes(p.id));
-        return visiblePeers.length > 0 || activeSpeakerView ? (
+        console.log(visiblePeers, activeSpeakerView, peers);
+        return visiblePeers.length > 0 || peers.length > 0 || activeSpeakerView ? (
           <>
             <StyledGridLayout
               items={visiblePeers}
@@ -152,7 +154,9 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
             <Roster roomAddress={roomAddress} />
             </RosterContainer>
           </>
-        ) : (
+        ) : 
+        
+        (
             <Placeholders.Consumer>
               {({ gridPlaceholder }) => (
                 <div

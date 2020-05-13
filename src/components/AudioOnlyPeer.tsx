@@ -1,6 +1,7 @@
 import VideocamOffIcon from 'material-icons-svg/components/baseline/VideocamOff';
 import React from 'react';
 import styled from 'styled-components';
+import mq from '../styles/media-queries'
 
 const Container = styled('div')({
   flex: 1,
@@ -27,10 +28,21 @@ const IconContainer = styled('div')({
   }
 });
 
+const TextContainer = styled.div`
+  ${mq.MOBILE}{
+  font-size: 16px;
+  position: fixed;
+  bottom: 70vh;
+  right: 8%;
+  left: 10%;
+  }
+  font-size:26px;
+`;
+
 const AudioOnlyPeer = () => (
   <Container>
     <IconContainer>
-      <div style={{fontSize:'26px'}}>This user has not selected a camera yet!</div>
+      <TextContainer>This user has not selected a camera yet!</TextContainer>
     </IconContainer>
   </Container>
 );

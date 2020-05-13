@@ -13,9 +13,18 @@ import PasswordEntry from './PasswordEntry';
 import mq from '../styles/media-queries'
 
 const LockButton = styled.button({
+  [mq.MOBILE]:{
+  borderRight: '1px solid #6a6a6b !important',
+  borderTopLeftRadius: '5px',
+  borderBottomLeftRadius: '5px'
+  }
 });
 
 const LeaveButton = styled.button({
+  [mq.MOBILE]:{
+  borderTopRightRadius: '5px',
+  borderBottomRightRadius: '5px'
+  }
 });
 
 const Container = styled.div({
@@ -30,7 +39,9 @@ const Container = styled.div({
   'button':{
     width: '70%',
     backgroundColor: '#323132',
+    [mq.SMALL_DESKTOP]:{
     borderRadius: '10px',
+  },
     marginBottom: '10px',
     border: 'none',
     outline: 'none',
