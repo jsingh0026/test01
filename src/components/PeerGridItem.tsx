@@ -93,8 +93,8 @@ const PeerGridItemMedia: React.SFC<PeerGridItemMediaProps> = ({ media }) => {
   } else if (audioStreams.length > 0) {
     return <AudioOnlyPeer />;
   }
-  // return null;
-  return <div>No media</div>;
+  return null;
+  // return <div>No media</div>;
 };
 
 const Overlay = styled.div({

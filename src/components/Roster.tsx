@@ -24,19 +24,30 @@ const Container = styled.ul({
     [mq.MOBILE]:{
       display: 'flex',
       border: 'none',
+      borderTop: '1px solid #6a6a6b',
       backgroundColor: 'transparent',
     },
+  },
+  'li:first-child':{
+    [mq.MOBILE]:{
+      border: 'none'
+    }
   },
   'li:last-child':{
     borderBottomLeftRadius:'10px',
     borderBottomRightRadius:'10px',
-    border: 'none'
+    [mq.SMALL_DESKTOP]:{
+      border: 'none'
+    }
   }
 });
 
 const NameContainer = styled.div`
-padding: 8px 6px 0px;
+  padding: 8px 6px 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   ${mq.MOBILE}{
+    padding: 3px 6px 0px;
     width: 50%;
     padding-left: 15px;
   }

@@ -56,15 +56,6 @@
       svg:not(:root) {
         overflow: hidden;
       }
-      button {
-        margin-right: 10px;
-        background-color: #323132;
-        color: white;
-        border: none;
-        padding: 3px 18px;
-        border-radius: 10px;
-        outline: 'none';
-      }
 
       button,
       input {
@@ -177,10 +168,14 @@
         outline: none;
       }
 
-      .create-room-form-button {
-        margin-left: 5px;
-        padding: 8px 10px !important;
-        display: inline-block;
+      .create-room-button {
+        margin-right: 10px;
+        background-color: #323132;
+        color: white;
+        border: none;
+        padding: 3px 18px;
+        border-radius: 10px;
+        outline: 'none';
       }
 
       @media (max-width: 420px) {
@@ -189,14 +184,13 @@
           display: block;
           text-align: left;
         }
-        .create-room-form-button {
-          width: 100%;
-          margin-top: 20px;
-          display: block;
-          margin-left: 0px;
+        
+        .heading{
+          display: flex;
+          flex-direction: column;
         }
         .create-room-form-input {
-          width: 75%;
+          width: 60%;
         }
       }
 
@@ -232,7 +226,7 @@
     </template>
     <template id="homepage">
       <div class="container">
-        <h2 style="font-weight:400;">Create a name for your eVisit room</h2>
+        <h2 class='heading' style="font-weight:400;">Create a name <span>for your eVisit room</span></h2>
         <form class="create-room-form" method="GET" action="/">
           <span class="create-room-form-input-wrapper" style="text-align: left;"
             ><span class="domain">endlink.com/</span
@@ -244,7 +238,7 @@
               style="color: #4284f3;"
               class="create-room-form-input"/></span
           ><button
-            class="button button-default button-undefined"
+            class="create-room-button button button-default button-undefined"
             type="submit"
           >
           Create eVisit Room
