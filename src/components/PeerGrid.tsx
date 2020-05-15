@@ -17,13 +17,16 @@ import LocalMediaControls from './LocalMediaControls';
 import { UserContext } from '../contexts/userMobileView';
 
 const StyledGridLayout = styled(GridLayout)({
+  display: 'flex !important',
+  justifyContent: 'center',
+  alignItems: 'center',
   [mq.SMALL_DESKTOP]: {
     flex: 1,
     maxHeight: '100vh',
   },
   [mq.MOBILE]: {
     display: 'flex !important',
-    minHeight: '50vh'
+    paddingTop: '55px'
   },
   backgroundColor: 'transparent',
   'ul': {
@@ -34,7 +37,6 @@ const StyledGridLayout = styled(GridLayout)({
   '& video': {
     width: '100%',
     [mq.MOBILE]: {
-      height: 'min-content'
     }
   },
   '& > div': {
