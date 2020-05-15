@@ -88,6 +88,7 @@ class Index extends Component<Props, State> {
   }
 
   public render() {
+    var check = false;
     return (
       <Provider configUrl={this.props.configUrl} userData={this.props.userData}>
         <LocalMediaList
@@ -114,13 +115,17 @@ class Index extends Component<Props, State> {
                     <Room password={this.state.password} name={this.props.name}>
                       {({ room }) => {
                         if (!room.joined) {
-                          if (room.passwordRequired) {
+                          if(room.roomState=="joining" && room.providedPassword){
+                            check = true;
+                          }
+                          if (room.roomState == "password-required") {
                             return (
                               <PasswordEntryContainer>
                                 <PasswordEntry
                                   setting={false}
-                                  passwordIsIncorrect={!!this.state.password}
+                                  passwordIsIncorrect={check}
                                   setPassword={this.setPassword}
+                                  onSubmit={() => location.reload()}
                                 />
                               </PasswordEntryContainer>
                             );

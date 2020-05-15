@@ -21,9 +21,9 @@ const Container = styled.div`
   ${mq.MOBILE} {
     position: absolute;
     z-index: 200;
-    top: 60px;
+    top: 10%;
     right: 0;
-    width: 185px;
+    width: 160px;
     padding: 0px;
     ul{
       display: none;

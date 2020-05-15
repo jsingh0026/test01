@@ -12,38 +12,35 @@ const Container = styled('div')({
   backgroundColor: 'transparent'
 });
 
-const IconContainer = styled('div')({
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  zIndex: 10,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontSize: '80px',
-  '& svg': {
-    fill: 'rgba(255, 255, 255, 0.5)'
-  }
-});
+// const IconContainer = styled('div')({
+//   position: 'absolute',
+//   top: 0,
+//   right: 0,
+//   bottom: 0,
+//   left: 0,
+//   zIndex: 10,
+//   display: 'flex',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   fontSize: '80px',
+//   '& svg': {
+//     fill: 'rgba(255, 255, 255, 0.5)'
+//   }
+// });
 
 const TextContainer = styled.div`
   ${mq.MOBILE}{
   font-size: 16px;
-  position: fixed;
-  bottom: 70vh;
-  right: 8%;
-  left: 10%;
+  padding: 20px;
   }
   font-size:26px;
 `;
 
 const AudioOnlyPeer = () => (
   <Container>
-    <IconContainer>
+    {/* <IconContainer> */}
       <TextContainer>This user has not selected a camera yet!</TextContainer>
-    </IconContainer>
+    {/* </IconContainer> */}
   </Container>
 );
 

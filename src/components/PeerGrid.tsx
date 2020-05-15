@@ -42,7 +42,8 @@ const StyledGridLayout = styled(GridLayout)({
   '& > div': {
     position: 'relative',
     [mq.MOBILE]: {
-      height: 'min-content'
+      height: 'min-content',
+      minHeight: '40vh'
     }
   }
 }) as any; // TODO: Fix this!
