@@ -126,7 +126,10 @@ const Message = styled.div`
 `;
 
 const MessageAuthor = styled.p({
-  fontWeight: 'bold'
+  fontWeight: 'bold',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  width: '75%'
 });
 
 const MessageTime = styled.span`

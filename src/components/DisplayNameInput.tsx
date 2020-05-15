@@ -52,6 +52,7 @@ const DisplayNameInput: React.SFC<Props> = ({
       placeholder="My Name"
       autoFocus
       value={displayName}
+      maxLength={16}
       onChange={e => persisDisplayName(e.target.value)}
       onKeyPress={({ key }) => {
         if (key === 'Enter') {

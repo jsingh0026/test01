@@ -69,7 +69,6 @@ interface Props {
 
 class App extends Component<Props> {
   setView = view => {
-    console.log("in");
     this.setState({ view: !view });
   };
 
@@ -77,6 +76,21 @@ class App extends Component<Props> {
     view: false,
     setView: this.setView
   };
+
+  updateDimensions() {
+    if(window.innerWidth > 749) {
+      this.setState({view: false});
+    }
+  }
+
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
+  }
   public render() {
     const {
       roomName,

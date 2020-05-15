@@ -105,7 +105,7 @@ const PeerListItem: React.SFC<PeerListItemProps> = ({ peer }) => {
               <EyeIcon fill="#4284f3" />
             )}
         </button>
-        <button style={{float:'right', width: '19px'}} disabled>
+        <button style={{float:'right', width: '8px', cursor: 'default'}} disabled>
           <CloseIcon fill="transparent"/>
         </button>
       </ButtonsContainer>
