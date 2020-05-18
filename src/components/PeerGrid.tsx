@@ -26,7 +26,8 @@ const StyledGridLayout = styled(GridLayout)({
   },
   [mq.MOBILE]: {
     display: 'flex !important',
-    paddingTop: '55px'
+    paddingTop: '55px',
+    minHeight: '25vh'
   },
   backgroundColor: 'transparent',
   'ul': {
@@ -34,17 +35,19 @@ const StyledGridLayout = styled(GridLayout)({
       display: 'none'
     }
   },
-  '& video': {
-    width: '100%',
-    [mq.MOBILE]: {
-    }
-  },
   '& > div': {
     position: 'relative',
     [mq.MOBILE]: {
-      height: 'min-content',
-      minHeight: '40vh'
+      height: 'min-content'
     }
+  },
+  '.onlyPeer':{
+    [mq.SMALL_DESKTOP]: {
+    '& video':{
+    height: '100vh',
+    objectFit: 'fill'
+    }
+  }
   }
 }) as any; // TODO: Fix this!
 
@@ -120,7 +123,9 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
                 <RemoteMediaList
                   peer={peer.address}
                   render={({ media }) => (
-                    <PeerGridItem media={media} peer={peer} />
+                    <span className={peers.length===1 ? 'onlyPeer':'notOnlyPeer'}>
+                      <PeerGridItem media={media} peer={peer} />
+                    </span>
                   )}
                 />
               )}
@@ -162,12 +167,12 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
           </>
         ) : 
         
-        (
+        ( <>
             <Placeholders.Consumer>
               {({ gridPlaceholder }) => (
                 <div
                   style={{
-                    flex: 1,
+                    height: '50vh',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -184,6 +189,38 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
                 />
               )}
             </Placeholders.Consumer>
+            <UserControls
+              render={({
+                isMuted,
+                mute,
+                unmute,
+                isPaused,
+                isSpeaking,
+                isSpeakingWhileMuted,
+                pauseVideo,
+                resumeVideo,
+                user,
+                setDisplayName
+              }) => (
+                view == true ?
+                  <UserConainter>
+                    <div className='username'>{user.displayName ? user.displayName : 'Anonymous'}</div>
+                    <LocalMediaControls
+                      isMuted={isMuted}
+                      unmute={unmute}
+                      mute={mute}
+                      isPaused={isPaused}
+                      resumeVideo={resumeVideo}
+                      pauseVideo={pauseVideo}
+                      isSpeaking={isSpeaking}
+                      isSpeakingWhileMuted={isSpeakingWhileMuted}
+                      toggleUserView={()=> setView(view)}
+                    />
+                  </UserConainter>
+                  :''
+                )}
+            />
+            </>
           );
       }}
     />

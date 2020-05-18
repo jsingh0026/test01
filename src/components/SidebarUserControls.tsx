@@ -101,6 +101,9 @@ const Container = styled.div`
       width: 100%;
     }
   }
+  ${mq.MOBILE}{
+    background-color: transparent;
+  }
 `;
 
 const LocalScreenOverlay = styled.div({

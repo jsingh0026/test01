@@ -58,6 +58,9 @@ const ButtonsContainer = styled.div`
   background-color: #18181a;
   text-align: center;
   padding: 7px 12px;
+  ${mq.MOBILE}{
+    opacity: 0.90;
+  }
   button{
     background-color: transparent;
     border: none;

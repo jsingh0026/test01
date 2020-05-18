@@ -87,6 +87,20 @@ class Index extends Component<Props, State> {
     };
   }
 
+  updateDimensions() {
+    if(window.innerWidth > 749) {
+      this.setState({sidebarOpen:true});
+    }
+  }
+
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
+  }
   public render() {
     var check = false;
     return (
@@ -114,6 +128,7 @@ class Index extends Component<Props, State> {
                   <Connected configUrl="">
                     <Room password={this.state.password} name={this.props.name}>
                       {({ room }) => {
+                        console.log(room);
                         if (!room.joined) {
                           if(room.roomState=="joining" && room.providedPassword){
                             check = true;
@@ -125,7 +140,6 @@ class Index extends Component<Props, State> {
                                   setting={false}
                                   passwordIsIncorrect={check}
                                   setPassword={this.setPassword}
-                                  onSubmit={() => location.reload()}
                                 />
                               </PasswordEntryContainer>
                             );

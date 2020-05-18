@@ -163,7 +163,7 @@ const Overlay = styled.div({
   zIndex: 100,
   display: 'flex',
   flexDirection: 'column',
-  width: 'min-content'
+  width: 'max-content'
 });
 
 const RttContainer = styled.div({
