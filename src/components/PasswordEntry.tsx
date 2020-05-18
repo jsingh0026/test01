@@ -50,6 +50,7 @@ interface Props {
   setting: boolean;
   passwordIsIncorrect?: boolean;
   onSubmit?: () => void;
+  onCancel?: () => void;
 }
 
 interface State {
@@ -80,7 +81,8 @@ export default class PasswordEntry extends Component<Props, State> {
         {this.props.passwordIsIncorrect && (
           <div style={{color: 'red', marginBottom: '10px'}}>The password you entered is incorrect. Please try again.</div>
         )}
-        <CancelButton onClick={this.props.onSubmit}>Cancel</CancelButton>
+        {/* <CancelButton onClick={this.props.onSubmit}>Cancel</CancelButton> */}
+        {this.props.setting ? <CancelButton onClick={this.props.onSubmit}>Cancel</CancelButton> : <CancelButton onClick={this.props.onCancel}>Cancel</CancelButton>}
         <SubmitButton onClick={this.onClick}>
           {this.props.setting ? 'Confirm' : 'Join'}
         </SubmitButton>

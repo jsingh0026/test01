@@ -75,6 +75,18 @@ const RosterContainer = styled.span`
   }
 `;
 
+const NoParticipantContainer = styled.div({
+  [mq.MOBILE]:{
+    height: '75vh',
+    flex: 'none'
+  },
+  flex:1,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative'
+});
+
 interface Props {
   roomAddress: string;
   activeSpeakerView: boolean;
@@ -170,14 +182,7 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
         ( <>
             <Placeholders.Consumer>
               {({ gridPlaceholder }) => (
-                <div
-                  style={{
-                    height: '50vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative'
-                  }}
+                <NoParticipantContainer
                   ref={node => {
                     if (node && gridPlaceholder && node.childElementCount === 0) {
                       const el = gridPlaceholder();

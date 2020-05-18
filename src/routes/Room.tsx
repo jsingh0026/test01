@@ -140,6 +140,7 @@ class Index extends Component<Props, State> {
                                   setting={false}
                                   passwordIsIncorrect={check}
                                   setPassword={this.setPassword}
+                                  onCancel={() => location.reload()}
                                 />
                               </PasswordEntryContainer>
                             );

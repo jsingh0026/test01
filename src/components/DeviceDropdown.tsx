@@ -2,6 +2,7 @@ import { Media } from '@andyet/simplewebrtc';
 import React from 'react';
 import { Dropdown } from './Icons';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 interface Props {
   devices: MediaDeviceInfo[];
@@ -12,6 +13,10 @@ interface Props {
 const Container = styled.div`
   select{
     -webkit-appearance: none;
+  }
+  select option{
+    background-color: #4d5659;
+    border-radius: 10px;
   }
   svg{
   float: right;
@@ -26,7 +31,8 @@ const DeviceDropdown: React.SFC<Props> = ({
   currentMedia,
   devices,
   selectMedia
-}) => (
+}) =>{ 
+  return(
   <Container>
   <select
     defaultValue=""
@@ -54,6 +60,6 @@ const DeviceDropdown: React.SFC<Props> = ({
   </select>
   <Dropdown/>
   </Container>
-);
+)}
 
 export default DeviceDropdown;
