@@ -62,6 +62,7 @@ const UserConainter = styled.div`
   }
   div:nth-child(2) {
     width: 45%;
+    position: unset;
     div:first-child{
       background-color: transparent;
       padding: 5px 0px;

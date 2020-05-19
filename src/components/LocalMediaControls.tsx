@@ -59,7 +59,7 @@ const ButtonsContainer = styled.div`
   text-align: center;
   padding: 7px 12px;
   ${mq.MOBILE}{
-    opacity: 0.90;
+    opacity: 0.70;
   }
   button{
     background-color: transparent;
@@ -94,7 +94,10 @@ const Container = styled.div({
       '&:first-of-type': {
         marginRight: '10px'
       }
-    }
+    },
+    position: 'absolute',
+    bottom: '0',
+    width: '100%'
   },
   [mq.SMALL_DESKTOP]: {
     // justifyContent: 'space-between'
