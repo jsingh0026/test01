@@ -203,7 +203,7 @@ const SidebarUserControls: React.SFC<Props> = ({
                   // const videos = media.filter((v, i, a) => a.findIndex(t => (t.screenCapture === v.screenCapture)) === i)
                   const videos = media.filter(m => m.kind === 'video');
                   
-                  const video = videos[0];console.log(video);
+                  const video = videos[0];console.log(videos);
                   // const video = videos[0];
                   // return(
                   //   video.screenCapture ? (
