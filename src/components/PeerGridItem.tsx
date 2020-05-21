@@ -52,7 +52,8 @@ const PictureInPictureContainer = styled.div({
     position: 'absolute',
     top: '16px',
     right: '16px',
-    width: '100px'
+    width: '100px',
+    height: 'auto !important'
   }
 });
 

@@ -92,6 +92,7 @@ const Container = styled.div`
     background-color: transparent;
     outline: none;
     caret-color: #4284f3;
+    width: 79%;
     padding: 7px;
     ${mq.MOBILE}{
       position: absolute;
