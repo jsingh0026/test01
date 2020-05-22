@@ -125,7 +125,6 @@ const PeerGridItemMedia: React.SFC<PeerGridItemMediaProps> = ({ media, peer }) =
     const screenCaptureStreams = videoStreams.filter(s => s.screenCapture);
 
     if (videoStreams.length === 1) {
-      console.log("111111");
       return <>
       <PeerGridItemOverlay peer={peer}/>
       <Video media={videoStreams[0]} />
@@ -133,7 +132,6 @@ const PeerGridItemMedia: React.SFC<PeerGridItemMediaProps> = ({ media, peer }) =
     }
 
     if (screenCaptureStreams.length === 0) {
-      console.log("2222222");
       return <>
       <PeerGridItemOverlay peer={peer}/>
       <Video media={webcamStreams[0]} />

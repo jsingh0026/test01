@@ -28,10 +28,15 @@ const Container = styled.div`
     ul{
       display: none;
     }
+    .timer{display: none}
   }
   ${mq.SMALL_DESKTOP} {
     width: 230px;
     min-height: 450px;
+    .timer{
+      color: #919192;
+      text-align: center;
+    }
   }
 `;
 
@@ -103,6 +108,7 @@ interface Props {
 
 interface State {
   showPasswordModal: boolean;
+  timer: String;
 }
 
 // Sidebar contains all the UI elements that are rendered in the Sidebar
@@ -111,8 +117,19 @@ interface State {
 export default class Sidebar extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { showPasswordModal: false };
+    this.state = { showPasswordModal: false, timer:''};
   }
+
+  setTimer = 0;
+  componentDidMount = () => {
+    this.setTimer = setInterval(()=>{
+      var timer = localStorage.getItem("timer").slice(1, -1)
+      this.setState({...this.state, timer: timer});
+    }, 1000);
+ }
+ componentWillUnmount = () =>{
+   clearInterval(this.setTimer);
+ }
 
   public render() {
     const {
@@ -142,7 +159,6 @@ export default class Sidebar extends Component<Props, State> {
           shared={true}
           render={({ media }) => {
             const videos = media.filter((v, i, a) => a.findIndex(t => (t.screenCapture === v.screenCapture)) === i)
-            console.log(videos)
             // const video = videos[0];
             // return(
             //   video.screenCapture ? (
@@ -174,6 +190,7 @@ export default class Sidebar extends Component<Props, State> {
       </ScreenShareContainer>
         <Roster roomAddress={roomAddress} />
         <SidebarLinks roomId={roomId} />
+        <div className="timer">{this.state.timer}</div>
         <RoomControls
           shouldShowPasswordModal={this.state.showPasswordModal}
           passwordRequired={passwordRequired}

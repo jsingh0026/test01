@@ -200,11 +200,10 @@ const SidebarUserControls: React.SFC<Props> = ({
               <LocalMediaList
                 shared={true}
                 render={({ media }) => {
-                  console.log(media);
                   // const videos = media.filter((v, i, a) => a.findIndex(t => (t.screenCapture === v.screenCapture)) === i)
                   const videos = media.filter(m => m.kind === 'video');
                   
-                  const video = videos[0];console.log(videos);
+                  const video = videos[0];
                   // const video = videos[0];
                   // return(
                   //   video.screenCapture ? (

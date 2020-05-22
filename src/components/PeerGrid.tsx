@@ -5,7 +5,7 @@ import {
   RemoteMediaList,
   UserControls
 } from '@andyet/simplewebrtc';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import HiddenPeers from '../contexts/HiddenPeers';
 import Placeholders from '../contexts/Placeholders';
@@ -120,14 +120,18 @@ const PeerGrid: React.SFC<Props> = ({ roomAddress, activeSpeakerView }) => {
   const userViewKey = 'toggleUserView';
   var userView = localStorage.getItem(userViewKey);
   const { view, setView } = useContext(UserContext);
-  console.log(view);
+  var timer = '';
+  useEffect(()=>{
+    setInterval(()=>{
+      timer = localStorage.getItem("timer").slice(1, -1)
+    }, 1000);
+  })
   return (
     <PeerList
       speaking={activeSpeakerView ? activeSpeakerView : undefined}
       room={roomAddress}
       render={({ peers }) => {
         const visiblePeers = peers.filter(p => !hiddenPeers.includes(p.id));
-        console.log(visiblePeers, activeSpeakerView, peers);
         return visiblePeers.length > 0 || peers.length > 0 || activeSpeakerView ? (
           <>
             <StyledGridLayout

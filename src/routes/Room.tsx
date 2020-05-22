@@ -55,6 +55,14 @@ const LoadingState = styled.div({
   alignItems: 'center'
 });
 
+const Timer = styled.div`
+  ${mq.SMALL_DESKTOP}{
+    display: none;
+  }
+  text-align: center;
+  color: #919192;
+`;
+
 interface Props {
   configUrl: string;
   userData?: string;
@@ -71,6 +79,7 @@ interface State {
   chatOpen: boolean;
   sidebarOpen: boolean;
   hiddenPeers: string[];
+  timer:{mins:number, secs:number}
 }
 
 class Index extends Component<Props, State> {
@@ -83,7 +92,8 @@ class Index extends Component<Props, State> {
       sendRtt: false,
       chatOpen: false,
       sidebarOpen: true,
-      hiddenPeers: []
+      hiddenPeers: [],
+      timer: {mins:0, secs:0}
     };
   }
 
@@ -96,6 +106,19 @@ class Index extends Component<Props, State> {
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
+    setInterval(()=>{
+      if(this.state.timer.secs === 60){
+        this.setState(prevState =>({
+          timer:{...this.state.timer, mins: prevState.timer.mins+1, secs: 0}
+        }))
+      }
+      else{
+      this.setState(prevState =>({
+        timer:{...this.state.timer, secs: prevState.timer.secs+1}
+      }))
+    }
+    localStorage.setItem("timer", JSON.stringify(this.state.timer.mins+':'+this.state.timer.secs));
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -128,7 +151,6 @@ class Index extends Component<Props, State> {
                   <Connected configUrl="">
                     <Room password={this.state.password} name={this.props.name}>
                       {({ room }) => {
-                        console.log(room);
                         if (!room.joined) {
                           if(room.roomState=="joining" && room.providedPassword){
                             check = true;
@@ -190,6 +212,7 @@ class Index extends Component<Props, State> {
                                     this.state.activeSpeakerView
                                   }
                                 />
+                                <Timer>{this.state.timer.mins}:{this.state.timer.secs}</Timer>
                                 {this.state.chatOpen ? (
                                   <ChatContainer
                                     roomAddress={room.address!}
