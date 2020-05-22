@@ -31,6 +31,7 @@ const Container = styled.div`
   }
   ${mq.SMALL_DESKTOP} {
     width: 230px;
+    min-height: 450px;
   }
 `;
 
