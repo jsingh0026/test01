@@ -45,7 +45,7 @@ const StyledGridLayout = styled(GridLayout)({
     [mq.SMALL_DESKTOP]: {
     '& video':{
     height: '100vh',
-    objectFit: 'fill'
+    objectFit: 'cover'
     }
   }
   }

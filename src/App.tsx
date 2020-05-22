@@ -73,13 +73,16 @@ class App extends Component<Props> {
   };
 
   state = {
-    view: false,
+    view: true,
     setView: this.setView
   };
 
   updateDimensions() {
     if(window.innerWidth > 749) {
       this.setState({view: false});
+    }
+    if(window.innerWidth < 749){
+      this.setState({view: true});
     }
   }
 
@@ -101,8 +104,6 @@ class App extends Component<Props> {
       emptyRosterPlaceholder,
       homepagePlaceholder
     } = this.props;
-    const userViewKey = 'toggleUserView';
-    localStorage.setItem(userViewKey, 'true');
     return (
       <ThemeProvider>
         <UserContext.Provider value={this.state}>
