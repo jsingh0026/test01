@@ -59,6 +59,7 @@ const Timer = styled.div`
   ${mq.SMALL_DESKTOP}{
     display: none;
   }
+  font-size: 20px;
   text-align: center;
   color: #919192;
 `;
@@ -117,7 +118,7 @@ class Index extends Component<Props, State> {
         timer:{...this.state.timer, secs: prevState.timer.secs+1}
       }))
     }
-    localStorage.setItem("timer", JSON.stringify(this.state.timer.mins+':'+this.state.timer.secs));
+    localStorage.setItem("timer", JSON.stringify(this.state.timer.mins+':'+(this.state.timer.secs < 10 ? `0${ this.state.timer.secs }` : this.state.timer.secs)));
     }, 1000)
   }
 
@@ -212,7 +213,7 @@ class Index extends Component<Props, State> {
                                     this.state.activeSpeakerView
                                   }
                                 />
-                                <Timer>{this.state.timer.mins}:{this.state.timer.secs}</Timer>
+                                <Timer>{this.state.timer.mins}:{ this.state.timer.secs < 10 ? `0${ this.state.timer.secs }` : this.state.timer.secs }</Timer>
                                 {this.state.chatOpen ? (
                                   <ChatContainer
                                     roomAddress={room.address!}

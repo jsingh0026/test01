@@ -36,6 +36,7 @@ const Container = styled.div`
     .timer{
       color: #919192;
       text-align: center;
+      font-size: 20px;
     }
   }
 `;
