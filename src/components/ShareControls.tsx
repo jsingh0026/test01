@@ -58,11 +58,6 @@ const ShareControls: React.SFC = () => (
         for (const m of media) {
           shareLocalMedia!(m.id);
         }
-        const viewport: any = document.querySelector('meta[name="viewport"]') as HTMLElement;
-        if ( viewport ) {
-          viewport.content = 'width=device-width';
-          viewport.content = 'initial-scale=1';
-        }
       };
       
       return (
