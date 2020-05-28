@@ -13,6 +13,10 @@ import { Error, Info } from './Alerts';
 import DeviceDropdown from './DeviceDropdown';
 import InputChecker from './InputChecker';
 import { max, min } from 'lodash-es';
+ import { LocalMediaList } from '@andyet/simplewebrtc';
+ import { UserContext } from '../contexts/userMobileView';
+ import { useContext } from 'react';
+import { DeviceSet } from '../contexts/DeviceSet';
 
 interface MutePauseButtonProps {
   isFlashing?: boolean;
@@ -188,6 +192,7 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
   const [open, setDisplay] = useState(true);
   const userViewKey = 'toggleUserView';
   var userView = localStorage.getItem(userViewKey);
+  const { setting, deviceSet } = useContext(DeviceSet);
   return (
     <Container>
       <ButtonsContainer>
@@ -204,144 +209,13 @@ const LocalMediaControls: React.SFC<LocalMediaControlsProps> = ({
         >
           <VideocamIcon />
         </PauseButton>
-        <SettingsButton isOpen={open} onClick={() => setDisplay(!open)}>
+        <SettingsButton isOpen={open} onClick={() => deviceSet(false)}>
           <SettingsIcon />
         </SettingsButton>
         <ToggleButton onClick={toggleUserView}>
           {userView == 'true' ? <ArrowUp fill='white'/> : <ArrowDown fill='white'/>}
         </ToggleButton>
       </ButtonsContainer>
-      <ControlsContainer isOpen={open}>
-        <div>
-          <DeviceSelector
-            kind="video"
-            render={({
-              hasDevice,
-              permissionDenied,
-              requestingCapture,
-              requestPermissions,
-              devices,
-              currentMedia,
-              selectMedia,
-            }) => {
-              if (true) {
-                // console.log(
-                //   hasDevice,
-                //   permissionDenied,
-                //   requestingCapture,
-                //   requestPermissions,
-                //   devices,
-                //   currentMedia,
-                //   selectMedia,
-                //   'requestPermissions'
-                // );
-              }
-              if (hasDevice === false) {
-                return <Error>No cameras detected.</Error>;
-              }
-
-              if (permissionDenied === true) {
-                return <Error>Camera permissions denied.</Error>;
-              }
-
-              if (requestingCapture === true) {
-                return <Info>Requesting cameras...</Info>;
-              }
-
-              if (requestPermissions) {
-                return (
-                  <PermissionButton onClick={requestPermissions}>
-                    <VideocamIcon />
-                    <span>Allow camera access</span>
-                  </PermissionButton>
-                );
-              }
-
-              return (
-                <label className="videoCamIcon">
-                  <VideocamIcon />
-                  <span>My Camera</span>
-                  <DropdownContainer>
-                    <DeviceDropdown
-                      currentMedia={currentMedia!}
-                      devices={devices!}
-                      selectMedia={selectMedia!}
-                    />
-                  </DropdownContainer>
-                </label>
-              );
-            }}
-          />
-        </div>
-        <div>
-          <DeviceSelector
-            kind="audio"
-            render={({
-              hasDevice,
-              permissionDenied,
-              requestingCapture,
-              requestPermissions,
-              devices,
-              currentMedia,
-              selectMedia,
-            }) => {
-              if (hasDevice === false) {
-                return <Error>No microphones detected.</Error>;
-              }
-
-              if (permissionDenied === true) {
-                return <Error>Microphone permissions denied.</Error>;
-              }
-
-              if (requestingCapture === true) {
-                return <Info>Requesting microphones...</Info>;
-              }
-
-              if (requestPermissions) {
-                return (
-                  <PermissionButton onClick={requestPermissions}>
-                    <MicroPhone />
-                    <span>Allow microphone access</span>
-                  </PermissionButton>
-                );
-              }
-
-              return (
-                <>
-                  <label>
-                    <MicroPhone />
-                    <span>My Microphone</span>
-                    <DropdownContainer>
-                      <DeviceDropdown
-                        currentMedia={currentMedia!}
-                        devices={devices!}
-                        selectMedia={selectMedia!}
-                      />
-                    </DropdownContainer>
-                  </label>
-                  <InputChecker
-                    media={currentMedia!}
-                    threshold={7000}
-                    render={({ detected, lost }) => {
-                      if (detected && lost) {
-                        return <Error>Media lost.</Error>;
-                      }
-
-                      if (!detected) {
-                        return (
-                          <Info>No input detected from your microphone.</Info>
-                        );
-                      }
-
-                      return null;
-                    }}
-                  />
-                </>
-              );
-            }}
-          />
-        </div>
-      </ControlsContainer>
     </Container>
   );
 }

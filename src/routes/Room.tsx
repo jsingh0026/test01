@@ -22,6 +22,7 @@ import SoundPlayer from '../components/SoundPlayer';
 import HiddenPeers from '../contexts/HiddenPeers';
 import mq from '../styles/media-queries';
 import SidebarToggle from '../components/SidebarToggle';
+import { DeviceSet } from '../contexts/DeviceSet';
 
 const PasswordEntryContainer = styled.div({
   display: 'flex',
@@ -80,7 +81,9 @@ interface State {
   chatOpen: boolean;
   sidebarOpen: boolean;
   hiddenPeers: string[];
-  timer:{mins:number, secs:number}
+  timer:{mins:number, secs:number},
+  test: boolean,
+  setting:{ setting:boolean, deviceSet: any}
 }
 
 class Index extends Component<Props, State> {
@@ -94,8 +97,13 @@ class Index extends Component<Props, State> {
       chatOpen: false,
       sidebarOpen: true,
       hiddenPeers: [],
-      timer: {mins:0, secs:0}
+      timer: {mins:0, secs:0},
+      test: true,
+      setting:{setting: true, deviceSet: this.deviceSet}
     };
+  }
+  deviceSet = setting =>{
+    this.setState({test: setting});
   }
 
   updateDimensions() {
@@ -129,10 +137,11 @@ class Index extends Component<Props, State> {
     var check = false;
     return (
       <Provider configUrl={this.props.configUrl} userData={this.props.userData}>
+        <DeviceSet.Provider value={this.state.setting}>
         <LocalMediaList
           render={({ media }) => (
             <>
-              {media.filter(m => m.shared).length === 0 ? (
+              {media.filter(m => m.shared).length === 0 || !this.state.test? (
                 <Haircheck />
               ) : (
                 <>
@@ -239,6 +248,7 @@ class Index extends Component<Props, State> {
             </>
           )}
         />
+        </DeviceSet.Provider>
       </Provider>
     );
   }

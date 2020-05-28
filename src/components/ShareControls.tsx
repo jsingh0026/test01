@@ -1,9 +1,10 @@
 import { LocalMediaList, UserControls } from '@andyet/simplewebrtc';
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { TalkyButton } from '../styles/button';
 import { colorToString } from '../utils/colorify';
 import icon from '../icons/Endlink Logo Bug White.png';
+import { DeviceSet } from '../contexts/DeviceSet';
 
 const Container = styled.div({
   textAlign: 'center',
@@ -49,12 +50,15 @@ span{
 
 // ShareControls renders a button that when pressed will share all media that
 // is populated in LocalMediaList.
-const ShareControls: React.SFC = () => (
+const ShareControls: React.SFC = () => {
+  const { deviceSet } = useContext(DeviceSet);
+  return(
   <LocalMediaList
     shared={false}
     render={({ media, shareLocalMedia, removeMedia }) => {
 
       const shareAll = () => {
+        deviceSet(true);
         for (const m of media) {
           shareLocalMedia!(m.id);
         }
@@ -67,6 +71,6 @@ const ShareControls: React.SFC = () => (
       );
     }}
   />
-);
+)}
 
 export default ShareControls;
