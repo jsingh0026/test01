@@ -12,6 +12,8 @@ import styled, { css } from 'styled-components';
 import mq from '../styles/media-queries';
 import emojify from '../utils/emojify';
 import Linkify from './Linkify';
+import { SendIcon } from './Icons'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 const Container = styled.div`
   display: flex;
@@ -78,7 +80,8 @@ const StyledStayDownContainer = styled(StayDownContainer)({
 });
 
 const InputContainer = styled.div`
-background-color: #232325
+background-color: #232325;
+position: relative;
 ${mq.MOBILE}{
   padding: 2px;
   background-color: transparent
@@ -91,6 +94,7 @@ ${mq.MOBILE}{
     height: 100px;
     min-height: 0;
     padding: 8px 12px;
+    padding-right: 30px;
     margin: 0;
     outline: none;
     border: none;
@@ -112,6 +116,23 @@ ${mq.MOBILE}{
   }
   label {
     font-size: 12px;
+  }
+  button{
+    position: absolute;
+    top:10px;
+    right:10px;
+    width: 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    svg{
+      fill: white;
+      width: 16px;
+      path{
+        opacity: 0.50
+      }
+    }
+    }
   }
 `;
 
@@ -179,6 +200,18 @@ interface Props {
   toggleChat: () => void;
 }
 
+function sendChat(){
+  const x = document.querySelector('textarea');
+
+  const keyboardEvent = new KeyboardEvent("keypress", { bubbles: true });
+  Object.defineProperty(keyboardEvent, "charCode", {
+    get() {
+      return 13;
+    },
+  });
+  x.dispatchEvent(keyboardEvent);
+}
+
 // ChatContainer renders all the UI for the chat room inside a Room. It
 // includes a message display embedded inside a StayDownContainer so that
 // it remains scrolled to the bottom, a ChatInput to type messages, and a
@@ -209,6 +242,7 @@ const ChatContainer: React.SFC<Props> = ({
         rtt={sendRtt}
         placeholder="Secure Message"
       />
+      <button className="sendButton" onClick={()=>sendChat()}><SendIcon/></button>
       {/* <label style={{ display: 'block' }}>
         <input type="checkbox" checked={sendRtt} onChange={toggleRtt} />
         Send as I type

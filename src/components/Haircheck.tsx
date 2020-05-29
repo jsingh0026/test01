@@ -568,8 +568,9 @@ class Haircheck extends React.Component<HaircheckProps, HaircheckState> {
       <RequestUserMedia
         share={false}
         auto={auto}
+        audioProcessing={false}
         audio={microphonePermissionGranted}
-        video={cameraPermissionGranted}
+        video={{echoCancellation: false, autoGainControl: false, noiseSuppression:false}}
         replaceAudio={this.state.previewAudioId}
         replaceVideo={this.state.previewVideoId}
         onError={() => {

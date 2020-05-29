@@ -50,7 +50,6 @@ const DisplayNameInput: React.SFC<Props> = ({
   return (
     <input
       placeholder="My Name"
-      autoFocus
       value={displayName}
       maxLength={16}
       onChange={e => persisDisplayName(e.target.value)}

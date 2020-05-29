@@ -10,6 +10,8 @@
       name="simplewebrtc-config-url"
       content="https://api.simplewebrtc.com/config/guest/b5186d09c58c59212f3fe458"
     />
+
+    <meta name="sound-test-output" content="/url-of-mp3-file"/>
     <title>SimpleWebRTC Sample App</title>
     <style>
       body {
@@ -212,7 +214,6 @@
       color: #919192;
      }
      </style>
-    <link rel="stylesheet" href="blockrain.css">
   </head>
   <body>
     <noscript>
@@ -229,7 +230,7 @@
       </p>
     </template>
     <template id="empty-peer-grid">
-      <div class="game" style="width:100%; height:100%;"></div>
+      <div></div>
     </template>
     <template id="empty-roster">
       <div></div>
@@ -257,13 +258,6 @@
       </div>
     </template>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!-- jQuery and Blockrain.js -->
-    <script src="./blockrain/blockrain.jquery.js"></script>
-    <script src="./blockrain/blockrain.jquery.min.js"></script>
-    <script>
-        $('.game').blockrain();
-    </script>
-
     <script type="text/javascript">
       const params = new URLSearchParams(window.location.search);
       SimpleWebRTC.run({
@@ -283,6 +277,17 @@
       } else {
         var hasVal = false;
         $("button").css("background-color", "#323132");
+      }
+    });
+  });
+  $(function(){
+      $('body').on('input', "textarea", function() {
+      if($(this).val().length) {
+        var hasVal = true;
+        $(".sendIcon").css("opacity", "10");
+      } else {
+        var hasVal = false;
+        $(".sendIcon").css("opacity", "0.50");
       }
     });
   });
