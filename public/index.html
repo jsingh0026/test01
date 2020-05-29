@@ -108,6 +108,10 @@
 
       @media (max-width: 749px){
         .about {display: none;}
+        .noPeer{display: none;}
+      }
+      @media (min-width: 750px){
+        .lander {display: none;}
       }
       
       img,
@@ -230,7 +234,10 @@
       </p>
     </template>
     <template id="empty-peer-grid">
-      <div></div>
+      <iframe class="lander" title="Talky Lander" width="100%" height="100%" style="border: none" allowfullscreen="allowfullscreen" src="https://talkylander.com/?nolinks=true"></iframe>
+      <h2 class="noPeer" style="text-align: center;color: white;padding: 20px;">
+        No other participants have joined...yet! Hang tight!
+      </h2>
     </template>
     <template id="empty-roster">
       <div></div>
