@@ -632,7 +632,6 @@ class Haircheck extends React.Component<HaircheckProps, HaircheckState> {
         {...constraints}
         replaceAudio={this.state.previewAudioId}
         replaceVideo={this.state.previewVideoId}
-        audioProcessing={false}
         render={getMedia => {
           if (!preview && !permissionGranted) {
             return (
