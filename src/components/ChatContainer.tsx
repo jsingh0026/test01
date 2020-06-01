@@ -14,6 +14,7 @@ import emojify from '../utils/emojify';
 import Linkify from './Linkify';
 import { SendIcon } from './Icons'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+declare var $: any;
 
 const Container = styled.div`
   display: flex;
@@ -210,6 +211,7 @@ function sendChat(){
     },
   });
   x.dispatchEvent(keyboardEvent);
+  $(".sendIcon").css("opacity", "0.50");
 }
 
 // ChatContainer renders all the UI for the chat room inside a Room. It

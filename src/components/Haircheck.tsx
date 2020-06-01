@@ -630,10 +630,8 @@ class Haircheck extends React.Component<HaircheckProps, HaircheckState> {
       <RequestUserMedia
         share={false}
         {...constraints}
-        video={{echoCancellation: false, autoGainControl: false, noiseSuppression:false}}
         replaceAudio={this.state.previewAudioId}
         replaceVideo={this.state.previewVideoId}
-        audioProcessing={false}
         render={getMedia => {
           if (!preview && !permissionGranted) {
             return (
